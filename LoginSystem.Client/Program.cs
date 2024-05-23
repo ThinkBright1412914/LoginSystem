@@ -6,9 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<UserService>();
-builder.Services.AddSingleton<SessionService>();    
+builder.Services.AddScoped<SessionService>();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IhttpService ,HttpService>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
 builder.Services.AddHttpClient("LoginApi", client =>
 client.BaseAddress = new Uri(
     "https://localhost:7254/"
@@ -28,6 +30,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();

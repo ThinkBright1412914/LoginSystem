@@ -6,22 +6,30 @@ namespace LoginSystem.Client.Service
 {
     public class SessionService
     {
-        private readonly HttpContext _context;
-        
-        public UserVM getUserSession()
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public SessionService(IHttpContextAccessor httpContextAccessor)
         {
-            var userInfo = _context.Session.getObjectFromJson<UserVM>("UserInfo");
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        private HttpContext HttpContext => _httpContextAccessor.HttpContext;
+
+        public UserVM GetUserSession()
+        {
+            var userInfo = HttpContext?.Session.getObjectFromJson<UserVM>("UserInfo");
             return userInfo;
         }
 
-        public void setUserSession(UserVM model)
+        public void SetUserSession(UserVM model)
         {
-            _context.Session.setObjectAsJson("UserInfo", model);
+            HttpContext?.Session.setObjectAsJson("UserInfo", model);
         }
 
-        public void logOut()
+        public void LogOut()
         {
-            _context.Session.Remove("UserInfo");
+            HttpContext.Session.Remove("UserInfo");
         }
     }
+
 }

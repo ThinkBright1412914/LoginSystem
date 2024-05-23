@@ -30,13 +30,12 @@ namespace LoginSystem.Controllers
         {
             try
             {
-
                 model.Password = EncryptProvider.Base64Encrypt(model.Password);
                 model.ConfirmPassword = model.Password;
                 Guid refId = Guid.NewGuid();
                 model.Id = refId;
 
-                var time = DateTime.Now.AddMinutes(5);             
+                var time = DateTime.Now.AddMinutes(5);
                 var code = Security.GenerateActivationCode();
 
                 UserInfo user = new UserInfo()
@@ -66,13 +65,38 @@ namespace LoginSystem.Controllers
         }
 
 
+        [HttpPost("ActivationCode")]
+        public async Task<IActionResult> ActivationCode(UserInfo model)
+        {
+            var getUserById = _context.UserInfos.FirstOrDefault(x => x.UserId == model.UserId);
+            if (getUserById != null)
+            {
+                if (getUserById.ActivationCode == model.ActivationCode)
+                {
+                    if (DateTime.Now <= getUserById.ExpirationDate)
+                    {
+                        getUserById.IsActive = true;
+                        _context.UserInfos.Update(getUserById);
+                        _context.SaveChanges();
+                        return Ok(getUserById);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
 
+                else
+                {
+                    return NotFound();
+                }
 
-
-        //public async Task<IActionResult> ActivationCode()
-        //{
-
-        //}
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
 
     }
 }

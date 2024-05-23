@@ -15,6 +15,6 @@ namespace LoginSystem.Utility
 
         public const string Reigster = ApiVerion + "Register/SignUp";
 
-        public const string ActivateCode = ApiVerion + "Register/ActivateCode";
+        public const string ActivateCode = ApiVerion + "Register/ActivationCode";
     }
 }

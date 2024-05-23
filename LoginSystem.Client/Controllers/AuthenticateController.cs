@@ -48,8 +48,8 @@ namespace LoginSystem.Client.Controllers
             var response = await _authService.Register(model);
             if (response != null)
             {
-                _sessionService.setUserSession(response);
-                return View("ActivationCode");
+                _sessionService.SetUserSession(response);
+                return RedirectToAction("ActivationCode", "Authenticate");
             }
             else
             {
@@ -64,15 +64,18 @@ namespace LoginSystem.Client.Controllers
             return View();
         }
 
+
+
+        [HttpPost]
         public async Task<IActionResult> ActivationCode(UserVM model)
         {
-            if(model.ActivationCode != null)
+            if(model.ActivationCode != null || model.ActivationCode != string.Empty )
             {
-                var userInfo = _sessionService.getUserSession();
+                var userInfo = _sessionService.GetUserSession();
                 UserVM obj = new UserVM()
                 {
                     UserId = userInfo.UserId,
-                    ActivationCode = model.ActivationCode,
+                    ActivationCode = model.ActivationCode.Trim(),
                 };
                 var response = await _authService.ActivateCode(obj);
                 if (response.IsActive)
