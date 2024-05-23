@@ -24,11 +24,11 @@ namespace LoginSystem.Controllers
             _context = context;
         }
 
-        [HttpPost]
+
+
+        [HttpPost("Authenticate")]
         public async Task<IActionResult> Authenticate(Login model)
         {
-            if (model != null && model.UserName != null && model.Password != null)
-            {
                 var user = await GetUser(model.UserName, model.Password);
                 if (user != null)
                 {
@@ -56,11 +56,7 @@ namespace LoginSystem.Controllers
                 {
                     return BadRequest("Invalid credentials");
                 }
-            }
-            else
-            {
-                return BadRequest();
-            }
+
         }
 
         private bool isUserValid(string email, string Password)
