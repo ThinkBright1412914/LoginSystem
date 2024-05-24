@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NETCore.Encrypt;
 
 namespace LoginSystem.Controllers
 {
@@ -29,6 +30,9 @@ namespace LoginSystem.Controllers
         [HttpPost("Authenticate")]
         public async Task<IActionResult> Authenticate(Login model)
         {
+            try
+            {
+                model.Password = EncryptProvider.Base64Encrypt(model.Password);
                 var user = await GetUser(model.UserName, model.Password);
                 if (user != null)
                 {
@@ -48,29 +52,32 @@ namespace LoginSystem.Controllers
                         claims,
                         expires: DateTime.UtcNow.AddMinutes(10),
                         signingCredentials: signIn);
-
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    
+                    string tokenHandler = new JwtSecurityTokenHandler().WriteToken(token); 
+                    
+                    AuthenticationVM obj = new AuthenticationVM()
+                    {
+                        Token = tokenHandler,
+                        User = user,
+                    };
+                    return Ok(obj);
                 }
 
                 else
                 {
                     return BadRequest("Invalid credentials");
                 }
-
-        }
-
-        private bool isUserValid(string email, string Password)
-        {
-            if (email == "admin" && Password == "admin")
-            {
-                return true;
             }
-            return false;
+            catch (Exception ex)
+            {
+                throw ex;
+            }           
+
         }
 
         private async Task<UserInfo> GetUser(string email, string Password)
         {
-            return await _context.UserInfos.FirstOrDefaultAsync(u => u.Email == email && u.Password == Password);
+            return await _context.UserInfos.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower() || u.UserName.ToLower() == email.ToLower() && u.Password == Password);
         }
     }
 }

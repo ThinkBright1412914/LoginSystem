@@ -17,11 +17,11 @@ namespace LoginSystem.Client.Service
             _httpService = httpService;
         }
 
-        public async Task<LoginViewModel> Login(LoginViewModel model)
+        public async Task<AuthenticationModel> Login(LoginViewModel model)
         {
             string json = JsonConvert.SerializeObject(model);
             StringContent content =  new StringContent(json, Encoding.UTF8 , "application/json");
-            var (status ,response) = await _httpService.PostAsync<LoginViewModel>(ApiUri.Login, content);
+            var (status ,response) = await _httpService.PostAsync<AuthenticationModel>(ApiUri.Login, content);
             return response;
         }
 
@@ -41,5 +41,8 @@ namespace LoginSystem.Client.Service
             var (status, response) = await _httpService.PostAsync<UserVM>(ApiUri.ActivateCode, content);
             return response;
         }
+
+
+
     }
 }

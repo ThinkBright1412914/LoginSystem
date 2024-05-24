@@ -2,8 +2,8 @@
 {
     public class AuthenticationModel
     {
-        public string UserName;
+        public string Token;
 
-        public string Response;
+        public UserVM User;
     }
 }

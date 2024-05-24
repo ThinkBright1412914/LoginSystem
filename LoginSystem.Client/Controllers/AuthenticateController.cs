@@ -27,6 +27,7 @@ namespace LoginSystem.Client.Controllers
             var response = await _authService.Login(model);
             if (response != null)
             {
+                _sessionService.SetUserSession(response.User);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -39,6 +40,14 @@ namespace LoginSystem.Client.Controllers
         public IActionResult Register()
         {
             return View();
+        }
+
+
+        public IActionResult LogOut()
+        {
+           _sessionService.LogOut();
+            return RedirectToAction("Index");
+            
         }
 
 
