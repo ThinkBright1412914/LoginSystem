@@ -42,6 +42,21 @@ namespace LoginSystem.Client.Service
             return response;
         }
 
+        public async Task<UserVM> ResetPassword(UserVM model)
+        {
+            string json = JsonConvert.SerializeObject(model);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            var (status, response) = await _httpService.PutAsync<UserVM>(ApiUri.ResetPassword, content);
+            return response;
+        }
+
+        public async Task<UserVM> ForgotPassword(UserVM model)
+        {
+            string json = JsonConvert.SerializeObject(model);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            var (status, response) = await _httpService.PutAsync<UserVM>(ApiUri.ForgotPassword, content);
+            return response;
+        }
 
 
     }

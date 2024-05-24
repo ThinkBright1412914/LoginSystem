@@ -48,8 +48,8 @@ namespace LoginSystem.Controllers
                     ExpirationDate = time,
                 };
 
-                _emailSender.SendEmailAsync(model.Email, "Activate Code", $"Dear User , Your activation code is {code}." +
-                    $"It will expire in 5 minutes");
+                //_emailSender.SendEmailAsync(model.Email, "Activate Code", $"Dear User , Your activation code is {code}." +
+                //    $"It will expire in 5 minutes");
 
                 _context.RegisterUsers.Add(model);
                 _context.UserInfos.Add(user);

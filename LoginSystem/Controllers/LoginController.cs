@@ -75,6 +75,39 @@ namespace LoginSystem.Controllers
 
         }
 
+
+        [HttpPut("ResetPassword")]
+        public async Task<IActionResult> ResetPassword(UserInfo model)
+        {
+            var response = _context.UserInfos.FirstOrDefault(x => x.UserId == model.UserId);
+            if (response != null)
+            {
+                response.Password = model.Password;
+                _context.UserInfos.Update(response);
+                _context.SaveChanges();
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+
+        [HttpPut("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword(UserInfo model)
+        {
+            var response = _context.UserInfos.FirstOrDefault(x => x.Email.ToLower() == model.Email.ToLower());
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         private async Task<UserInfo> GetUser(string email, string Password)
         {
             return await _context.UserInfos.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower() || u.UserName.ToLower() == email.ToLower() && u.Password == Password);

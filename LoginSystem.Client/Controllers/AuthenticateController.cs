@@ -43,14 +43,6 @@ namespace LoginSystem.Client.Controllers
         }
 
 
-        public IActionResult LogOut()
-        {
-           _sessionService.LogOut();
-            return RedirectToAction("Index");
-            
-        }
-
-
         [HttpPost]
         public async Task<IActionResult> Register(RegisterVM model)
         {
@@ -73,8 +65,6 @@ namespace LoginSystem.Client.Controllers
             return View();
         }
 
-
-
         [HttpPost]
         public async Task<IActionResult> ActivationCode(UserVM model)
         {
@@ -93,6 +83,7 @@ namespace LoginSystem.Client.Controllers
                 }
                 else
                 {
+                    TempData["Error"] = "Invalid Code / Expired Code";
                     return View("ActivationCode");
                 }
 
@@ -104,11 +95,68 @@ namespace LoginSystem.Client.Controllers
             }
         }
 
-        //public async Task<IActionResult> ActivationCode()
-        //{
-        //    return View();
-        //}
+        public async Task<IActionResult> ResetPassword()
+        {
+            return View();
+        }
 
+
+        [HttpPut]
+        public async Task<IActionResult> ResetPassword(ResetPaswordVM model)
+        {
+            if(model != null)
+            {
+                var currentUserInfo = _sessionService.GetUserSession();
+                if (currentUserInfo != null)
+                {
+                    currentUserInfo.Password = model.Password;
+                    var resetPassword = _authService.ResetPassword(currentUserInfo);
+                    if (resetPassword != null)
+                    {
+                        TempData["msg"] = "Password sucessfully updated";
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Password update aborted.";
+                        return View();
+                    }
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                return View(model);
+            }                 
+        }
+
+
+
+        public async Task<IActionResult> ForgotPassword()
+        {
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(UserVM model)
+        {
+            if(model.Email != null)
+            {
+                var result = await _authService.ForgotPassword(model);
+                if(result != null)
+                {
+                    _sessionService.SetUserSession(result);
+                    return View(result);
+                    
+                }
+            }
+            return View(model.Email);
+        }
     }
 
 }
