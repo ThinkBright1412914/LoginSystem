@@ -11,14 +11,14 @@ namespace LoginSystem.Client.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly SessionService _sessionService;
 
-        public HomeController(ILogger<HomeController> logger , SessionService sessionService)
+        public HomeController(ILogger<HomeController> logger, SessionService sessionService)
         {
             _logger = logger;
             _sessionService = sessionService;
         }
 
         public IActionResult Index()
-        {      
+        {
             return View();
         }
 
@@ -35,7 +35,6 @@ namespace LoginSystem.Client.Controllers
             return RedirectToAction("Index", "Authenticate");
 
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

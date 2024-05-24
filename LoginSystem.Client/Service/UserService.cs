@@ -8,56 +8,69 @@ using System.Text;
 
 namespace LoginSystem.Client.Service
 {
-    public class UserService
-    {
-        private readonly IhttpService _httpService;
+	public class UserService
+	{
+		private readonly IhttpService _httpService;
 
-        public UserService (IhttpService httpService)
-        {
-            _httpService = httpService;
-        }
+		public UserService(IhttpService httpService)
+		{
+			_httpService = httpService;
+		}
 
-        public async Task<AuthenticationModel> Login(LoginViewModel model)
+		public async Task<AuthenticationModel> Login(LoginViewModel model)
+		{
+			string json = JsonConvert.SerializeObject(model);
+			StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+			var (status, response) = await _httpService.PostAsync<AuthenticationModel>(ApiUri.Login, content);
+			return response;
+		}
+
+        public async Task<List<UserVM>> GetUsers()
         {
-            string json = JsonConvert.SerializeObject(model);
-            StringContent content =  new StringContent(json, Encoding.UTF8 , "application/json");
-            var (status ,response) = await _httpService.PostAsync<AuthenticationModel>(ApiUri.Login, content);
+            var (status, response) = await _httpService.GetAsync<List<UserVM>>(ApiUri.GetUsers);
             return response;
         }
-
 
         public async Task<UserVM> Register(RegisterVM model)
-        {
-            string json = JsonConvert.SerializeObject(model);
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-            var (status, response) = await _httpService.PostAsync<UserVM>(ApiUri.Reigster, content);
-            return response;
-        }
+		{
+			string json = JsonConvert.SerializeObject(model);
+			StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+			var (status, response) = await _httpService.PostAsync<UserVM>(ApiUri.Reigster, content);
+			return response;
+		}
 
-        public async Task<UserVM> ActivateCode(UserVM model)
-        {
-            string json = JsonConvert.SerializeObject(model);
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-            var (status, response) = await _httpService.PostAsync<UserVM>(ApiUri.ActivateCode, content);
-            return response;
-        }
+		public async Task<UserVM> ActivateCode(UserVM model)
+		{
+			string json = JsonConvert.SerializeObject(model);
+			StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+			var (status, response) = await _httpService.PostAsync<UserVM>(ApiUri.ActivateCode, content);
+			return response;
+		}
 
-        public async Task<UserVM> ResetPassword(UserVM model)
-        {
-            string json = JsonConvert.SerializeObject(model);
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-            var (status, response) = await _httpService.PutAsync<UserVM>(ApiUri.ResetPassword, content);
-            return response;
-        }
+		public async Task<UserVM> ResetPassword(UserVM model)
+		{
+			string json = JsonConvert.SerializeObject(model);
+			StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+			var (status, response) = await _httpService.PutAsync<UserVM>(ApiUri.ResetPassword, content);
+			return response;
+		}
 
-        public async Task<UserVM> ForgotPassword(UserVM model)
-        {
-            string json = JsonConvert.SerializeObject(model);
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-            var (status, response) = await _httpService.PutAsync<UserVM>(ApiUri.ForgotPassword, content);
-            return response;
-        }
+		public async Task<UserVM> ForgotPassword(ForgotPasswordVM model)
+		{
+			string json = JsonConvert.SerializeObject(model);
+			StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+			var (status, response) = await _httpService.PutAsync<UserVM>(ApiUri.ForgotPassword, content);
+			return response;
+		}
+
+		public async Task<UserVM> ForgotPasswordConfirm(ForgotPasswordConfirmVM model)
+		{
+			string json = JsonConvert.SerializeObject(model);
+			StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+			var (status, response) = await _httpService.PutAsync<UserVM>(ApiUri.ForgotPasswordConfirm, content);
+			return response;
+		}
 
 
-    }
+	}
 }

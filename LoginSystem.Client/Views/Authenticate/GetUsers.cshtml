@@ -1,0 +1,32 @@
+﻿@{
+	ViewData["Title"] = "GetUsers";
+	Layout = "~/Views/Shared/_LandingPage.cshtml";
+}
+
+@model IEnumerable<LoginSystem.Client.Models.UserVM>
+
+<div class="container mt-5">
+	<h2>Users List</h2>
+	<table class="table table-striped table-bordered">
+		<thead class="thead-dark">
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>IsActive</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach(var item in Model)
+			{
+				<tr>
+					<td>@item.UserName</td>
+					<td>@item.Email</td>
+					<td>
+						<input type="radio" name="IsActive" value="true" @(item.IsActive ? "checked" : "") disabled /> Active
+						<input type="radio" name="IsActive" value="false" @(!item.IsActive ? "checked" : "") disabled /> Inactive
+					</td>
+				</tr>
+			}	
+		</tbody>
+	</table>
+</div>

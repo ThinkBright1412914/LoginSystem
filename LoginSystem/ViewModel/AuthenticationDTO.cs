@@ -2,7 +2,7 @@
 
 namespace LoginSystem.ViewModel
 {
-    public class AuthenticationVM
+    public class AuthenticationDTO
     {
         public string Token { get; set; }
 

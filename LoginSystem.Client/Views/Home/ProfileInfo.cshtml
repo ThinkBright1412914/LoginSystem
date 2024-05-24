@@ -1,41 +1,39 @@
-﻿
-@{
-    ViewData["Title"] = "ProfileInfo";
-    Layout = "~/Views/Shared/_LandingPage.cshtml";
+﻿@{
+	ViewData["Title"] = "ProfileInfo";
+	Layout = "~/Views/Shared/_LandingPage.cshtml";
 }
 
 
 @model LoginSystem.Client.Models.UserVM
 
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">User Info</h5>
-                    <h7>@TempData["Error"]</h7>          
-                        <div class="form-group">
-                            <label asp-for="UserId"></label>
-                            <input type="text" class="form-control" readonly asp-for="UserId" />                        
-                        </div>
-                        <div class="form-group">
-                            <label>User Name</label>
-                            <input type="text" class="form-control" readonly asp-for="UserName" />                      
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Email"></label>
-                            <input type="Email" class="form-control" readonly asp-for="Email" />                       
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="IsActive"></label>
-                            <input type="radio" class="form-control" readonly asp-for="IsActive" />
-                        </div>                  
-                        <br />
-                        <button class="btn btn-primary" asp-action="Edit" value="Edit" />
-                        <button class="btn btn-primary" asp-action="ResetPassword" asp-controller="Authenticate" value="Reset Password" />
-                        
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">User Info</h5>
+					<h7>@TempData["Error"]</h7>
+					<input type="hidden" class="form-control" readonly asp-for="UserId" />
+					<div class="form-group">
+						<label>User Name</label>
+						<input type="text" class="form-control" readonly asp-for="UserName" />
+					</div>
+					<div class="form-group">
+						<label asp-for="Email"></label>
+						<input type="Email" class="form-control" readonly asp-for="Email" />
+					</div>
+					<br />
+					<div class="form-group">
+						<label asp-for="IsActive"></label>
+						<input type="radio" name="IsActive" value="true" @(Model.IsActive ? "checked" : "") disabled /> Active
+						<input type="radio" name="IsActive" value="false" @(!Model.IsActive ? "checked" : "") disabled /> Inactive
+					</div>
+					<br />
+					<button class="btn btn-sm btn-primary" asp-action="Edit">Edit</button>
+					<button class="btn btn-sm btn-primary" asp-action="ResetPassword" asp-controller="Authenticate">Reset Password</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

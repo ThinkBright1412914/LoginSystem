@@ -1,6 +1,6 @@
 ﻿namespace LoginSystem.ViewModel
 {
-    public class Login
+    public class LoginDto
     {
         public string UserName { get; set;}
 
