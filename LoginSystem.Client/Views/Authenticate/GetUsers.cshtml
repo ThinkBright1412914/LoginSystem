@@ -22,8 +22,7 @@
 					<td>@item.UserName</td>
 					<td>@item.Email</td>
 					<td>
-						<input type="radio" name="IsActive" value="true" @(item.IsActive ? "checked" : "") disabled /> Active
-						<input type="radio" name="IsActive" value="false" @(!item.IsActive ? "checked" : "") disabled /> Inactive
+						 @(item.IsActive ? "Active" : "InActive") 
 					</td>
 				</tr>
 			}	

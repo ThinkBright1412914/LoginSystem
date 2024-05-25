@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.Encrypt;
+using Org.BouncyCastle.Ocsp;
 using System.Net;
 
 
@@ -48,8 +49,8 @@ namespace LoginSystem.Controllers
 					ExpirationDate = time,
 				};
 
-				//_emailSender.SendEmailAsync(model.Email, "Activate Code", $"Dear User , Your activation code is {code}." +
-				//    $"It will expire in 5 minutes");
+				_emailSender.SendEmailAsync(model.Email, "Activate Code", $"Dear User , Your activation code is {code}." +
+					$"It will expire in 5 minutes");
 
 				_context.RegisterUsers.Add(model);
 				_context.UserInfos.Add(user);
@@ -90,6 +91,35 @@ namespace LoginSystem.Controllers
 				{
 					return NotFound();
 				}
+
+			}
+			else
+			{
+				return BadRequest();
+			}
+		}
+
+		[HttpPut("ResendActivationCode")]
+		public async Task<IActionResult> ResendActivationCode(UserInfo model)
+		{
+			var getUserById = _context.UserInfos.FirstOrDefault(x => x.UserId == model.UserId);
+			if (getUserById != null)
+			{
+				var time = DateTime.Now.AddMinutes(5);
+				var code = Security.GenerateActivationCode();
+
+				UserInfo user = new UserInfo()
+				{
+					ActivationCode = code,
+					ExpirationDate = time,
+				};
+
+				_emailSender.SendEmailAsync(getUserById.Email, "Activate Code", $"Dear User , Your activation code is {code}." +
+					$"It will expire in 5 minutes");
+
+				_context.UserInfos.Update(user);
+				_context.SaveChanges();
+				return Ok();
 
 			}
 			else

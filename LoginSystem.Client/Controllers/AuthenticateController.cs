@@ -18,9 +18,9 @@ namespace LoginSystem.Client.Controllers
 		}
 
 
-	    public async Task<IActionResult> GetUsers()
+		public async Task<IActionResult> GetUsers()
 		{
-			List<UserVM> users = await _authService.GetUsers();	
+			List<UserVM> users = await _authService.GetUsers();
 			return View(users);
 		}
 
@@ -96,7 +96,7 @@ namespace LoginSystem.Client.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ActivationCode(UserVM model)
 		{
-			if (model.ActivationCode != null || model.ActivationCode != string.Empty)
+			if (model.ActivationCode != null)
 			{
 				var userInfo = _sessionService.GetUserSession();
 				UserVM obj = new UserVM()
@@ -120,6 +120,26 @@ namespace LoginSystem.Client.Controllers
 			{
 				TempData["Error"] = "Please, Enter the code";
 				return View();
+			}
+		}
+
+
+		public async Task<IActionResult> ResendActivationCode()
+		{
+			var userInfo = _sessionService.GetUserSession();
+			UserVM obj = new UserVM()
+			{
+				UserId = userInfo.UserId,
+			};
+			var response = await _authService.ResendActivateCode(obj);
+			if (response.IsActive)
+			{
+				return View("ActivationCode");
+			}
+			else
+			{
+				TempData["Error"] = "Invalid Code / Expired Code";
+				return View("ActivationCode");
 			}
 		}
 
