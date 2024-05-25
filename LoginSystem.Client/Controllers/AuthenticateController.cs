@@ -123,26 +123,6 @@ namespace LoginSystem.Client.Controllers
 			}
 		}
 
-
-		public async Task<IActionResult> ResendActivationCode()
-		{
-			var userInfo = _sessionService.GetUserSession();
-			UserVM obj = new UserVM()
-			{
-				UserId = userInfo.UserId,
-			};
-			var response = await _authService.ResendActivateCode(obj);
-			if (response.IsActive)
-			{
-				return View("ActivationCode");
-			}
-			else
-			{
-				TempData["Error"] = "Invalid Code / Expired Code";
-				return View("ActivationCode");
-			}
-		}
-
 		public async Task<IActionResult> ResetPassword()
 		{
 			return View();
