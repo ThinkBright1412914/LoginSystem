@@ -1,7 +1,12 @@
-﻿using LoginSystem.Client.Models;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using LoginSystem.Client.Models;
 using LoginSystem.Client.Service;
 using LoginSystem.ViewModel;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using NETCore.Encrypt;
 
 namespace LoginSystem.Client.Controllers
@@ -10,11 +15,15 @@ namespace LoginSystem.Client.Controllers
 	{
 		private readonly UserService _authService;
 		private readonly SessionService _sessionService;
+		private JwtSecurityTokenHandler _tokenHandler;
+		private readonly IHttpContextAccessor _httpContextAccessor;
 
-		public AuthenticateController(UserService authService, SessionService sessionService)
+		public AuthenticateController(UserService authService, SessionService sessionService , IHttpContextAccessor httpContextAccessor)
 		{
 			_authService = authService;
 			_sessionService = sessionService;
+			_tokenHandler = new JwtSecurityTokenHandler();
+			_httpContextAccessor = httpContextAccessor;
 		}
 
 
@@ -32,24 +41,39 @@ namespace LoginSystem.Client.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Index(LoginViewModel model)
 		{
-			if (ModelState.IsValid)
+			try
 			{
-				var response = await _authService.Login(model);
-				if (response.Token != null || response.User != null)
+				if (ModelState.IsValid)
 				{
-					_sessionService.SetUserSession(response.User);
-					return RedirectToAction("Index", "Home");
+
+					var response = await _authService.Login(model);
+					if (response.Token != null && response.User != null)
+					{
+						_sessionService.SetUserSession(response.User);
+						_sessionService.SetAuthenticationSession(response.Token);
+						var tokenContent = _tokenHandler.ReadJwtToken(response.Token);
+						var claims = ParseClaims(tokenContent);
+						var user = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme));
+						var login = _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, user);
+						return RedirectToAction("Index", "Home");
+					}
+					else
+					{
+						TempData["Error"] = "Incorrect Username and Password";
+						return RedirectToAction("Index");
+					}
 				}
 				else
 				{
-					TempData["Error"] = "Incorrect Username and Password";
-					return RedirectToAction("Index");
+					return View(model);
 				}
 			}
-			else
+			catch(Exception ex)
 			{
-				return View(model);
+				throw ex;
 			}
+
+			
 		}
 
 		public IActionResult Edit()
@@ -107,7 +131,8 @@ namespace LoginSystem.Client.Controllers
 				var response = await _authService.ActivateCode(obj);
 				if (response.IsActive)
 				{
-					return RedirectToAction("Index", "Home");
+					TempData["Error"] = "Your code has been successfully activated.";
+					return RedirectToAction("Index", "Authenticate");
 				}
 				else
 				{
@@ -221,6 +246,13 @@ namespace LoginSystem.Client.Controllers
 				}
 			}
 			return View(model);
+		}
+
+
+		private IList<Claim> ParseClaims(JwtSecurityToken tokenContent)
+		{
+			var claims = tokenContent.Claims.ToList();
+			return claims;
 		}
 	}
 

@@ -30,6 +30,28 @@ namespace LoginSystem.Client.Service
         {
             HttpContext.Session.Remove("UserInfo");
         }
+
+		public void SetAuthenticationSession(string model)
+		{
+			HttpContext?.Session.setObjectAsJson("token", model);
+		}
+
+		public bool TokenExists(string Token)
+		{
+			var checkToken = HttpContext?.Session.getObjectFromJson<string>("token");
+            if (checkToken != null)
+            {
+                return true;
+            }
+            return false;
+		}
+
+        public string GetToken()
+        {
+            var token = HttpContext?.Session.getObjectFromJson<string>("token");
+            return token;               
+        }
+
     }
 
 }

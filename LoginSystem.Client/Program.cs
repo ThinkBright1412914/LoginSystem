@@ -1,6 +1,8 @@
 
 
+using LoginSystem.Client.Middleware;
 using LoginSystem.Client.Service;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<SessionService>();
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddCookie(options =>
+{
+	options.LoginPath = new PathString("/Authenticate/Index");
+});
+
 builder.Services.AddScoped<IhttpService ,HttpService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
@@ -31,7 +40,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseSession();
-
+app.UseMiddleware<RequestMiddleware>();
 app.UseAuthorization();
 
 app.MapControllerRoute(

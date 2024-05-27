@@ -39,8 +39,9 @@ namespace LoginSystem.Controllers
 					var claims = new[]
 					{
 							new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-							new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+							new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
 							new Claim("UserId", user.UserId.ToString()),
+							new Claim("UserName" , user.UserName),
 							new Claim("Email" , user.Email)
 					};
 
@@ -50,8 +51,8 @@ namespace LoginSystem.Controllers
 						_configuration["Jwt:Issuer"],
 						_configuration["Jwt:Audience"],
 						claims,
-						expires: DateTime.UtcNow.AddMinutes(10),
-						signingCredentials: signIn);
+						expires: DateTime.Now.AddDays(7),
+						signingCredentials: signIn) ;
 
 					string tokenHandler = new JwtSecurityTokenHandler().WriteToken(token);
 
