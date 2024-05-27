@@ -29,6 +29,7 @@ namespace LoginSystem.Client.Service
         public void LogOut()
         {
             HttpContext.Session.Remove("UserInfo");
+            HttpContext.Session.Remove("token");
         }
 
 		public void SetAuthenticationSession(string model)

@@ -5,6 +5,7 @@ using LoginSystem.Client.Service;
 using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using NETCore.Encrypt;
@@ -148,6 +149,7 @@ namespace LoginSystem.Client.Controllers
 			}
 		}
 
+		[Authorize]
 		public async Task<IActionResult> ResetPassword()
 		{
 			return View();
