@@ -41,10 +41,12 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 app.UseMiddleware<RequestMiddleware>();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Authenticate}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
