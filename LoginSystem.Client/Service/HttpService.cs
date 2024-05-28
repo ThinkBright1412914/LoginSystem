@@ -7,10 +7,12 @@ namespace LoginSystem.Client.Service
     public class HttpService : IhttpService
     {
         private readonly IHttpClientFactory _httpClient;
+        private readonly SessionService _session;
 
-        public HttpService(IHttpClientFactory httpClient)
+        public HttpService(IHttpClientFactory httpClient , SessionService session)
         {
             _httpClient = httpClient;
+            _session = session;
         }
 
         public async Task<(HttpStatusCode statusCode, T responseType)> DeleteAsync<T>(string requestUri)
@@ -25,6 +27,7 @@ namespace LoginSystem.Client.Service
         public async Task<(HttpStatusCode statusCode, T responseType)> GetAsync<T>(string requestUri)
         {
             var client = _httpClient.CreateClient("LoginApi");
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _session.GetToken());
             var response = await client.GetAsync(requestUri);
             var responseString = await response.Content.ReadAsStringAsync();
             var responseObj = JsonConvert.DeserializeObject<T>(responseString); 

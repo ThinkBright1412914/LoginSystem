@@ -23,13 +23,14 @@ namespace LoginSystem.Client.Service
 
         public void SetUserSession(UserVM model)
         {
-            HttpContext?.Session.setObjectAsJson("UserInfo", model);
-        }
+            HttpContext?.Session.setObjectAsJson("UserInfo", model);			
+		}
 
         public void LogOut()
         {
             HttpContext.Session.Remove("UserInfo");
-        }
+			HttpContext.Session.Remove("token");
+		}
 
 		public void SetAuthenticationSession(string model)
 		{
