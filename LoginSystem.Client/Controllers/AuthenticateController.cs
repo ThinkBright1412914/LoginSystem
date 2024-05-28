@@ -99,15 +99,22 @@ namespace LoginSystem.Client.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Register(RegisterVM model)
 		{
-			var response = await _authService.Register(model);
-			if (response != null)
+			if (ModelState.IsValid)
 			{
-				_sessionService.SetUserSession(response);
-				return RedirectToAction("ActivationCode", "Authenticate");
+				var response = await _authService.Register(model);
+				if (response != null)
+				{
+					_sessionService.SetUserSession(response);
+					return RedirectToAction("ActivationCode", "Authenticate");
+				}
+				else
+				{
+					return RedirectToAction("Index");
+				}
 			}
 			else
 			{
-				return RedirectToAction("Index");
+				return View(model);
 			}
 
 		}
@@ -237,17 +244,25 @@ namespace LoginSystem.Client.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ForgotPasswordConfirm(ForgotPasswordConfirmVM model)
 		{
-			if (model != null)
+			if (ModelState.IsValid)
 			{
 				var result = await _authService.ForgotPasswordConfirm(model);
 				if (result == null)
 				{
 					TempData["Error"] = "Your password changed successfully.";
 					return RedirectToAction("Index", "Authenticate");
-
+				}
+				else
+				{
+					TempData["Error"] = "Your password update aborted.";
+					return NotFound();
 				}
 			}
-			return View(model);
+			else
+			{
+				return View(model);
+			}
+			
 		}
 
 
