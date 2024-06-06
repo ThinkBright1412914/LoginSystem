@@ -6,6 +6,8 @@ namespace LoginSystem.ViewModel
     {
         public string Token { get; set; }
 
-        public UserInfo User { get; set; }  
+        public UserInfo User { get; set; } 
+        
+        public string Message { get; set; } 
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Text;
 using LoginSystem.DTO;
+using LoginSystem.Idenitity.Services;
 using LoginSystem.Model;
 using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Http;
@@ -16,63 +18,25 @@ namespace LoginSystem.Controllers
 	[ApiController]
 	public class LoginController : ControllerBase
 	{
-		public IConfiguration _configuration;
-		private readonly ApplicationDbContext _context;
+		private readonly IAuthService _authService;
+		private readonly IUserServive _userService;
 
-		public LoginController(IConfiguration configuration, ApplicationDbContext context)
+		public LoginController(IAuthService authService , IUserServive userServive)
 		{
-			_configuration = configuration;
-			_context = context;
+			_authService = authService;
+			_userService = userServive;
 		}
-
 
 
 		[HttpPost("Authenticate")]
 		public async Task<IActionResult> Authenticate(LoginDto model)
 		{
-			try
+			var response = await _authService.Login(model);
+			if(response != null)
 			{
-				model.Password = EncryptProvider.Base64Encrypt(model.Password);
-				var user = await GetUser(model.UserName, model.Password);
-				if (user != null)
-				{
-					var claims = new[]
-					{
-							new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-							new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
-							new Claim("UserId", user.UserId.ToString()),
-							new Claim("UserName" , user.UserName),
-							new Claim("Email" , user.Email)
-					};
-
-					var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-					var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-					var token = new JwtSecurityToken(
-						_configuration["Jwt:Issuer"],
-						_configuration["Jwt:Audience"],
-						claims,
-						expires: DateTime.Now.AddDays(7),
-						signingCredentials: signIn) ;
-
-					string tokenHandler = new JwtSecurityTokenHandler().WriteToken(token);
-
-					AuthenticationDTO obj = new AuthenticationDTO()
-					{
-						Token = tokenHandler,
-						User = user,
-					};
-					return Ok(obj);
-				}
-
-				else
-				{
-					return NotFound();
-				}
+				return Ok(response);
 			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			return NotFound("Login failed.");
 
 		}
 
@@ -80,80 +44,37 @@ namespace LoginSystem.Controllers
 		[HttpPut("ResetPassword")]
 		public async Task<IActionResult> ResetPassword(UserInfo model)
 		{
-			try
-			{
-				var response = _context.UserInfos.FirstOrDefault(x => x.UserId == model.UserId);
-				if (response != null)
-				{
-					response.Password = model.Password;
-					_context.UserInfos.Update(response);
-					_context.SaveChanges();
-					return Ok(response);
-				}
-				else
-				{
-					return NotFound();
-				}
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
 
-		}
+            var response = await _userService.ResetPassword(model);
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            return NotFound("Reset Password failed.");
+        }
 
 
 		[HttpPut("ForgotPassword")]
 		public async Task<IActionResult> ForgotPassword(ForgotPasswordDto model)
 		{
-			try
-			{
-				var response = _context.UserInfos.FirstOrDefault(x => x.Email.ToLower() == model.Email.ToLower());
-				if (response != null)
-				{
-					return Ok(response);
-				}
-				else
-				{
-					return NotFound();
-				}
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+            var response = _userService.ForgotPassword(model);
+            if (response.Result != null)
+            {
+                return Ok(response.Result);
+            }
+            return NotFound("Process aborted.");
 
-		}
+        }
 
 		[HttpPut("ForgotPasswordConfirm")]
 		public async Task<IActionResult> ForgotPasswordConfirm(ForgotPasswordConfirmDto model)
 		{
-			try
-			{
-				var response = _context.UserInfos.FirstOrDefault(x => x.UserId == model.Id);
-				if (response != null)
-				{
-					model.Password = EncryptProvider.Base64Encrypt(model.Password);
-					response.Password = model.Password;
-					_context.UserInfos.Update(response);
-					_context.SaveChanges();
-					return Ok();
-				}
-				else
-				{
-					return NotFound();
-				}
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
-
-		}
-
-		private async Task<UserInfo> GetUser(string email, string Password)
-		{
-			return await _context.UserInfos.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower() || u.UserName.ToLower() == email.ToLower() && u.Password == Password);
-		}
+            var response = _userService.ForgotPasswordConfirm(model);
+            if (response == true)
+            {
+                return Ok();
+            }
+            return NotFound("Process aborted.");
+        }
 	}
 }

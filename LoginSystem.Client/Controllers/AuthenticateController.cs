@@ -48,7 +48,7 @@ namespace LoginSystem.Client.Controllers
 				{
 
 					var response = await _authService.Login(model);
-					if (response.Token != null && response.User != null)
+					if (response.Token != null && response.User != null && response.Message == "Success")
 					{
 						_sessionService.SetUserSession(response.User);
 						_sessionService.SetAuthenticationSession(response.Token);
@@ -58,6 +58,11 @@ namespace LoginSystem.Client.Controllers
 						var login = _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, user);
 						return RedirectToAction("Index", "Home");
 					}
+					else if(response.User != null && response.Message == "Inactive")
+					{
+                        _sessionService.SetUserSession(response.User);
+                        return RedirectToAction("ActivationCode");
+                    }
 					else
 					{
 						TempData["Error"] = "Incorrect Username and Password";
@@ -166,21 +171,22 @@ namespace LoginSystem.Client.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ResetPassword(ResetPaswordVM model)
 		{
-			if (model != null)
+			if (ModelState.IsValid)
 			{
 				var currentUserInfo = _sessionService.GetUserSession();
-				model.Password = EncryptProvider.Base64Encrypt(model.Password);
+				model.CurrentPassword = EncryptProvider.Base64Encrypt(model.CurrentPassword);
 				if (currentUserInfo != null)
 				{
 
-					if (currentUserInfo.Password != model.Password)
-					{
+					if (currentUserInfo.Password != model.CurrentPassword)
+					{						
 						TempData["error"] = "Your current password do not match.";
 						return View();
 					}
 					else
 					{
-						currentUserInfo.Password = model.Password;
+						model.Password = EncryptProvider.Base64Encrypt(model.Password);
+                        currentUserInfo.Password = model.Password;
 						var resetPassword = _authService.ResetPassword(currentUserInfo);
 						if (resetPassword != null)
 						{
@@ -219,7 +225,7 @@ namespace LoginSystem.Client.Controllers
 			if (model.Email != null)
 			{
 				var result = await _authService.ForgotPassword(model);
-				if (result != null)
+				if (result.UserId != null)
 				{
 					_sessionService.SetUserSession(result);
 					return RedirectToAction("ForgotPasswordConfirm");

@@ -5,5 +5,7 @@
         public string Token;
 
         public UserVM User;
+
+        public string Message;
     }
 }

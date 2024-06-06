@@ -1,5 +1,7 @@
 using System.Text;
 using LoginSystem.DTO;
+using LoginSystem.Idenitity;
+using LoginSystem.Idenitity.Services;
 using LoginSystem.MiddleWare;
 using LoginSystem.Utility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -48,6 +50,10 @@ builder.Services.AddSwaggerGen(swagger =>
 });
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//Services
+builder.Services.AddScoped<IUserServive, UserService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
