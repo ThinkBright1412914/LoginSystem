@@ -107,15 +107,17 @@ namespace LoginSystem.Client.Controllers
 			if (ModelState.IsValid)
 			{
 				var response = await _authService.Register(model);
-				if (response != null)
+				if (response.Message == "Success")
 				{
 					_sessionService.SetUserSession(response);
 					return RedirectToAction("ActivationCode", "Authenticate");
 				}
-				else
+				else 
 				{
-					return RedirectToAction("Index");
+					TempData["error"] = "Email Already Exists.";
+                    return RedirectToAction("Register");
 				}
+				
 			}
 			else
 			{

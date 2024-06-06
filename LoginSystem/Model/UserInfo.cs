@@ -16,5 +16,7 @@ namespace LoginSystem.Model
         public string ActivationCode { get; set; }
 
         public DateTime? ExpirationDate { get; set; }
+
+        public string Message { get; set; }
     }
 }
