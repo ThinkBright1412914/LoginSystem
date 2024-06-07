@@ -7,7 +7,7 @@ namespace LoginSystem.Idenitity.Services
     {
         Task<UserInfo> ResetPassword(UserInfo request);
 
-        Task<UserInfo> ForgotPassword(ForgotPasswordDto request);
+        Task<UserDataVM> ForgotPassword(ForgotPasswordDto request);
 
         bool ForgotPasswordConfirm(ForgotPasswordConfirmDto request);
     }

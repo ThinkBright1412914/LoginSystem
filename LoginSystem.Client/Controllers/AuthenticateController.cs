@@ -182,7 +182,7 @@ namespace LoginSystem.Client.Controllers
 
 					if (currentUserInfo.Password != model.CurrentPassword)
 					{						
-						TempData["error"] = "Your current password do not match.";
+						TempData["Error"] = "Your current password do not match.";
 						return View();
 					}
 					else
@@ -190,14 +190,15 @@ namespace LoginSystem.Client.Controllers
 						model.Password = EncryptProvider.Base64Encrypt(model.Password);
                         currentUserInfo.Password = model.Password;
 						var resetPassword = _authService.ResetPassword(currentUserInfo);
-						if (resetPassword != null)
+						if (resetPassword.Result != null)
 						{
-							TempData["msg"] = "Password sucessfully updated";
-							return RedirectToAction("Index", "Home");
+							_sessionService.SetUserSession(resetPassword.Result);
+							TempData["Error"] = "Password sucessfully updated";
+							return RedirectToAction("Index" , "Home");
 						}
 						else
 						{
-							TempData["msg"] = "Password update aborted.";
+							TempData["Error"] = "Password update aborted.";
 							return View();
 						}
 					}
@@ -255,7 +256,7 @@ namespace LoginSystem.Client.Controllers
 			if (ModelState.IsValid)
 			{
 				var result = await _authService.ForgotPasswordConfirm(model);
-				if (result == null)
+				if (result.Message == "Success")
 				{
 					TempData["Error"] = "Your password changed successfully.";
 					return RedirectToAction("Index", "Authenticate");

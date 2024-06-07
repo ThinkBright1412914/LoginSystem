@@ -96,12 +96,13 @@ namespace LoginSystem.Idenitity
 
         }
 
-        public async Task<UserInfo> Register(RegisterUser model)
+
+        public async Task<UserDataVM> Register(RegisterUser model)
         {
             try
             {
-                var emailValidate = _context.RegisterUsers.Any(x => x.Email == model.Email);
-                UserInfo response = new UserInfo();
+                var emailValidate = _context.RegisterUsers.Any(x => x.Email.ToLower().Equals(model.Email.ToLower()));
+                UserDataVM response = new UserDataVM();
                 if (emailValidate)
                 {
                     response.Message = "Email Already Exists.";
@@ -124,17 +125,22 @@ namespace LoginSystem.Idenitity
                         ActivationCode = code,
                         Password = model.Password,
                         ExpirationDate = time,
-                        Message = "Success",
                     };
 
                     await _emailSender.SendEmailAsync(model.Email, "Activate Code", $"Dear User , Your activation code is {code}." +
                        $"It will expire in 5 minutes");
 
                     _context.RegisterUsers.Add(model);
-                    _context.UserInfos.Add(response);
+                    _context.UserInfos.Add(user);
                     _context.SaveChanges();
 
-                    response = user;
+                    response.UserId = user.UserId;
+                    response.UserName = user.UserName;
+                    response.Email = user.Email;
+                    response.ActivationCode = user.ActivationCode;
+                    response.Password = user.Password;
+                    response.ExpirationDate = user.ExpirationDate;
+                    response.Message = "Success";
                     return response;
                 }
           

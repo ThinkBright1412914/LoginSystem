@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace LoginSystem.Model
+﻿namespace LoginSystem.ViewModel
 {
-    public class UserInfo
+    public class UserDataVM
     {
-        [Key]
         public Guid UserId { get; set; }
         public string? UserName { get; set; }
         public string? Email { get; set; }
@@ -17,5 +14,6 @@ namespace LoginSystem.Model
 
         public DateTime? ExpirationDate { get; set; }
 
+        public string Message { get; set; }
     }
 }

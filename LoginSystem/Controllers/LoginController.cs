@@ -72,7 +72,11 @@ namespace LoginSystem.Controllers
             var response = _userService.ForgotPasswordConfirm(model);
             if (response == true)
             {
-                return Ok();
+				UserDataVM result = new UserDataVM()
+				{
+					Message = "Success"
+				};
+                return Ok(result);
             }
             return NotFound("Process aborted.");
         }

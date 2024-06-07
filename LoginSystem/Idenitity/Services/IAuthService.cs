@@ -7,7 +7,7 @@ namespace LoginSystem.Idenitity.Services
     {
         Task<AuthenticationDTO> Login(LoginDto request);
 
-        Task<UserInfo> Register(RegisterUser request);
+        Task<UserDataVM> Register(RegisterUser request);
 
         Task<UserInfo> Activate(UserInfo request);
 

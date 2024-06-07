@@ -15,13 +15,25 @@ namespace LoginSystem.Idenitity
             _context = context;
         }
 
-        public async Task<UserInfo> ForgotPassword(ForgotPasswordDto request)
+        public async Task<UserDataVM> ForgotPassword(ForgotPasswordDto request)
         {
             try
             {
-                var response =  _context.UserInfos.FirstOrDefault(x => x.Email.ToLower() == request.Email.ToLower());
-                if (response != null)
+                var userInfo =  _context.UserInfos.FirstOrDefault(x => x.Email.ToLower() == request.Email.ToLower());
+                if (userInfo != null)
                 {
+                    UserDataVM response = new UserDataVM()
+                    {
+                        UserId = userInfo.UserId,
+                        UserName = userInfo.UserName,
+                        Email = userInfo.Email,
+                        Password = userInfo.Password,
+                        IsActive = userInfo.IsActive,
+                        ExpirationDate = userInfo.ExpirationDate,
+                        ActivationCode = userInfo.ActivationCode,
+                        Message = "Success"
+                    };
+                       
                     return response;
                 }
                 else
