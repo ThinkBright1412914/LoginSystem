@@ -6,7 +6,8 @@
 @model IEnumerable<LoginSystem.Client.Models.UserVM>
 
 <div class="container mt-5">
-	<h2>Users List</h2>
+	<h2>Users List</h2> <a class="btn btn-sm btn-success" style="justify-content:center" asp-action="ExportExcel" >ExportExcel</a>
+	<br />
 	<table class="table table-striped table-bordered" id="tableInfo">
 		<thead class="thead-dark">
 			<tr>

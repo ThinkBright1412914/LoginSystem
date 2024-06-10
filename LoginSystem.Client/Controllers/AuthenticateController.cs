@@ -1,12 +1,17 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.Data;
+using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
 using System.Security.Claims;
+using ClosedXML.Excel;
 using LoginSystem.Client.Models;
 using LoginSystem.Client.Service;
+using LoginSystem.Utility;
 using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NETCore.Encrypt;
 
@@ -280,6 +285,38 @@ namespace LoginSystem.Client.Controllers
 			var claims = tokenContent.Claims.ToList();
 			return claims;
 		}
-	}
+
+
+        public async Task<IActionResult> ExportExcel()
+        {
+            try
+            {
+                List<UserVM> data = await  _authService.GetUsers();
+                if (data != null || data.Count > 0)
+                {
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        wb.Worksheets.Add(new Converter().ConvertToDataTable(data.ToList()));
+                        using (MemoryStream stream = new MemoryStream())
+                        {
+                            string fileName = $"TryExcel_{DateTime.Now.ToString("dd/mm/yyyy")}.xlsx";
+                            wb.SaveAs(stream);
+                            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocuments.spreadsheetml.sheet", fileName);
+                        }
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            return RedirectToAction("Index");
+
+        }
+
+
+        
+    }
 
 }
