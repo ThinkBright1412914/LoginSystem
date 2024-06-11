@@ -1,6 +1,17 @@
 ﻿@model LoginSystem.Client.Models.RegisterVM
 
+@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+}
 
+<html>
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LoginSystem.Client.styles.css" asp-append-version="true" />
+</head>
+<body>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -21,40 +32,24 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Password"></label>
-                            <input type="password" class="form-control" asp-for="Password" id="Password" /> Show Password : <input type="checkbox" id="showPassword" />
+                                <input type="password" class="form-control" asp-for="Password" id="Password" />  <input type="checkbox" id="showPassword" /> Show Password
                             <span asp-validation-for="Password"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="ConfirmPassword"></label>
-                            <input type="password" class="form-control" asp-for="ConfirmPassword" id="ConfirmPassword" /> Show Password : <input type="checkbox" id="showPassword2" />
+                                <input type="password" class="form-control" asp-for="ConfirmPassword" id="ConfirmPassword" /> <input type="checkbox" id="showPassword2" /> Show Password
                             <span asp-validation-for="ConfirmPassword"></span>
                         </div>
 
                         <br />
                         <input class="btn btn-primary" type="submit" value="SignUp" />
                     </form>
-                </div>               
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-@section scripts{
-    <script>
-        $('#showPassword').click(function () {
-            if ('password' == $('#Password').attr('type')) {
-                $('#Password').prop('type', 'text');
-            } else {
-                $('#Password').prop('type', 'password');
-            }
-        })
-
-        $('#showPassword2').click(function () {
-            if ('password' == $('#ConfirmPassword').attr('type')) {
-                $('#ConfirmPassword').prop('type', 'text');
-            } else {
-                $('#ConfirmPassword').prop('type', 'password');
-            }
-        })
-    </script>
-}
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
