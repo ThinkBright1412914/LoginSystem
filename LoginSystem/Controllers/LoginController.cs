@@ -80,5 +80,16 @@ namespace LoginSystem.Controllers
             }
             return NotFound("Process aborted.");
         }
+
+		[HttpPut("EditUser")]
+		public async Task<IActionResult> EditUser(UserDataVM model)
+		{
+			var response = _userService.EditUser(model);
+			if (response.Result != null)
+			{
+				return Ok(response.Result);
+			}
+			return NotFound("Process aborted.");
+		}
 	}
 }

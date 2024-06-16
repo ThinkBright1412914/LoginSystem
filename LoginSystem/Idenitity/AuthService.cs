@@ -35,58 +35,82 @@ namespace LoginSystem.Idenitity
                 AuthenticationDTO response = new AuthenticationDTO();
                 request.Password = EncryptProvider.Base64Encrypt(request.Password);
                 var user = await GetUser(request.UserName, request.Password);
-                if(user != null)
-                {
-                    if (user.IsActive)
-                    {
-                        var claims = new[]
-                       {
-                                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                                new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
-                                new Claim("UserId", user.UserId.ToString()),
-                                new Claim("UserName" , user.UserName),
-                                new Claim("Email" , user.Email)
+				if (user != null)
+				{
+					if (user.IsActive)
+					{
+						string imgData = user.ImageFile != null ? Convert.ToBase64String(user.ImageFile) : string.Empty;
+
+						var claims = new List<Claim>
+		                            {
+			                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+			                            new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
+			                            new Claim("UserId", user.UserId.ToString()),
+			                            new Claim("UserName", user.UserName),
+			                            new Claim("Email", user.Email)
+		                            };
+
+						var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+						var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+						var token = new JwtSecurityToken(
+							_configuration["Jwt:Issuer"],
+							_configuration["Jwt:Audience"],
+							claims,
+							expires: DateTime.Now.AddDays(7),
+							signingCredentials: signIn);
+
+						string tokenHandler = new JwtSecurityTokenHandler().WriteToken(token);
+
+						response.Token = tokenHandler;
+                        UserDataVM userDataVM = new UserDataVM()
+                        {
+                            UserId = user.UserId,
+                            Email = user.Email,
+                            ExpirationDate = user.ExpirationDate,
+                            ActivationCode = user.ActivationCode,
+                            Password = user.Password,
+                            IsActive = user.IsActive,
+                            UserName = user.UserName,
+                            Message = "Success",
+                            ImageData = imgData
                         };
+						response.User = userDataVM;
+						response.Message = "Success";
+						return response;
+					}
+					else
+					{
+						var time = DateTime.Now.AddMinutes(5);
+						var code = Security.GenerateActivationCode();
+						await _emailSender.SendEmailAsync(user.Email, "Activate Code", $"Dear User, Your activation code is {code}. It will expire in 5 minutes");
 
-                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-                        var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                        var token = new JwtSecurityToken(
-                            _configuration["Jwt:Issuer"],
-                            _configuration["Jwt:Audience"],
-                            claims,
-                            expires: DateTime.Now.AddDays(7),
-                            signingCredentials: signIn);
+						user.ExpirationDate = time;
+						user.ActivationCode = code;
+						_context.UserInfos.Update(user);
+						await _context.SaveChangesAsync();
 
-                        string tokenHandler = new JwtSecurityTokenHandler().WriteToken(token);
+                        UserDataVM userDataVM = new UserDataVM()
+                        {
+                            UserId = user.UserId,
+                            Email = user.Email,
+                            ExpirationDate = time,
+                            ActivationCode = code,
+                            Password = user.Password,
+                            IsActive = user.IsActive,
+                            UserName = user.UserName,
+                            Message = "Success",
+                        };
+                        response.User = userDataVM;
+						response.Message = "Inactive";
+					}
+				}
+				else
+				{
+					response.Message = "NotFound";
+				}
 
-                        response.Token = tokenHandler;
-                        response.User = user;
-                        response.Message = "Success";
-                        return response;
-                    }
-                    else
-                    {
-                        var time = DateTime.Now.AddMinutes(5);
-                        var code = Security.GenerateActivationCode();
-                        await _emailSender.SendEmailAsync(user.Email, "Activate Code", $"Dear User , Your activation code is {code}." +
-                        $"It will expire in 5 minutes");
 
-                        user.ExpirationDate = time;
-                        user.ActivationCode = code;
-                        _context.UserInfos.Update(user);
-                        await _context.SaveChangesAsync();
-                        response.User = user;
-                        response.Message = "Inactive";
-
-                    }
-                }
-
-                else
-                {
-                    response.Message = "NotFound";
-                }
-
-                return response;
+				return response;
             }
             catch (Exception ex)
             {

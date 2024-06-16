@@ -1,6 +1,7 @@
 ﻿using LoginSystem.DTO;
 using LoginSystem.Idenitity.Services;
 using LoginSystem.Model;
+using LoginSystem.Utility;
 using LoginSystem.ViewModel;
 using NETCore.Encrypt;
 
@@ -93,5 +94,35 @@ namespace LoginSystem.Idenitity
                 throw ex;
             }
         }
-    }
+
+		public async Task<UserDataVM> EditUser(UserDataVM request)
+		{
+			try
+			{
+				var currentUser = _context.UserInfos.FirstOrDefault(x => x.UserId == request.UserId);
+				if (currentUser != null)
+				{
+                    var imgData = new Converter().ConvertBase64ToByteArray(request.ImageData);
+                    currentUser.ImageFile = imgData;
+                    currentUser.UserName = request.UserName;
+                    currentUser.Email = request.Email;                   
+					_context.UserInfos.Update(currentUser);
+					_context.SaveChanges();
+                    UserDataVM response = new()
+                    {
+                        Message = "Success",
+                    };
+					return response;
+				}
+				else
+				{
+					throw new Exception("Current user not found.");
+				}
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+	}
 }

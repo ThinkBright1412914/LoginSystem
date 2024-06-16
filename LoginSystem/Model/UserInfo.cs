@@ -17,5 +17,7 @@ namespace LoginSystem.Model
 
         public DateTime? ExpirationDate { get; set; }
 
+        public byte[]? ImageFile { get; set; }
+
     }
 }

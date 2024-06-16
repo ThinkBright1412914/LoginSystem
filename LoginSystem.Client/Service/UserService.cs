@@ -1,5 +1,6 @@
 ﻿using LoginSystem.Client.Models;
 using LoginSystem.Utility;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -71,6 +72,12 @@ namespace LoginSystem.Client.Service
 			return response;
 		}
 
-
+		public async Task<UserVM> EditUser( UserVM model)
+		{          
+            string json = JsonConvert.SerializeObject(model);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            var (status, response) = await _httpService.PutAsync<UserVM>(ApiUri.EditUser, content);
+            return response;
+        }
 	}
 }

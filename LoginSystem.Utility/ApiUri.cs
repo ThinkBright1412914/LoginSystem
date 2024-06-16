@@ -23,6 +23,8 @@ namespace LoginSystem.Utility
 
         public const string ForgotPasswordConfirm = ApiVerion + "Login/ForgotPasswordConfirm";
 
-        public const string GetUsers = ApiVerion + "User/GetUsers";
+		public const string EditUser = ApiVerion + "Login/EditUser";
+
+		public const string GetUsers = ApiVerion + "User/GetUsers";
     }
 }
