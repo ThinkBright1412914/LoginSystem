@@ -2,6 +2,7 @@
 
 using LoginSystem.Client.Middleware;
 using LoginSystem.Client.Service;
+using LoginSystem.Client.ViewComponents;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 });
 
 builder.Services.AddScoped<IhttpService ,HttpService>();
+builder.Services.AddScoped<UserProfileViewComponent>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 builder.Services.AddHttpClient("LoginApi", client =>

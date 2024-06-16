@@ -108,10 +108,18 @@ namespace LoginSystem.Idenitity
                     currentUser.Email = request.Email;                   
 					_context.UserInfos.Update(currentUser);
 					_context.SaveChanges();
-                    UserDataVM response = new()
-                    {
-                        Message = "Success",
-                    };
+					UserDataVM response = new UserDataVM()
+					{
+						UserId = currentUser.UserId,
+						Email = currentUser.Email,
+						ExpirationDate = currentUser.ExpirationDate,
+						ActivationCode = currentUser.ActivationCode,
+						Password = currentUser.Password,
+						IsActive = currentUser.IsActive,
+						UserName = currentUser.UserName,
+						Message = "Success",
+						ImageData = request.ImageData,
+					};
 					return response;
 				}
 				else

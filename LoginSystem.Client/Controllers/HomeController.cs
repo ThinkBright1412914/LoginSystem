@@ -72,12 +72,16 @@ namespace LoginSystem.Client.Controllers
 		{
 			if (model != null)
 			{
-                var img = await new Converter().ConvertToBase64(model.Image);
-                model.User.ImageData = img;
-
+                if(model.Image != null)
+                {
+					var img = await new Converter().ConvertToBase64(model.Image);
+					model.User.ImageData = img;
+				}
+           
                 var result = await _userService.EditUser(model.User);
 				if (result != null)
 				{
+                    _sessionService.SetUserSession(result);
 					return RedirectToAction("Index");
 
 				}
