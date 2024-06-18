@@ -1,5 +1,6 @@
 ﻿using LoginSystem.DTO;
 using LoginSystem.Model;
+using LoginSystem.Utility;
 using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -24,8 +25,20 @@ namespace LoginSystem.Controllers
         {
             try
             {
-                List<UserInfo> obj = _context.UserInfos.ToList();
-                return Ok(obj);
+                List<UserDataVM> user = new();
+                var result = _context.UserInfos.ToList();   
+                foreach (var item in result)
+                {
+                    UserDataVM userVM = new UserDataVM()
+                    {
+                        UserName = item.UserName,
+                        Email = item.Email,
+                        IsActive = item.IsActive,
+                        ImageData = Convert.ToBase64String(item.ImageFile)
+                    };
+                    user.Add(userVM);
+                }
+                return Ok(user);
             }
             catch (Exception ex)
             {
