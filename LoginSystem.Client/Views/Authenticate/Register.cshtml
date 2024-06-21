@@ -22,7 +22,7 @@
                     <form method="post">
                         <div class="form-group">
                             <label>User Name</label>
-                            <input type="text" class="form-control" asp-for="UserName" />
+                                <input type="text" class="form-control" asp-for="UserName" onkeypress="return AvoidSpace(event)" />
                             <span asp-validation-for="UserName"></span>
                         </div>
                         <div class="form-group">
