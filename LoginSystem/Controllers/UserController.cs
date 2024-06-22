@@ -34,7 +34,7 @@ namespace LoginSystem.Controllers
                         UserName = item.UserName,
                         Email = item.Email,
                         IsActive = item.IsActive,
-                        ImageData = Convert.ToBase64String(item.ImageFile)
+                        ImageData = item.ImageFile != null ? Convert.ToBase64String(item.ImageFile) : null,
                     };
                     user.Add(userVM);
                 }
