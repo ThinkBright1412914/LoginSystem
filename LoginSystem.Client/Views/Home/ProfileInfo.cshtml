@@ -3,35 +3,53 @@
 	Layout = "~/Views/Shared/_LandingPage.cshtml";
 }
 
-
 @model LoginSystem.Client.Models.UserVM
 
-<div class="container mt-5">
-	<div class="row justify-content-center">
-		<div class="col-md-6">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">User Info</h5>
-					<h7>@TempData["Error"]</h7>
-					<input type="hidden" class="form-control" readonly asp-for="UserId" />
-					<div class="form-group">
-						<label>User Name</label>
-						<input type="text" class="form-control" readonly asp-for="UserName" />
-					</div>
-					<div class="form-group">
-						<label asp-for="Email"></label>
-						<input type="Email" class="form-control" readonly asp-for="Email" />
-					</div>
-					<br />
-					<div class="form-group">
-						<label asp-for="IsActive"></label>
-						<input type="radio" name="IsActive" value="true" @(Model.IsActive ? "checked" : "") disabled /> Active
-						<input type="radio" name="IsActive" value="false" @(!Model.IsActive ? "checked" : "") disabled /> Inactive
-					</div>
-					<br />
-					<a class="btn btn-sm btn-primary" asp-action="EditUser" asp-controller="Home">Edit</a>
+<div class="container bootstrap snippets bootdey">
+	<h1 class="text-primary">User Profile</h1>
+	<hr>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="text-center">
+				@if (!string.IsNullOrEmpty(Model.ImageData))
+				{
+					<img src="data:image/png;base64,@Model.ImageData" class="avatar img-circle img-thumbnail" alt="avatar">
+				}
+				else
+				{
+					<img src="~/Img/Profile.jpg" class="avatar img-circle img-thumbnail" alt="avatar">
+				}
+
+			</div>
+		</div>
+
+		<div class="col-md-9 personal-info">
+			<h3>Personal info</h3>
+			<input type="hidden" asp-for="UserId" />
+			<div class="form-group">
+				<label class="col-lg-3 control-label">User name:</label>
+				<div class="col-lg-8">
+					<input class="form-control" asp-for="UserName" type="text">
 				</div>
 			</div>
+
+			<div class="form-group">
+				<label class="col-lg-3 control-label">Email:</label>
+				<div class="col-lg-8">
+					<input class="form-control" asp-for=Email type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-3 control-label">Active :</label>
+				<div class="col-lg-8">
+					<input type="radio" name="IsActive" value="true" @(Model.IsActive ? "checked" : "") disabled /> Active
+					<input type="radio" name="IsActive" value="false" @(!Model.IsActive ? "checked" : "") disabled /> Inactive
+				</div>
+			</div>
+			<br />
+			<a class="btn btn-sm btn-primary" asp-action="EditUser" asp-controller="Home">Edit</a>
 		</div>
 	</div>
 </div>
+<hr>

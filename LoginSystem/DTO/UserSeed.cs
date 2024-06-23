@@ -23,5 +23,17 @@ namespace LoginSystem.DTO
                 },
             };
         }
+
+        public static List<UserRole> DefaultUserRole()
+        {
+            return new List<UserRole>()
+            {
+                new UserRole()
+                {
+                    UserId = new Guid("9d3a21ba-e76b-49e6-a24e-2cf9d1531994"),
+                    RoleId = new Guid(UserConstant.AdminRole)
+                },
+            };
+        }
     }
 }

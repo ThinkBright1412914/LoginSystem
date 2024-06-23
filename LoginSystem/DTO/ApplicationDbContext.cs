@@ -33,6 +33,7 @@ namespace LoginSystem.DTO
 
 			modelBuilder.Entity<UserInfo>().HasData(UserSeed.DefaultUser());
             modelBuilder.Entity<Role>().HasData(RoleSeed.DefaultRoleSeed());
+            modelBuilder.Entity<UserRole>().HasData(UserSeed.DefaultUserRole());
         }
 
     }
