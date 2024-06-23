@@ -9,7 +9,7 @@ namespace LoginSystem.Idenitity.Services
 
         Task<UserDataVM> Register(RegisterUser request);
 
-        Task<UserInfo> Activate(UserInfo request);
+        Task<UserDataVM> Activate(UserDataVM request);
 
      
     }

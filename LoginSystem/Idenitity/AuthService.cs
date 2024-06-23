@@ -40,14 +40,15 @@ namespace LoginSystem.Idenitity
 					if (user.IsActive)
 					{
 						string imgData = user.ImageFile != null ? Convert.ToBase64String(user.ImageFile) : string.Empty;
-
+                        var userRole = _context.UserRoles.Include(x => x.Roles).FirstOrDefault(x => x.UserId == user.UserId).Roles.RoleName;
 						var claims = new List<Claim>
 		                            {
 			                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
 			                            new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
 			                            new Claim("UserId", user.UserId.ToString()),
 			                            new Claim("UserName", user.UserName),
-			                            new Claim("Email", user.Email)
+			                            new Claim("Email", user.Email),
+                                        new Claim(ClaimTypes.Role, userRole)
 		                            };
 
 						var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -151,11 +152,18 @@ namespace LoginSystem.Idenitity
                         ExpirationDate = time,
                     };
 
+                    UserRole userRole = new UserRole()
+                    {
+                        UserId = user.UserId,
+                        RoleId = new Guid(UserConstant.UserRole),
+                    };
+
                     await _emailSender.SendEmailAsync(model.Email, "Activate Code", $"Dear User , Your activation code is {code}." +
                        $"It will expire in 5 minutes");
 
                     _context.RegisterUsers.Add(model);
                     _context.UserInfos.Add(user);
+                    _context.UserRoles.Add(userRole);   
                     _context.SaveChanges();
 
                     response.UserId = user.UserId;
@@ -178,18 +186,25 @@ namespace LoginSystem.Idenitity
         
         }
 
-        public async Task<UserInfo> Activate(UserInfo request)
+        public async Task<UserDataVM> Activate(UserDataVM request)
         {
-            var response = _context.UserInfos.FirstOrDefault(x => x.UserId == request.UserId);
-            if (response != null)
+            var result = _context.UserInfos.FirstOrDefault(x => x.UserId == request.UserId);
+            if (result != null)
             {
-                if (response.ActivationCode == request.ActivationCode)
+                if (result.ActivationCode == request.ActivationCode)
                 {
-                    if (DateTime.Now <= response.ExpirationDate)
+                    if (DateTime.Now <= result.ExpirationDate)
                     {
-                        response.IsActive = true;
-                        _context.UserInfos.Update(response);
+						result.IsActive = true;
+                        _context.UserInfos.Update(result);
                         _context.SaveChanges();
+
+                        UserDataVM response = new UserDataVM()
+                        {
+                            IsActive = result.IsActive,
+
+                        };
+
                         return response;
                     }
                     else

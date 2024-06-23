@@ -3,6 +3,7 @@ using LoginSystem.DTO;
 using LoginSystem.Idenitity.Services;
 using LoginSystem.Model;
 using LoginSystem.Utility;
+using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +38,7 @@ namespace LoginSystem.Controllers
 
 
         [HttpPost("ActivationCode")]
-        public async Task<IActionResult> ActivationCode(UserInfo model)
+        public async Task<IActionResult> ActivationCode(UserDataVM model)
         {
             var response = _authService.Activate(model);
             if(response.Result != null)

@@ -48,16 +48,28 @@ namespace LoginSystem.Idenitity
             }
         }
 
-        public async Task<UserInfo> ResetPassword(UserInfo request)
+        public async Task<UserDataVM> ResetPassword(UserDataVM request)
         {
             try
             {
-                var response = _context.UserInfos.FirstOrDefault(x => x.UserId == request.UserId);
-                if (response != null)
+                var result = _context.UserInfos.FirstOrDefault(x => x.UserId == request.UserId);
+                if (result != null)
                 {
-                    response.Password = request.Password;
-                    _context.UserInfos.Update(response);
+					result.Password = request.Password;
+                    _context.UserInfos.Update(result);
                     _context.SaveChanges();
+
+                    UserDataVM response = new()
+                    {
+                        UserId = result.UserId,
+                        UserName = result.UserName,
+                        Email = result.Email,
+                        Password = result.Password,
+                        IsActive = result.IsActive,
+                        ExpirationDate = result.ExpirationDate,
+                        ActivationCode = result.ActivationCode,
+                        ImageData = result.ImageFile != null ? Convert.ToBase64String(result.ImageFile) : null
+                    };
                     return response;
                 }
                 else

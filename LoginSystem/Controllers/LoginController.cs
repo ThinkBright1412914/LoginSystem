@@ -42,7 +42,7 @@ namespace LoginSystem.Controllers
 
 
 		[HttpPut("ResetPassword")]
-		public async Task<IActionResult> ResetPassword(UserInfo model)
+		public async Task<IActionResult> ResetPassword(UserDataVM model)
 		{
 
             var response = await _userService.ResetPassword(model);

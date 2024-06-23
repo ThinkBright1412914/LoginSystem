@@ -19,5 +19,9 @@ namespace LoginSystem.Model
 
         public byte[]? ImageFile { get; set; }
 
+        public ICollection<Role> Roles { get; set; }   
+        
+        public ICollection<UserRole> UserRoles { get; set; }    
+
     }
 }

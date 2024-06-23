@@ -4,6 +4,7 @@ using LoginSystem.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoginSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240623035115_Users-Role")]
+    partial class UsersRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +61,12 @@ namespace LoginSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UserInfoUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("RoleId");
+
+                    b.HasIndex("UserInfoUserId");
 
                     b.ToTable("Roles");
 
@@ -114,7 +121,7 @@ namespace LoginSystem.Migrations
                             UserId = new Guid("9d3a21ba-e76b-49e6-a24e-2cf9d1531994"),
                             ActivationCode = "678999",
                             Email = "nabinthekishor@gmail.com",
-                            ExpirationDate = new DateTime(2024, 6, 24, 10, 38, 52, 699, DateTimeKind.Local).AddTicks(24),
+                            ExpirationDate = new DateTime(2024, 6, 24, 9, 36, 15, 557, DateTimeKind.Local).AddTicks(4608),
                             IsActive = true,
                             Password = "I0FkbWluMTIz",
                             UserName = "Admin"
@@ -136,19 +143,11 @@ namespace LoginSystem.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("RoleUserInfo", b =>
+            modelBuilder.Entity("LoginSystem.Model.Role", b =>
                 {
-                    b.Property<Guid>("RolesRoleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UsersUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("RolesRoleId", "UsersUserId");
-
-                    b.HasIndex("UsersUserId");
-
-                    b.ToTable("RoleUserInfo");
+                    b.HasOne("LoginSystem.Model.UserInfo", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("UserInfoUserId");
                 });
 
             modelBuilder.Entity("LoginSystem.Model.UserRole", b =>
@@ -170,21 +169,6 @@ namespace LoginSystem.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("RoleUserInfo", b =>
-                {
-                    b.HasOne("LoginSystem.Model.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RolesRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LoginSystem.Model.UserInfo", null)
-                        .WithMany()
-                        .HasForeignKey("UsersUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("LoginSystem.Model.Role", b =>
                 {
                     b.Navigation("UsersRoles");
@@ -192,6 +176,8 @@ namespace LoginSystem.Migrations
 
             modelBuilder.Entity("LoginSystem.Model.UserInfo", b =>
                 {
+                    b.Navigation("Roles");
+
                     b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618

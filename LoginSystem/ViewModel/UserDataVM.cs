@@ -10,12 +10,12 @@
 
         public bool IsActive { get; set; }
 
-        public string ActivationCode { get; set; }
+        public string? ActivationCode { get; set; }
 
         public DateTime? ExpirationDate { get; set; }
 
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
-        public string ImageData { get;set; }
+        public string? ImageData { get;set; }
     }
 }
