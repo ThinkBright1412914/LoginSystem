@@ -126,9 +126,10 @@ namespace LoginSystem.Idenitity
         {
             try
             {
-                var emailValidate = _context.RegisterUsers.Any(x => x.Email.ToLower().Equals(model.Email.ToLower()));
+                var dbContext = _context.RegisterUsers.AsEnumerable();
+                dbContext = dbContext.Where(x => x.Email.Equals(model.Email, StringComparison.OrdinalIgnoreCase)).ToList(); ;
                 UserDataVM response = new UserDataVM();
-                if (emailValidate)
+                if (dbContext.Any())
                 {
                     response.Message = "Email Already Exists.";
                 }
