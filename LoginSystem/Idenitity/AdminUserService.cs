@@ -113,7 +113,7 @@ namespace LoginSystem.Idenitity
                          "Account Created",
                          $"Dear User,<br/><br/>" +
                          $"Your account has been successfully created. To activate your account, please use the provided information below.<br/><br/>" +
-                         $"Username: {request.UserName}<br/>" +  // Added <br/> for clarity
+                         $"Username: {request.UserName}<br/>" + 
                          $"Password: {pswd}"
                     );
 
