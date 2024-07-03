@@ -32,5 +32,18 @@ namespace LoginSystem.Utility
             }
             return code;
         }
+
+
+        public static string GenerateRandomPassword()
+        {
+            string validChars = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*?_-";
+            Random random = new Random();
+            char [] pswd = new char[10];
+            for(int i = 0; i < pswd.Length; i++)
+            {
+                pswd[i] = validChars[random.Next(0,validChars.Length)];
+            }
+            return new string(pswd);
+        }
     }
 }

@@ -1,50 +1,79 @@
-﻿using LoginSystem.DTO;
-using LoginSystem.Model;
-using LoginSystem.Utility;
+﻿using LoginSystem.Idenitity.Services;
 using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
+
 
 namespace LoginSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class UserController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IAdminUserService _adminUserService;
 
-        public UserController(ApplicationDbContext context)
+        public UserController(IAdminUserService adminUserService)
         {
-            _context = context;
+            _adminUserService = adminUserService;
         }
 
         [HttpGet("GetUsers")]
         public async Task<IActionResult> GetUsers()
         {
-            try
+            var response = await _adminUserService.GetUsers();
+            if (response != null)
             {
-                List<UserDataVM> user = new();
-                var result = _context.UserInfos.ToList();   
-                foreach (var item in result)
-                {
-                    UserDataVM userVM = new UserDataVM()
-                    {
-                        UserName = item.UserName,
-                        Email = item.Email,
-                        IsActive = item.IsActive,
-                        ImageData = item.ImageFile != null ? Convert.ToBase64String(item.ImageFile) : null,
-                    };
-                    user.Add(userVM);
-                }
-                return Ok(user);
+                return Ok(response);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return BadRequest();
+        }
 
+        [HttpGet("GetUserById")]
+        public async Task<IActionResult> GetUsersById(Guid Id)
+        {
+            var response = await _adminUserService.GetUserById(Id);
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            return BadRequest();
+        }
+
+        [HttpPost("CreateUser")]
+        public async Task<IActionResult> CreateUser(UserDataVM request)
+        {
+            var response = await _adminUserService.CreateUser(request);
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            return BadRequest();
+        }
+
+
+        [HttpPut("UpdateUser")]
+        public async Task<IActionResult> UpdateUser(UserDataVM request)
+        {
+            var response = await _adminUserService.UpdateUser(request);
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            return BadRequest();
+        }
+
+
+        [HttpDelete("DeleteUser")]
+        public async Task<IActionResult> DeleteUser(Guid Id)
+        {
+            var response = await _adminUserService.DeleteUser(Id);
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            return BadRequest();
         }
 
     }

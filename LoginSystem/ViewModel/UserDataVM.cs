@@ -2,7 +2,7 @@
 {
     public class UserDataVM
     {
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
         public string? UserName { get; set; }
         public string? Email { get; set; }
 
@@ -17,5 +17,7 @@
         public string? Message { get; set; }
 
         public string? ImageData { get;set; }
+
+        public string? Role { get; set; }
     }
 }

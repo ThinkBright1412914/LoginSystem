@@ -18,9 +18,6 @@
 
         public string ImageData { get; set; }
 
-        public string Roles { get; set; }   
-
-        public string UserRoles { get; set; }   
 
    
     }

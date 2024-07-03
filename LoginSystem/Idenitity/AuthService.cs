@@ -83,9 +83,15 @@ namespace LoginSystem.Idenitity
 					{
 						var time = DateTime.Now.AddMinutes(5);
 						var code = Security.GenerateActivationCode();
-						await _emailSender.SendEmailAsync(user.Email, "Activate Code", $"Dear User, Your activation code is {code}. It will expire in 5 minutes");
+                        await _emailSender.SendEmailAsync
+                            (
+                                user.Email,
+                                "Activate Code",
+                                $"Dear User,<br/><br/>" +
+                                $"Your activation code is: {code}. It will expire in 5 minutes."
+                            );
 
-						user.ExpirationDate = time;
+                        user.ExpirationDate = time;
 						user.ActivationCode = code;
 						_context.UserInfos.Update(user);
 						await _context.SaveChangesAsync();
@@ -137,15 +143,15 @@ namespace LoginSystem.Idenitity
                 {
                     model.Password = EncryptProvider.Base64Encrypt(model.Password);
                     model.ConfirmPassword = model.Password;
-                    Guid refId = Guid.NewGuid();
-                    model.Id = refId;
+                    Guid newUser = Guid.NewGuid();
+                    model.Id = newUser;
 
                     var time = DateTime.Now.AddMinutes(5);
                     var code = Security.GenerateActivationCode();
 
                     UserInfo user = new UserInfo()
                     {
-                        UserId = refId,
+                        UserId = newUser,
                         UserName = model.UserName,
                         Email = model.Email,
                         ActivationCode = code,
@@ -159,8 +165,13 @@ namespace LoginSystem.Idenitity
                         RoleId = new Guid(UserConstant.UserRole),
                     };
 
-                    await _emailSender.SendEmailAsync(model.Email, "Activate Code", $"Dear User , Your activation code is {code}." +
-                       $"It will expire in 5 minutes");
+                    await _emailSender.SendEmailAsync
+                            (
+                                model.Email,
+                                "Activate Code",
+                                $"Dear User,<br/><br/>" +
+                                $"Your activation code is: {code}. It will expire in 5 minutes."
+                            );
 
                     _context.RegisterUsers.Add(model);
                     _context.UserInfos.Add(user);
