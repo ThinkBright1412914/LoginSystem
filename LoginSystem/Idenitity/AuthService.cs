@@ -10,7 +10,6 @@ using NETCore.Encrypt;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace LoginSystem.Idenitity
 {

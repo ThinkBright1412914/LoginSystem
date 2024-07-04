@@ -1,6 +1,5 @@
 ﻿using LoginSystem.DTO;
 using LoginSystem.Idenitity.Services;
-using LoginSystem.Model;
 using LoginSystem.Utility;
 using LoginSystem.ViewModel;
 using NETCore.Encrypt;
