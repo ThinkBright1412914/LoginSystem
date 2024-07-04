@@ -32,13 +32,6 @@ namespace LoginSystem.Client.Controllers
 			_httpContextAccessor = httpContextAccessor;
 		}
 
-
-		public async Task<IActionResult> GetUsers()
-		{
-			List<UserVM> users = await _authService.GetUsers();
-			return View(users);
-		}
-
 		public IActionResult Index()
 		{
 			return View();
@@ -60,7 +53,7 @@ namespace LoginSystem.Client.Controllers
 						var tokenContent = _tokenHandler.ReadJwtToken(response.Token);
 						var claims = ParseClaims(tokenContent);
 						var user = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme));
-						var login = _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, user);
+						var login = _httpContextAccessor?.HttpContext?.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, user);
 						return RedirectToAction("Index", "Home");
 					}
 					else if(response.User != null && response.Message == "Inactive")
@@ -94,7 +87,7 @@ namespace LoginSystem.Client.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Edit(UserVM model)
+		public  IActionResult Edit(UserVM model)
 		{
 			var editUserInfo = _sessionService.GetUserSession();
 			return View(editUserInfo);

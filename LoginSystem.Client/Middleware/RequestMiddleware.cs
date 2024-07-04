@@ -55,7 +55,8 @@ namespace LoginSystem.Client.Middleware
 				}
 				catch (Exception ex)
 				{
-					await HandleExceptionAsync(httpContext, ex);
+					throw;
+					//await HandleExceptionAsync(httpContext, ex);
 				}
 			}
 		}

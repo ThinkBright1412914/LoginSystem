@@ -26,5 +26,13 @@ namespace LoginSystem.Utility
 		public const string EditUser = ApiVerion + "Login/EditUser";
 
 		public const string GetUsers = ApiVerion + "User/GetUsers";
+
+        public const string CreateUser = ApiVerion + "User/CreateUser";
+
+        public const string UpdateUser = ApiVerion + "User/UpdateUser";
+
+        public const string DeleteUser = ApiVerion + "User/DeleteUser";
+
+        public const string GetUserById = ApiVerion + "User/GetUserById";
     }
 }
