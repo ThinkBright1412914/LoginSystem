@@ -1,18 +1,13 @@
-﻿using System.Data;
-using System.IdentityModel.Tokens.Jwt;
-using System.Reflection;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using ClosedXML.Excel;
 using LoginSystem.Client.Models;
 using LoginSystem.Client.Service;
 using LoginSystem.Utility;
-using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using NETCore.Encrypt;
 
 namespace LoginSystem.Client.Controllers

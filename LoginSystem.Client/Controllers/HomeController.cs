@@ -1,11 +1,9 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
-using LoginSystem.Client.Models;
+﻿using LoginSystem.Client.Models;
 using LoginSystem.Client.Service;
 using LoginSystem.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Security.Claims;
 
 namespace LoginSystem.Client.Controllers
 {
@@ -15,15 +13,13 @@ namespace LoginSystem.Client.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly SessionService _sessionService;
         private readonly UserService _userService;
-        private readonly IHttpContextAccessor _context;
 
         public HomeController(ILogger<HomeController> logger, SessionService sessionService, 
-            UserService userService , IHttpContextAccessor context)
+            UserService userService)
         {
             _logger = logger;
             _sessionService = sessionService;
             _userService = userService;
-            _context = context;
         }
 
         public IActionResult Index()

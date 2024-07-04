@@ -1,6 +1,5 @@
 ﻿using LoginSystem.Client.Models;
 using LoginSystem.Utility;
-using LoginSystem.ViewModel;
 
 namespace LoginSystem.Client.Service
 {

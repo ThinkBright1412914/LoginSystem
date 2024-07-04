@@ -1,10 +1,6 @@
 ﻿using LoginSystem.Client.Models;
 using LoginSystem.Utility;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using System.Net.Mime;
 using System.Text;
 
 namespace LoginSystem.Client.Service
