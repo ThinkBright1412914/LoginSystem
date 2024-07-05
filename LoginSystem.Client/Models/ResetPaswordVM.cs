@@ -4,6 +4,7 @@ namespace LoginSystem.Client.Models
 {
     public class ResetPaswordVM
     {
+        public Guid? Id { get; set; }    
       
         public string CurrentPassword { get;set; }
 

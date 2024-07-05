@@ -39,8 +39,12 @@ namespace LoginSystem.Client.Controllers
 			{
 				if (ModelState.IsValid)
 				{
-
 					var response = await _authService.Login(model);
+					if (response.User.isForcePswdReset)
+					{
+						_sessionService.SetUserSession(response.User);
+						return RedirectToAction("ForcePasswordReset");
+					}
 					if (response.Token != null && response.User != null && response.Message == "Success")
 					{
 						_sessionService.SetUserSession(response.User);
@@ -58,7 +62,7 @@ namespace LoginSystem.Client.Controllers
                     }
 					else
 					{
-						TempData["Error"] = "Incorrect Username and Password";
+						TempData["error"] = "Incorrect Username and Password";
 						return RedirectToAction("Index");
 					}
 				}
@@ -103,6 +107,7 @@ namespace LoginSystem.Client.Controllers
 				if (response.Message == "Success")
 				{
 					_sessionService.SetUserSession(response);
+					TempData["success"] = "User has been registered.";
 					return RedirectToAction("ActivationCode", "Authenticate");
 				}
 				else 
@@ -139,19 +144,19 @@ namespace LoginSystem.Client.Controllers
 				var response = await _authService.ActivateCode(obj);
 				if (response.IsActive)
 				{
-					TempData["Error"] = "Your code has been successfully activated.";
+					TempData["success"] = "Your code has been successfully activated.";
 					return RedirectToAction("Index", "Authenticate");
 				}
 				else
 				{
-					TempData["Error"] = "Invalid Code / Expired Code";
+					TempData["error"] = "Invalid Code / Expired Code";
 					return View("ActivationCode");
 				}
 
 			}
 			else
 			{
-				TempData["Error"] = "Please, Enter the code";
+				TempData["error"] = "Please, Enter the code";
 				return View();
 			}
 		}
@@ -175,7 +180,7 @@ namespace LoginSystem.Client.Controllers
 
 					if (currentUserInfo.Password != model.CurrentPassword)
 					{						
-						TempData["Error"] = "Your current password do not match.";
+						TempData["error"] = "Your current password do not match.";
 						return View();
 					}
 					else
@@ -186,12 +191,12 @@ namespace LoginSystem.Client.Controllers
 						if (resetPassword.Result != null)
 						{
 							_sessionService.SetUserSession(resetPassword.Result);
-							TempData["Error"] = "Password sucessfully updated";
+							TempData["success"] = "Password sucessfully updated";
 							return RedirectToAction("Index" , "Home");
 						}
 						else
 						{
-							TempData["Error"] = "Password update aborted.";
+							TempData["error"] = "Password update aborted.";
 							return View();
 						}
 					}
@@ -218,17 +223,24 @@ namespace LoginSystem.Client.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ForgotPassword(ForgotPasswordVM model)
 		{
-			if (model.Email != null)
+			if (ModelState.IsValid)
 			{
 				var result = await _authService.ForgotPassword(model);
 				if (result.UserId != null)
 				{
 					_sessionService.SetUserSession(result);
 					return RedirectToAction("ForgotPasswordConfirm");
-
+				}
+				else
+				{
+                    TempData["error"] = "Email doesnot exists.";
+                    return View(model);					
 				}
 			}
-			return View(model.Email);
+			else
+			{
+                return View(model);
+            }				
 		}
 
 
@@ -251,12 +263,12 @@ namespace LoginSystem.Client.Controllers
 				var result = await _authService.ForgotPasswordConfirm(model);
 				if (result.Message == "Success")
 				{
-					TempData["Error"] = "Your password changed successfully.";
+					TempData["success"] = "Your password changed successfully.";
 					return RedirectToAction("Index", "Authenticate");
 				}
 				else
 				{
-					TempData["Error"] = "Your password update aborted.";
+					TempData["error"] = "Your password update aborted.";
 					return NotFound();
 				}
 			}
@@ -267,8 +279,66 @@ namespace LoginSystem.Client.Controllers
 			
 		}
 
+        public async Task<IActionResult> ForcePasswordReset()
+        {
+			var currentUserInfo = _sessionService.GetUserSession();
+			ResetPaswordVM model = new()
+			{
+				Id = currentUserInfo.UserId
+			};
+			return View(model);
+        }
 
-		private IList<Claim> ParseClaims(JwtSecurityToken tokenContent)
+
+        [HttpPost]
+        public async Task<IActionResult> ForcePasswordReset(ResetPaswordVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentUserInfo = _sessionService.GetUserSession();
+                model.CurrentPassword = EncryptProvider.Base64Encrypt(model.CurrentPassword);
+                model.Password = EncryptProvider.Base64Encrypt(model.Password);
+                if (currentUserInfo != null)
+                {
+                    if (currentUserInfo.Password != model.CurrentPassword)
+                    {
+                        TempData["error"] = "Your current password do not match.";
+                        return View();
+                    }
+					else if(currentUserInfo.Password == model.Password)
+					{
+                        TempData["error"] = "Please do not enter the same password. Try different this time.";
+                        return View();
+                    }
+                    else
+                    {
+                        currentUserInfo.Password = model.Password;
+                        var resetPassword = _authService.ResetPassword(currentUserInfo);
+                        if (resetPassword.Result != null)
+                        {
+                            TempData["success"] = "Password sucessfully updated";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            TempData["error"] = "Password update aborted.";
+                            return View();
+                        }
+                    }
+
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        private IList<Claim> ParseClaims(JwtSecurityToken tokenContent)
 		{
 			var claims = tokenContent.Claims.ToList();
 			return claims;

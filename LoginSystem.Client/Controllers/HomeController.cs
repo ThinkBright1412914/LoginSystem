@@ -78,6 +78,7 @@ namespace LoginSystem.Client.Controllers
 				if (result != null)
 				{
                     _sessionService.SetUserSession(result);
+					TempData["success"] = "User updated successfully";
 					return RedirectToAction("Index");
 
 				}

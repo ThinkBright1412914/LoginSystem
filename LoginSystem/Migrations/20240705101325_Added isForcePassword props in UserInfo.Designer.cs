@@ -4,6 +4,7 @@ using LoginSystem.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoginSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240705101325_Added isForcePassword props in UserInfo")]
+    partial class AddedisForcePasswordpropsinUserInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,7 +99,7 @@ namespace LoginSystem.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsForcePasswordReset")
+                    b.Property<bool>("IsForcePassword")
                         .HasColumnType("bit");
 
                     b.Property<string>("Password")
@@ -116,9 +118,9 @@ namespace LoginSystem.Migrations
                             UserId = new Guid("9d3a21ba-e76b-49e6-a24e-2cf9d1531994"),
                             ActivationCode = "678999",
                             Email = "nabinthekishor@gmail.com",
-                            ExpirationDate = new DateTime(2024, 7, 6, 16, 7, 36, 809, DateTimeKind.Local).AddTicks(6422),
+                            ExpirationDate = new DateTime(2024, 7, 6, 15, 58, 24, 984, DateTimeKind.Local).AddTicks(2220),
                             IsActive = true,
-                            IsForcePasswordReset = false,
+                            IsForcePassword = false,
                             Password = "I0FkbWluMTIz",
                             UserName = "Admin"
                         });
