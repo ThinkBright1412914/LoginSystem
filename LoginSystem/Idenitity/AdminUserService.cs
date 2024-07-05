@@ -22,7 +22,7 @@ namespace LoginSystem.Idenitity
         }
 
         public async Task<List<UserDataVM>> GetUsers()
-        {
+        {          
             List<UserDataVM> user = new();
             var result = _context.UserInfos.Include(x => x.UserRoles)
                                            .ThenInclude(x => x.Roles).ToList();
@@ -107,14 +107,15 @@ namespace LoginSystem.Idenitity
                     userRole.RoleId = new Guid(UserConstant.UserRole);
                 }
 
+                var createdDate = DateTime.Now;
                 await _emailSender.SendEmailAsync
                     (
-                         request.Email,
-                         "Account Created",
-                         $"Dear User,<br/><br/>" +
-                         $"Your account has been successfully created. To activate your account, please use the provided information below.<br/><br/>" +
-                         $"Username: {request.UserName}<br/>" + 
-                         $"Password: {pswd}"
+                        request.Email,
+                        "Account Created",
+                        $"Dear User,<br/>" +
+                        $"Your account has been successfully created at {createdDate.ToString("yyyy MMMM dd dddd hh:mm tt")}. Please change your password to activate the account by using the provided information on the link below.<br/><br/>" +
+                        $"Username: {request.UserName}<br/>" +
+                        $"Password: {pswd}<br/><br/>"
                     );
 
                 _context.RegisterUsers.Add(register);

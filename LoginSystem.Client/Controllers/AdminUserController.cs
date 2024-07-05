@@ -46,7 +46,7 @@ namespace LoginSystem.Client.Controllers
 				var response =await _userService.CreateByAdminUser(model);
                 if(response != null)
                 {
-                    TempData["Error"] = response.Message;
+                    TempData["success"] = response.Message;
                     return RedirectToAction("GetUsers");
                 }             
             }
@@ -70,7 +70,7 @@ namespace LoginSystem.Client.Controllers
             var response = await _userService.UpdateByAdminUser(request);
             if (response != null)
             {
-                TempData["Error"] = response.Message;
+                TempData["success"] = response.Message;
                 return RedirectToAction("GetUsers"); ;
             }
             return NotFound();
@@ -92,7 +92,7 @@ namespace LoginSystem.Client.Controllers
             var response = await _userService.DeleteByAdminUser(model);
             if (response != null)
             {
-                TempData["Error"] = response.Message;
+                TempData["success"] = response.Message;
                 return RedirectToAction("GetUsers");
             }
             return NotFound();

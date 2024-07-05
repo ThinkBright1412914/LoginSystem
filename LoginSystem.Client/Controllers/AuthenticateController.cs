@@ -58,7 +58,7 @@ namespace LoginSystem.Client.Controllers
                     }
 					else
 					{
-						TempData["Error"] = "Incorrect Username and Password";
+						TempData["error"] = "Incorrect Username and Password";
 						return RedirectToAction("Index");
 					}
 				}
@@ -103,6 +103,7 @@ namespace LoginSystem.Client.Controllers
 				if (response.Message == "Success")
 				{
 					_sessionService.SetUserSession(response);
+					TempData["success"] = "User has been registered.";
 					return RedirectToAction("ActivationCode", "Authenticate");
 				}
 				else 
@@ -139,19 +140,19 @@ namespace LoginSystem.Client.Controllers
 				var response = await _authService.ActivateCode(obj);
 				if (response.IsActive)
 				{
-					TempData["Error"] = "Your code has been successfully activated.";
+					TempData["success"] = "Your code has been successfully activated.";
 					return RedirectToAction("Index", "Authenticate");
 				}
 				else
 				{
-					TempData["Error"] = "Invalid Code / Expired Code";
+					TempData["error"] = "Invalid Code / Expired Code";
 					return View("ActivationCode");
 				}
 
 			}
 			else
 			{
-				TempData["Error"] = "Please, Enter the code";
+				TempData["error"] = "Please, Enter the code";
 				return View();
 			}
 		}
@@ -175,7 +176,7 @@ namespace LoginSystem.Client.Controllers
 
 					if (currentUserInfo.Password != model.CurrentPassword)
 					{						
-						TempData["Error"] = "Your current password do not match.";
+						TempData["error"] = "Your current password do not match.";
 						return View();
 					}
 					else
@@ -186,12 +187,12 @@ namespace LoginSystem.Client.Controllers
 						if (resetPassword.Result != null)
 						{
 							_sessionService.SetUserSession(resetPassword.Result);
-							TempData["Error"] = "Password sucessfully updated";
+							TempData["success"] = "Password sucessfully updated";
 							return RedirectToAction("Index" , "Home");
 						}
 						else
 						{
-							TempData["Error"] = "Password update aborted.";
+							TempData["error"] = "Password update aborted.";
 							return View();
 						}
 					}
@@ -218,17 +219,24 @@ namespace LoginSystem.Client.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ForgotPassword(ForgotPasswordVM model)
 		{
-			if (model.Email != null)
+			if (ModelState.IsValid)
 			{
 				var result = await _authService.ForgotPassword(model);
 				if (result.UserId != null)
 				{
 					_sessionService.SetUserSession(result);
 					return RedirectToAction("ForgotPasswordConfirm");
-
+				}
+				else
+				{
+                    TempData["error"] = "Email doesnot exists.";
+                    return View(model);					
 				}
 			}
-			return View(model.Email);
+			else
+			{
+                return View(model);
+            }				
 		}
 
 
@@ -251,12 +259,12 @@ namespace LoginSystem.Client.Controllers
 				var result = await _authService.ForgotPasswordConfirm(model);
 				if (result.Message == "Success")
 				{
-					TempData["Error"] = "Your password changed successfully.";
+					TempData["success"] = "Your password changed successfully.";
 					return RedirectToAction("Index", "Authenticate");
 				}
 				else
 				{
-					TempData["Error"] = "Your password update aborted.";
+					TempData["error"] = "Your password update aborted.";
 					return NotFound();
 				}
 			}
