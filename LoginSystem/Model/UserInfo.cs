@@ -18,10 +18,13 @@ namespace LoginSystem.Model
         public DateTime? ExpirationDate { get; set; }
 
         public byte[]? ImageFile { get; set; }
+        public bool IsForcePasswordReset { get; set; }
 
         public ICollection<Role> Roles { get; set; }   
         
         public ICollection<UserRole> UserRoles { get; set; }    
+
+
 
     }
 }

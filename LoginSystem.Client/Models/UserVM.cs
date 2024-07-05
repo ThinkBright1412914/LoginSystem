@@ -24,6 +24,9 @@ namespace LoginSystem.Client.Models
         public string? ImageData { get; set; }
 
         public string? Role { get; set; }
-   
+
+        public bool isForcePswdReset { get; set; }
+
+
     }
 }

@@ -38,45 +38,61 @@ namespace LoginSystem.Idenitity
 				{
 					if (user.IsActive)
 					{
-						string imgData = user.ImageFile != null ? Convert.ToBase64String(user.ImageFile) : string.Empty;
-                        var userRole = _context.UserRoles.Include(x => x.Roles).FirstOrDefault(x => x.UserId == user.UserId).Roles.RoleName;
-						var claims = new List<Claim>
-		                            {
-			                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-			                            new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
-			                            new Claim("UserId", user.UserId.ToString()),
-			                            new Claim("UserName", user.UserName),
-			                            new Claim("Email", user.Email),
-                                        new Claim(ClaimTypes.Role, userRole)
-		                            };
-
-						var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-						var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-						var token = new JwtSecurityToken(
-							_configuration["Jwt:Issuer"],
-							_configuration["Jwt:Audience"],
-							claims,
-							expires: DateTime.Now.AddDays(7),
-							signingCredentials: signIn);
-
-						string tokenHandler = new JwtSecurityTokenHandler().WriteToken(token);
-
-						response.Token = tokenHandler;
-                        UserDataVM userDataVM = new UserDataVM()
+                        if (!user.IsForcePasswordReset)
                         {
-                            UserId = user.UserId,
-                            Email = user.Email,
-                            ExpirationDate = user.ExpirationDate,
-                            ActivationCode = user.ActivationCode,
-                            Password = user.Password,
-                            IsActive = user.IsActive,
-                            UserName = user.UserName,
-                            Message = "Success",
-                            ImageData = imgData
-                        };
-						response.User = userDataVM;
-						response.Message = "Success";
-						return response;
+                            string imgData = user.ImageFile != null ? Convert.ToBase64String(user.ImageFile) : string.Empty;
+                            var userRole = _context.UserRoles.Include(x => x.Roles).FirstOrDefault(x => x.UserId == user.UserId).Roles.RoleName;
+                            var claims = new List<Claim>
+                                    {
+                                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
+                                        new Claim("UserId", user.UserId.ToString()),
+                                        new Claim("UserName", user.UserName),
+                                        new Claim("Email", user.Email),
+                                        new Claim(ClaimTypes.Role, userRole)
+                                    };
+
+                            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+                            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                            var token = new JwtSecurityToken(
+                                _configuration["Jwt:Issuer"],
+                                _configuration["Jwt:Audience"],
+                                claims,
+                                expires: DateTime.Now.AddDays(7),
+                                signingCredentials: signIn);
+
+                            string tokenHandler = new JwtSecurityTokenHandler().WriteToken(token);
+
+                            response.Token = tokenHandler;
+                            UserDataVM userDataVM = new UserDataVM()
+                            {
+                                UserId = user.UserId,
+                                Email = user.Email,
+                                ExpirationDate = user.ExpirationDate,
+                                ActivationCode = user.ActivationCode,
+                                Password = user.Password,
+                                IsActive = user.IsActive,
+                                UserName = user.UserName,
+                                Message = "Success",
+                                ImageData = imgData
+                            };
+                            response.User = userDataVM;
+                            response.Message = "Success";
+                            return response;
+                        }
+                        else
+                        {
+                            UserDataVM userDataVM = new UserDataVM()
+                            {
+                                UserId = user.UserId,
+                                isForcePswdReset = user.IsForcePasswordReset,
+                                Email = user.Email,
+                                Password = user.Password,
+                            };
+                            response.User = userDataVM;
+                            response.Message = "Force password reset.";
+                            return response;
+                        }						
 					}
 					else
 					{
