@@ -39,8 +39,12 @@ namespace LoginSystem.Client.Controllers
 			{
 				if (ModelState.IsValid)
 				{
-
 					var response = await _authService.Login(model);
+					if (response.User.isForcePswdReset)
+					{
+						_sessionService.SetUserSession(response.User);
+						return RedirectToAction("ForcePasswordReset");
+					}
 					if (response.Token != null && response.User != null && response.Message == "Success")
 					{
 						_sessionService.SetUserSession(response.User);
@@ -275,8 +279,66 @@ namespace LoginSystem.Client.Controllers
 			
 		}
 
+        public async Task<IActionResult> ForcePasswordReset()
+        {
+			var currentUserInfo = _sessionService.GetUserSession();
+			ResetPaswordVM model = new()
+			{
+				Id = currentUserInfo.UserId
+			};
+			return View(model);
+        }
 
-		private IList<Claim> ParseClaims(JwtSecurityToken tokenContent)
+
+        [HttpPost]
+        public async Task<IActionResult> ForcePasswordReset(ResetPaswordVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentUserInfo = _sessionService.GetUserSession();
+                model.CurrentPassword = EncryptProvider.Base64Encrypt(model.CurrentPassword);
+                model.Password = EncryptProvider.Base64Encrypt(model.Password);
+                if (currentUserInfo != null)
+                {
+                    if (currentUserInfo.Password != model.CurrentPassword)
+                    {
+                        TempData["error"] = "Your current password do not match.";
+                        return View();
+                    }
+					else if(currentUserInfo.Password == model.Password)
+					{
+                        TempData["error"] = "Please do not enter the same password. Try different this time.";
+                        return View();
+                    }
+                    else
+                    {
+                        currentUserInfo.Password = model.Password;
+                        var resetPassword = _authService.ResetPassword(currentUserInfo);
+                        if (resetPassword.Result != null)
+                        {
+                            TempData["success"] = "Password sucessfully updated";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            TempData["error"] = "Password update aborted.";
+                            return View();
+                        }
+                    }
+
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        private IList<Claim> ParseClaims(JwtSecurityToken tokenContent)
 		{
 			var claims = tokenContent.Claims.ToList();
 			return claims;

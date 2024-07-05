@@ -18,6 +18,8 @@
 
         public string? ImageData { get;set; }
 
+        public bool isForcePswdReset { get; set; }
+
         public string? Role { get; set; }
     }
 }
