@@ -113,8 +113,11 @@ namespace LoginSystem.Idenitity
 				var currentUser = _context.UserInfos.FirstOrDefault(x => x.UserId == request.UserId);
 				if (currentUser != null)
 				{
-                    var imgData = new Converter().ConvertBase64ToByteArray(request.ImageData);
-                    currentUser.ImageFile = imgData;
+                    if(request.ImageData != null)
+                    {
+                        var imgData = new Converter().ConvertBase64ToByteArray(request.ImageData);
+                        currentUser.ImageFile = imgData;
+                    }                                    
                     currentUser.UserName = request.UserName;
                     currentUser.Email = request.Email;                   
 					_context.UserInfos.Update(currentUser);
