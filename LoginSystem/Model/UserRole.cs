@@ -1,6 +1,4 @@
-﻿using Org.BouncyCastle.Bcpg;
-using Org.BouncyCastle.Bcpg.OpenPgp;
-
+﻿
 namespace LoginSystem.Model
 {
 	public class UserRole

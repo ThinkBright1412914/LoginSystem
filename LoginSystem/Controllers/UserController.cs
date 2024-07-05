@@ -3,8 +3,6 @@ using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-
-
 namespace LoginSystem.Controllers
 {
     [Route("api/[controller]")]

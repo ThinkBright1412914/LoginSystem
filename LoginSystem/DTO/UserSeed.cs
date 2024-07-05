@@ -1,7 +1,6 @@
 ﻿using LoginSystem.Model;
 using LoginSystem.Utility;
 using NETCore.Encrypt;
-using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace LoginSystem.DTO
 {

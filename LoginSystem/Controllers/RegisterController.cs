@@ -1,14 +1,8 @@
-﻿
-using LoginSystem.DTO;
-using LoginSystem.Idenitity.Services;
+﻿using LoginSystem.Idenitity.Services;
 using LoginSystem.Model;
-using LoginSystem.Utility;
 using LoginSystem.ViewModel;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using NETCore.Encrypt;
-using System.Net;
+
 
 
 namespace LoginSystem.Controllers
