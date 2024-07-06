@@ -36,6 +36,7 @@ namespace LoginSystem.Idenitity
                     IsActive = item.IsActive,
                     ImageData = item.ImageFile != null ? Convert.ToBase64String(item.ImageFile) : null,
                     Role = item.UserRoles.FirstOrDefault().Roles.RoleName,
+                    isForcePswdReset = item.IsForcePasswordReset,
                 };
                 user.Add(userVM);
             }
@@ -162,6 +163,8 @@ namespace LoginSystem.Idenitity
                     userRole.UserId = user.UserId;
                     userRole.RoleId = new Guid(UserConstant.UserRole);
                 }
+
+                user.IsForcePasswordReset = request.isForcePswdReset;
 
                 response.Message = "Updated Successfully";
                 _context.UserRoles.Add(userRole);
