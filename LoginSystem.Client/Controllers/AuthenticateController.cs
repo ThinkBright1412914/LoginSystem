@@ -313,10 +313,10 @@ namespace LoginSystem.Client.Controllers
                     else
                     {
                         currentUserInfo.Password = model.Password;
-                        var resetPassword = _authService.ResetPassword(currentUserInfo);
-                        if (resetPassword.Result != null)
+                        var resetPassword = await _authService.ForcePasswordReset(currentUserInfo);
+                        if (resetPassword != null)
                         {
-                            TempData["success"] = "Password sucessfully updated";
+                            TempData["success"] = resetPassword.Message;
                             return RedirectToAction("Index");
                         }
                         else

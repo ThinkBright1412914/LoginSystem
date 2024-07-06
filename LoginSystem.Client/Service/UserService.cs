@@ -70,6 +70,13 @@ namespace LoginSystem.Client.Service
             return response;
         }
 
+        public async Task<UserVM> ForcePasswordReset(UserVM model)
+        {
+            string json = JsonConvert.SerializeObject(model);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            var (status, response) = await _httpService.PutAsync<UserVM>(ApiUri.ForcePasswordReset, content);
+            return response;
+        }
 
 
         // Admin Section

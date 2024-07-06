@@ -44,8 +44,19 @@ namespace LoginSystem.Controllers
             return NotFound("Reset Password failed.");
         }
 
+        [HttpPut("ForcePasswordReset")]
+        public async Task<IActionResult> ForcePasswordReset(UserDataVM model)
+        {
 
-		[HttpPut("ForgotPassword")]
+            var response = await _userService.ForcePasswordReset(model);
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            return NotFound("Reset Password failed.");
+        }
+
+        [HttpPut("ForgotPassword")]
 		public async Task<IActionResult> ForgotPassword(ForgotPasswordDto model)
 		{
             var response = _userService.ForgotPassword(model);

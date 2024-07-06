@@ -11,5 +11,7 @@ namespace LoginSystem.Idenitity.Services
         bool ForgotPasswordConfirm(ForgotPasswordConfirmDto request);
 
 		Task<UserDataVM> EditUser(UserDataVM request); 
+
+        Task<UserDataVM> ForcePasswordReset(UserDataVM request);
 	}
 }

@@ -19,6 +19,8 @@ namespace LoginSystem.Utility
 
         public const string ResetPassword = ApiVerion + "Login/ResetPassword";
 
+        public const string ForcePasswordReset = ApiVerion + "Login/ForcePasswordReset";
+
         public const string ForgotPassword = ApiVerion + "Login/ForgotPassword";
 
         public const string ForgotPasswordConfirm = ApiVerion + "Login/ForgotPasswordConfirm";

@@ -82,6 +82,35 @@ namespace LoginSystem.Idenitity
             }
         }
 
+        public async Task<UserDataVM> ForcePasswordReset(UserDataVM request)
+        {
+            try
+            {
+                var result = _context.UserInfos.FirstOrDefault(x => x.UserId == request.UserId);
+                if (result != null)
+                {
+                    result.Password = request.Password;
+                    result.IsForcePasswordReset = false;
+                    _context.UserInfos.Update(result);
+                    _context.SaveChanges();
+
+                    UserDataVM response = new()
+                    {
+                        Message = "Password sucessfully updated"
+                    };
+                    return response;
+                }
+                else
+                {
+                    throw new Exception("Current user not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         bool IUserServive.ForgotPasswordConfirm(ForgotPasswordConfirmDto request)
         {
             try
