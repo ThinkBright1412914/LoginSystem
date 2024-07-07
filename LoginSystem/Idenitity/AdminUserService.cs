@@ -61,6 +61,7 @@ namespace LoginSystem.Idenitity
                     response.Role = userRole;
                     response.Email = result.Email;
                     response.ImageData = result.ImageFile != null ? Convert.ToBase64String(result.ImageFile) : "";
+                    response.isForcePswdReset = result.IsForcePasswordReset;
                 }
             }
             catch (Exception e)
@@ -134,50 +135,52 @@ namespace LoginSystem.Idenitity
             return response;
         }
 
-        public async Task<UserDataVM> UpdateUser(UserDataVM request)
-        {
-            UserDataVM response = new();
+		public async Task<UserDataVM> UpdateUser(UserDataVM request)
+		{
+			UserDataVM response = new();
 
-            try
-            {
-                var user = _context.UserInfos
-                                          .Include(x => x.UserRoles)
-                                          .ThenInclude(x => x.Roles)
-                                          .FirstOrDefault(x => x.UserId == request.UserId);
+			try
+			{
+				var user = await _context.UserInfos
+										 .Include(x => x.UserRoles)
+										 .FirstOrDefaultAsync(x => x.UserId == request.UserId);
 
-                var role = _context.UserRoles.FirstOrDefault(x => x.UserId == request.UserId);
+				if (user == null)
+				{
+					response.Message = "User not found";
+					return response;
+				}
 
-                if (role != null)
-                {
-                    user.UserRoles.Remove(role);
-                }
+				var existingUserRole = user.UserRoles.FirstOrDefault();
+				if (existingUserRole != null)
+				{
+					_context.UserRoles.Remove(existingUserRole);
+				}
 
-                UserRole userRole = new();
-                if (request.Role == "Admin")
-                {
-                    userRole.UserId = user.UserId;
-                    userRole.RoleId = new Guid(UserConstant.AdminRole);
-                }
-                else
-                {
-                    userRole.UserId = user.UserId;
-                    userRole.RoleId = new Guid(UserConstant.UserRole);
-                }
+				UserRole newUserRole = new UserRole
+				{
+					UserId = user.UserId,
+					RoleId = request.Role == "Admin" ? new Guid(UserConstant.AdminRole) : new Guid(UserConstant.UserRole)
+				};
 
-                user.IsForcePasswordReset = request.isForcePswdReset;
+				user.UserRoles.Add(newUserRole);
+				user.IsForcePasswordReset = request.isForcePswdReset;
+                 _context.UserInfos.Update(user);
 
-                response.Message = "Updated Successfully";
-                _context.UserRoles.Add(userRole);
-                _context.SaveChanges();
-            }
-            catch (Exception e)
-            {
+				await _context.SaveChangesAsync();
+
+				response.Message = "Updated Successfully";
+			}
+			catch (Exception e)
+			{
                 throw;
-            }
-            return response;
-        }
+			}
 
-        public async Task<UserDataVM> DeleteUser(Guid Id)
+			return response;
+		}
+
+
+		public async Task<UserDataVM> DeleteUser(Guid Id)
         {
             UserDataVM response = new();
             try
