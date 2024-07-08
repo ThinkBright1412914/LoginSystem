@@ -35,7 +35,7 @@ namespace LoginSystem.Idenitity
                     Email = item.Email,
                     IsActive = item.IsActive,
                     ImageData = item.ImageFile != null ? Convert.ToBase64String(item.ImageFile) : null,
-                    Role = item.UserRoles.FirstOrDefault().Roles.RoleName,
+                    Role = item.UserRoles?.FirstOrDefault()?.Roles.RoleName,
                     isForcePswdReset = item.IsForcePasswordReset,
                 };
                 user.Add(userVM);
@@ -52,7 +52,8 @@ namespace LoginSystem.Idenitity
                             .Include(x => x.UserRoles)
                             .FirstOrDefault(x => x.UserId == Id);
 
-                var userRole = _context.UserRoles.Include(x => x.Roles).FirstOrDefault(x => x.UserId == Id)?.Roles.RoleName;
+                var userRole = _context.UserRoles.Include(x => x.Roles)
+                                                 .FirstOrDefault(x => x.UserId == Id)?.Roles.RoleName;
 
                 if (result != null)
                 {
