@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Newtonsoft.Json;
 using System.Net;
 
 namespace LoginSystem.Client.Service
@@ -14,19 +16,11 @@ namespace LoginSystem.Client.Service
             _httpClient = httpClient;
             _session = session;
             _contextAccessor = contextAccessor;
-        }
-
-        private string baseUrl()
-        {
-            var request = _contextAccessor.HttpContext?.Request;
-            var getUrl = request?.Path.Value;
-            return getUrl;
-        }      
+        }    
 
         public async Task<(HttpStatusCode statusCode, T responseType)> GetAsync<T>(string requestUri)
         {
-            var client = _httpClient.CreateClient("LoginApi");
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _session.GetToken());
+            var client = CreateHttpClient();
             var response = await client.GetAsync(requestUri);
             var responseString = await response.Content.ReadAsStringAsync();
             var responseObj = JsonConvert.DeserializeObject<T>(responseString);
@@ -35,40 +29,37 @@ namespace LoginSystem.Client.Service
 
         public async Task<(HttpStatusCode statusCode, T responseType)> PostAsync<T>(string requestUri, HttpContent content)
         {
-            var client = _httpClient.CreateClient("LoginApi");
-            if (baseUrl() == "/AdminUser/Create")
-            {
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _session.GetToken());
-            }
+            var client = CreateHttpClient();
             var response = await client.PostAsync(requestUri, content);
             var responseString = await response.Content.ReadAsStringAsync();
             var responseObj = JsonConvert.DeserializeObject<T>(responseString);
-
             return (response.StatusCode, responseObj);
         }
 
         public async Task<(HttpStatusCode statusCode, T responseType)> PutAsync<T>(string requestUri, HttpContent content)
         {
-            var client = _httpClient.CreateClient("LoginApi");
-            if (baseUrl() == "/AdminUser/UpdateUser")
-            {
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _session.GetToken());
-            }
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _session.GetToken());
+            var client = CreateHttpClient();
             var response = await client.PutAsync(requestUri, content);
             var responseString = await response.Content.ReadAsStringAsync();
             var responseObj = JsonConvert.DeserializeObject<T>(responseString);
-
             return (response.StatusCode, responseObj);
         }
         public async Task<(HttpStatusCode statusCode, T responseType)> DeleteAsync<T>(string requestUri)
         {
-            var client = _httpClient.CreateClient("LoginApi");
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _session.GetToken());
+            var client = CreateHttpClient();
             var response = await client.DeleteAsync(requestUri);
             var responseString = await response.Content.ReadAsStringAsync();
             var responseObj = JsonConvert.DeserializeObject<T>(responseString);
             return (response.StatusCode, responseObj);
+        }
+
+        private HttpClient CreateHttpClient()
+        {
+            var client = _httpClient.CreateClient("LoginApi");
+            var accessToken = _session.GetToken();
+            if (!string.IsNullOrWhiteSpace(accessToken))
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+            return client;
         }
     }
 }
