@@ -102,7 +102,7 @@ namespace LoginSystem.Idenitity
                             (
                                 user.Email,
                                 "Activate Code",
-                                $"Dear User,<br/><br/>" +
+                                $"Dear User,<br/>" +
                                 $"Your activation code is: {code}. It will expire in 5 minutes."
                             );
 
@@ -184,7 +184,7 @@ namespace LoginSystem.Idenitity
                             (
                                 model.Email,
                                 "Activate Code",
-                                $"Dear User,<br/><br/>" +
+                                $"Dear User,<br/>" +
                                 $"Your activation code is: {code}. It will expire in 5 minutes."
                             );
 
@@ -254,7 +254,11 @@ namespace LoginSystem.Idenitity
 
         private async Task<UserInfo> GetUser(string email, string Password)
         {
-            return await _context.UserInfos.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower() || u.UserName.ToLower() == email.ToLower() && u.Password == Password);
+            return await _context?.UserInfos?.FirstOrDefaultAsync(
+                        u => 
+                            u.Email.ToLower() == email.ToLower() || 
+                            u.UserName.ToLower() == email.ToLower() && 
+                            u.Password == Password);
         }
     }
 }
