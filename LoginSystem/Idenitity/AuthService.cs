@@ -41,7 +41,9 @@ namespace LoginSystem.Idenitity
                         if (!user.IsForcePasswordReset)
                         {
                             string imgData = user.ImageFile != null ? Convert.ToBase64String(user.ImageFile) : string.Empty;
-                            var userRole = _context.UserRoles.Include(x => x.Roles).FirstOrDefault(x => x.UserId == user.UserId).Roles.RoleName;
+                            var userRole = _context.UserRoles?
+                                                    .Include(x => x.Roles)?
+                                                    .FirstOrDefault(x => x.UserId == user.UserId)?.Roles.RoleName;
                             var claims = new List<Claim>
                                     {
                                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
