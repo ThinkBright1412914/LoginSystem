@@ -18,7 +18,7 @@ namespace LoginSystem.Controllers
         }
 
         [HttpGet("GetRoles")]
-        public async Task<IActionResult> GetRole()
+        public async Task<IActionResult> GetRoles()
         {
             var response = await _role.GetRolesAsync();
             if (response != null)
@@ -30,7 +30,7 @@ namespace LoginSystem.Controllers
 
 
         [HttpPost("CreateRole")]
-        public async Task<IActionResult> CreateUser(RoleDTO request)
+        public async Task<IActionResult> CreateRole(RoleDTO request)
         {
             var response = await _role.CreateRoleAsync(request);
             if (response != null)
@@ -41,7 +41,7 @@ namespace LoginSystem.Controllers
         }
 
         [HttpDelete("DeleteRole")]
-        public async Task<IActionResult> DeleteUser(Guid Id)
+        public async Task<IActionResult> DeleteRole(Guid Id)
         {
             var response = await _role.DeleteRoleAsync(Id);
             if (response != null)

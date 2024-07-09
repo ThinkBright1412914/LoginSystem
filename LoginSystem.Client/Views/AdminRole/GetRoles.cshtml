@@ -1,0 +1,39 @@
+﻿@model IEnumerable<LoginSystem.Client.Models.RoleVM>
+<div class="container mt-5">
+	<p class="d-flex justify-content-end">
+		<button class="btn btn-primary rounded-0" id="create-role">Create Role</button>
+	</p>
+	<h4>Role List</h4>
+	<br />
+	<table class="table table-striped table-bordered" id="tableInfo">
+		<thead class="thead-dark">
+			<tr>
+				<th>Role Id</th>
+				<th>Role Name</th>
+				<th>Action(s)</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.RoleId</td>
+					<td>@item.RoleName</td>
+					<td>
+						<a href="@Url.Action("Delete", "AdminUser", new { id = item.RoleId })" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i>Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+@section scripts {
+	<script>
+		$('#tableInfo').dataTable({
+			lengthMenu: [5, 10, 15],
+			displayStart: 3,
+		});
+	</script>
+}

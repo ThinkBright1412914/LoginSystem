@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Asn1.Mozilla;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,5 +37,11 @@ namespace LoginSystem.Utility
         public const string DeleteUser = ApiVerion + "User/DeleteUser";
 
         public const string GetUserById = ApiVerion + "User/GetUserById";
+
+        public const string CreateRole = ApiVerion + "Role/CreateRole";
+
+        public const string GetRoles = ApiVerion + "Role/GetRoles";
+
+        public const string DeleteRole = ApiVerion + "Role/DeleteRole";
     }
 }
