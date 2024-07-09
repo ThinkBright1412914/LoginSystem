@@ -52,6 +52,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //Services
+builder.Services.AddScoped<IRoles, Roles>();
 builder.Services.AddScoped<IUserServive, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
