@@ -1,4 +1,5 @@
-﻿using LoginSystem.Client.Service.Interfaces;
+﻿using LoginSystem.Client.Models;
+using LoginSystem.Client.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -22,6 +23,40 @@ namespace LoginSystem.Client.Controllers
 			else
 			{
 				return NotFound();
+			}
+		}
+
+		public async Task<IActionResult> Create()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Create(RoleVM model)
+		{
+			if (ModelState.IsValid)
+			{
+				var response = await _role.CreateByAdminRole(model);
+				TempData["success"] = response.Message;
+				return RedirectToAction("GetRoles");
+			}
+			else
+			{
+				return View(model);
+			}
+		}
+
+		[HttpDelete]
+		public async Task<IActionResult> Delete(Guid roleId)
+		{
+			var response = await _role.DeleteByAdminRole(roleId);
+			if (response != null)
+			{
+				return Json(new { success = true});
+			}
+			else
+			{
+				return Json(new { success = false });
 			}
 		}
 

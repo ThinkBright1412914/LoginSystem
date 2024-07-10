@@ -6,6 +6,6 @@ namespace LoginSystem.Client.Service.Interfaces
 	{
 		Task<List<RoleVM>> GetRoles();
 		Task<RoleVM> CreateByAdminRole(RoleVM model);
-		Task<RoleVM> DeleteByAdminRole(RoleVM model);
+		Task<RoleVM> DeleteByAdminRole(Guid Id);
 	}
 }

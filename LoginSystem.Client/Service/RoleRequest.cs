@@ -29,9 +29,9 @@ namespace LoginSystem.Client.Service
 			return response;
 		}
 
-		public async Task<RoleVM> DeleteByAdminRole(RoleVM model)
+		public async Task<RoleVM> DeleteByAdminRole(Guid Id)
 		{
-			var (status, response) = await _httpService.DeleteAsync<RoleVM>(ApiUri.DeleteRole + "?Id=" + model.RoleId);
+			var (status, response) = await _httpService.DeleteAsync<RoleVM>(ApiUri.DeleteRole + "?Id=" + Id);
 			return response;
 		}
 	}

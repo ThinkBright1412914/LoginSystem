@@ -1,0 +1,23 @@
+﻿@model LoginSystem.Client.Models.RoleVM
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Create New Role</h5>
+                    <form method="post">
+                        <div class="form-group">
+                            <label>Role</label>
+                            <input type="text" class="form-control" asp-for="RoleName" onkeypress="return AvoidSpace(event)" />
+                            <span asp-validation-for="RoleName"></span>
+                        </div>                       
+                        <br />
+                        <button class="btn btn-primary rounded-0" type="submit">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
