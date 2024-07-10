@@ -1,0 +1,58 @@
+﻿@model IEnumerable<LoginSystem.Client.Models.RoleVM>
+
+<div class="container mt-5">
+	<p class="d-flex justify-content-end">
+		<a asp-action="Create" asp-controller="AdminRole" class="btn btn-primary rounded-0" id="create-role">Create Role</a>
+	</p>
+	<h4>Role List</h4>
+	<br />
+	<table class="table table-striped table-bordered" id="tableInfo">
+		<thead class="thead-dark">
+			<tr>
+				<th>Role Id</th>
+				<th>Role Name</th>
+				<th>Action(s)</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.RoleId</td>
+					<td>@item.RoleName</td>
+					<td>
+						<a class="btn btn-sm btn-danger deleteRole" id="@item.RoleId"><i class="fa-solid fa-trash"></i>Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+@section scripts {
+	<script>
+		$('#tableInfo').dataTable({
+			lengthMenu: [5, 10, 15],
+			displayStart: 3,
+		});
+
+		$(".deleteRole").click(function () {
+			var selectedRow = $(this);
+			var roleId = selectedRow.attr('id');
+			$.ajax({
+				url: '/AdminRole/Delete',
+				method: 'Delete',
+				data: { roleId },
+				success: function (result) {
+					if (result.success) {
+						selectedRow.closest('tr').remove();
+					} else {						
+						alert('Failed to delete role');
+					}
+				}
+			})
+		})
+
+	</script>
+}

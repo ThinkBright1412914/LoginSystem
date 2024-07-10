@@ -4,9 +4,6 @@ function AvoidSpace(event) {
     if (value === 32) return false;
 }
 
-
-
-
 $('#showPassword').click(function () {
     if ('password' == $('#Password').attr('type')) {
         $('#Password').prop('type', 'text');

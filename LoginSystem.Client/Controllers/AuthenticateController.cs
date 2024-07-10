@@ -39,21 +39,24 @@ namespace LoginSystem.Client.Controllers
 			{
 				if (ModelState.IsValid)
 				{
-					var response = await _authService.Login(model);
-					if (response.User.isForcePswdReset)
-					{
-						_sessionService.SetUserSession(response.User);
-						return RedirectToAction("ForcePasswordReset");
-					}
+					var response = await _authService.Login(model);					
 					if (response.Token != null && response.User != null && response.Message == "Success")
 					{
-						_sessionService.SetUserSession(response.User);
-						_sessionService.SetAuthenticationSession(response.Token);
-						var tokenContent = _tokenHandler.ReadJwtToken(response.Token);
-						var claims = ParseClaims(tokenContent);
-						var user = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme));
-						var login = _httpContextAccessor?.HttpContext?.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, user);
-						return RedirectToAction("Index", "Home");
+						if (response.User.isForcePswdReset)
+						{
+							_sessionService.SetUserSession(response.User);
+							return RedirectToAction("ForcePasswordReset");
+						}
+						else
+						{
+							_sessionService.SetUserSession(response.User);
+							_sessionService.SetAuthenticationSession(response.Token);
+							var tokenContent = _tokenHandler.ReadJwtToken(response.Token);
+							var claims = ParseClaims(tokenContent);
+							var user = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme));
+							var login = _httpContextAccessor?.HttpContext?.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, user);
+							return RedirectToAction("Index", "Home");
+						}						
 					}
 					else if(response.User != null && response.Message == "Inactive")
 					{

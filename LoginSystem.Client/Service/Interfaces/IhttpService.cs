@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace LoginSystem.Client.Service
+namespace LoginSystem.Client.Service.Interfaces
 {
     public interface IhttpService
     {

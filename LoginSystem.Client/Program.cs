@@ -2,12 +2,14 @@
 
 using LoginSystem.Client.Middleware;
 using LoginSystem.Client.Service;
+using LoginSystem.Client.Service.Interfaces;
 using LoginSystem.Client.ViewComponents;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<IRoleRequest, RoleRequest>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<SessionService>();
 builder.Services.AddHttpContextAccessor();
