@@ -116,7 +116,7 @@ namespace LoginSystem.Idenitity
                         request.Email,
                         "Account Created",
                         $"Dear User,<br/>" +
-                        $"Your account has been successfully created at {createdDate.ToString("yyyy MMMM dd dddd hh:mm tt")}. Please change your password to activate the account by using the provided information on the link below.<br/><br/>" +
+                        $"Your account has been successfully created at {createdDate.ToString("yyyy MMMM dd dddd hh:mm tt")}. Please activate the account by using the provided information on the link below.<br/><br/>" +
                         $"Username: {request.UserName}<br/>" +
                         $"Password: {pswd}<br/><br/>"
                     );
