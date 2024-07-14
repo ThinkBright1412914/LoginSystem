@@ -1,6 +1,5 @@
 ﻿using LoginSystem.DTO;
 using LoginSystem.Idenitity.Services;
-using LoginSystem.Model;
 using LoginSystem.Utility;
 using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -10,6 +9,7 @@ using PdfSharpCore.Pdf;
 using PdfSharpCore;
 using TheArtOfDev.HtmlRenderer.PdfSharp;
 using Microsoft.AspNetCore.Mvc;
+using LoginSystem.Domain.Model;
 
 
 namespace LoginSystem.Idenitity

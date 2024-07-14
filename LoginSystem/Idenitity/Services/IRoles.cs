@@ -1,5 +1,4 @@
-﻿using LoginSystem.Model;
-using LoginSystem.ViewModel;
+﻿using LoginSystem.ViewModel;
 
 namespace LoginSystem.Idenitity.Services
 {

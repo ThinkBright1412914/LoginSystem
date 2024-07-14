@@ -1,5 +1,5 @@
 ﻿
-namespace LoginSystem.Model
+namespace LoginSystem.Domain.Model
 {
 	public class UserRole
 	{

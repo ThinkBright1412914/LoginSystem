@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LoginSystem.Domain\LoginSystem.Domain.csproj" />
     <ProjectReference Include="..\LoginSystem.Utility\LoginSystem.Utility.csproj" />
   </ItemGroup>
 

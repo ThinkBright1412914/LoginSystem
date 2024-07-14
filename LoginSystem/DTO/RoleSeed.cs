@@ -1,4 +1,6 @@
-﻿using LoginSystem.Model;
+﻿
+
+using LoginSystem.Domain.Model;
 
 namespace LoginSystem.DTO
 {

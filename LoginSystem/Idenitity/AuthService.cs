@@ -1,6 +1,6 @@
-﻿using LoginSystem.DTO;
+﻿using LoginSystem.Domain.Model;
+using LoginSystem.DTO;
 using LoginSystem.Idenitity.Services;
-using LoginSystem.Model;
 using LoginSystem.Utility;
 using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Identity.UI.Services;
