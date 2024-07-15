@@ -8,7 +8,7 @@ namespace LoginSystem.Domain.Model
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public string Image { get; set; }
+		public byte[]? Image { get; set; }
 		public DateTime ReleaseDate {get;set;}
 		public string Duration { get; set;}
 

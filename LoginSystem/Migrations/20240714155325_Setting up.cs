@@ -15,7 +15,7 @@ namespace LoginSystem.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Image = table.Column<byte>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,7 +68,7 @@ namespace LoginSystem.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<byte>(type: "varbinary(max)", nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Duration = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LanguageId = table.Column<int>(type: "int", nullable: false),

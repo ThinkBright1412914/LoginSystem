@@ -7,6 +7,6 @@ namespace LoginSystem.Domain.Model
 		[Key]
 		public int Id { get; set; }
 
-		public string Image { get; set; }
+		public byte[]? Image { get; set; }
 	}
 }
