@@ -1,5 +1,3 @@
-
-
 using LoginSystem.Client.Middleware;
 using LoginSystem.Client.Service;
 using LoginSystem.Client.Service.Interfaces;
