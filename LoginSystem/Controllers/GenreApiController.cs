@@ -1,17 +1,16 @@
 ﻿using LoginSystem.Idenitity.Services;
 using LoginSystem.ViewModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoginSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenreController : ControllerBase
+    public class GenreApiController : ControllerBase
     {
         private readonly IGenre _genre;
 
-        public GenreController(IGenre genre)
+        public GenreApiController(IGenre genre)
         {
             _genre = genre;
         }
@@ -20,7 +19,7 @@ namespace LoginSystem.Controllers
         public async Task<IActionResult> GetGenres()
         {
             var response = await _genre.GetGenres();
-            if (response.Count() > 0)
+            if (response != null)
             {
                 return Ok(response);
             }

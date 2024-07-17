@@ -16,7 +16,7 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="light">
             <div class="container-fluid">
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">ShowTime</a>
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand text-light">ShowTime</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -33,6 +33,7 @@
                                     <a class="nav-link" asp-controller="AdminUser" asp-action="GetUsers">User</a>
                                     <a class="nav-link" asp-controller="AdminRole" asp-action="GetRoles">Role</a>
                                     <a class="nav-link" asp-controller="Carousel" asp-action="GetCarousels">Banner</a>
+                                    <a class="nav-link" asp-controller="Genre" asp-action="GetGenres">Genre</a>
                                 }
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Separated link</a>

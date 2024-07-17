@@ -55,10 +55,10 @@
 
         public const string DeleteLanguage = ApiVerion + "Language/DeleteLanguage";
 
-        public const string GetGenres = ApiVerion + "Genre/GetGenres";
+        public const string GetGenres = ApiVerion + "GenreApi/GetGenres";
 
-        public const string CreateGenre = ApiVerion + "Genre/CreateGenre";
+        public const string CreateGenre = ApiVerion + "GenreApi/CreateGenre";
 
-        public const string DeleteGenre = ApiVerion + "Genre/DeleteGenre";
+        public const string DeleteGenre = ApiVerion + "GenreApi/DeleteGenre";
     }
 }
