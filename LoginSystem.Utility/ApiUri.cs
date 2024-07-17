@@ -37,11 +37,11 @@
 
         public const string DeleteRole = ApiVerion + "Role/DeleteRole";
 
-        public const string GetCarousels = ApiVerion + "Carousel/GetCarousels";
+        public const string GetCarousels = ApiVerion + "CarouselApi/GetCarousels";
 
-        public const string CreateCarousel = ApiVerion + "Carousel/CreateCarousel";
+        public const string CreateCarousel = ApiVerion + "CarouselApi/CreateCarousel";
 
-        public const string DeleteCarousel = ApiVerion + "Carousel/DeleteCarousel";
+        public const string DeleteCarousel = ApiVerion + "CarouselApi/DeleteCarousel";
 
         public const string GetIndustrys = ApiVerion + "Industry/GetIndustry";
 

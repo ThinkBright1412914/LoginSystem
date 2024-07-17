@@ -1,6 +1,6 @@
-﻿using LoginSystem.Client.Models;
-using LoginSystem.Client.Service.Interfaces;
+﻿using LoginSystem.Client.Service.Interfaces;
 using LoginSystem.Utility;
+using LoginSystem.ViewModel;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -15,23 +15,23 @@ namespace LoginSystem.Client.Service
 			_httpService = httpService;
 		}
 
-		public async Task<List<RoleVM>> GetRoles()
+		public async Task<List<RoleDTO>> GetRoles()
 		{
-			var (status, response) = await _httpService.GetAsync<List<RoleVM>>(ApiUri.GetRoles);
+			var (status, response) = await _httpService.GetAsync<List<RoleDTO>>(ApiUri.GetRoles);
 			return response;
 		}
 
-		public async Task<RoleVM> CreateByAdminRole(RoleVM model)
+		public async Task<RoleDTO> CreateByAdminRole(RoleDTO model)
 		{
 			string json = JsonConvert.SerializeObject(model);
 			StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-			var (status, response) = await _httpService.PostAsync<RoleVM>(ApiUri.CreateRole, content);
+			var (status, response) = await _httpService.PostAsync<RoleDTO>(ApiUri.CreateRole, content);
 			return response;
 		}
 
-		public async Task<RoleVM> DeleteByAdminRole(Guid Id)
+		public async Task<RoleDTO> DeleteByAdminRole(Guid Id)
 		{
-			var (status, response) = await _httpService.DeleteAsync<RoleVM>(ApiUri.DeleteRole + "?Id=" + Id);
+			var (status, response) = await _httpService.DeleteAsync<RoleDTO>(ApiUri.DeleteRole + "?Id=" + Id);
 			return response;
 		}
 	}

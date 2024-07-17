@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - LoginSystem.Client</title>
+    <title>MovieMax</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <link rel="stylesheet" href="~/css/Bootswatchtheme.css" asp-append-version="true" />
@@ -12,11 +12,11 @@
     <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
 </head>
-<body class="bg-black">
+<body>
     <header>
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Client View</a>
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand">ShowTime</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -32,6 +32,7 @@
                                 {
                                     <a class="nav-link" asp-controller="AdminUser" asp-action="GetUsers">User</a>
                                     <a class="nav-link" asp-controller="AdminRole" asp-action="GetRoles">Role</a>
+                                    <a class="nav-link" asp-controller="Carousel" asp-action="GetCarousels">Banner</a>
                                 }
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Separated link</a>
@@ -62,73 +63,9 @@
         </nav>
     </header>
 
-    <section class="home" id="home">
-
-    <div class="swiper home-slider">
-
-        <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-                <div class="box " style="background: url(img/home-img-1.jpeg) no-repeat;">
-                    <div class="content">
-                        <h3>Kakegurui</h3>
-                        <p>High roller Yumeko Jabami plans to clean house at Hyakkaou Private<br>
-                        Academy, a school where students are evaluated solely on their<br>
-                        gambling skills.</p>
-                        <a href="#" class="btn">Download</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="box second" style="background: url(img/home-img-3.jpeg) no-repeat;">
-                    <div class="content">
-                        <h3>DEATH NOTE</h3>
-                         <p>When a Japanese high schooler comes into possession of a mystical<br>
-                        notebook, he finds he has the power to kill anybody whose name he<br>
-                        enters in it.</p>
-                        <a href="#" class="btn">Download</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="box " style="background: url(img/home-img-4.jpeg) no-repeat;">
-                    <div class="content">
-                        <h3>One-Punch Man</h3>
-                         <p>The most powerful superhero in the world can kill anyone with one<br>
-                        blow. But nothing can challenge him, so he struggles with ennui and<br>
-                        depression</p>
-                        <a href="#" class="btn">Download</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="box " style="background: url(img/home-img-2.jpeg) no-repeat;">
-                    <div class="content">
-                        <h3>Naruto</h3>
-                        <p>Guided by the spirit demon within him, orphaned Naruto learns<br>
-                        to harness his powers as a ninja in this anime adventure series.</p>
-                        <a href="#" class="btn">Download</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
- 
-    <div class="container">
-        <main role="main" class="pb-3">
-            <partial name="_Notifications" />
-            @RenderBody()
-        </main>
+    <div class="container-fluid">
+        <partial name="_Notifications" />
+        @RenderBody()
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

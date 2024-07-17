@@ -6,11 +6,11 @@ namespace LoginSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarouselController : ControllerBase
+    public class CarouselApiController : ControllerBase
     {
         private readonly ICarousel _carousel;
 
-        public CarouselController(ICarousel carousel)
+        public CarouselApiController(ICarousel carousel)
         {
             _carousel = carousel;
         }
@@ -19,11 +19,11 @@ namespace LoginSystem.Controllers
         public async Task<IActionResult> GetCarousels()
         {
             var response = await _carousel.GetCarousels();
-            if (response.Count() > 0)
+            if (response != null)
             {
                 return Ok(response);
             }
-            return BadRequest();
+            return NotFound();
         }
 
         [HttpPost("CreateCarousel")]

@@ -1,6 +1,33 @@
-﻿
+﻿@model IEnumerable<LoginSystem.ViewModel.CarouselDto>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LandingPage.cshtml";
 }
+
+<div class="container-fluid h-75 ">
+    <div class="home" id="home">
+
+        <div class="swiper home-slider">
+
+            <div class="swiper-wrapper">
+                @foreach (var item in Model)
+                {
+                    <div class="swiper-slide">
+                        <div class="box" style="background:url('data:image/png;base64,@item.Image')  no-repeat;">
+                            <div class="content">
+                                <a href="#" class="btn">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
 

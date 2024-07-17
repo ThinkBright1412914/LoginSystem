@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<IRoleRequest, RoleRequest>();
+builder.Services.AddScoped<ICarouselRequest, CarouselRequest>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<SessionService>();
 builder.Services.AddHttpContextAccessor();
