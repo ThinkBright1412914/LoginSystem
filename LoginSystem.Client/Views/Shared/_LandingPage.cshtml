@@ -1,16 +1,16 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MovieMax</title>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="~/css/Bootswatchtheme.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/LoginSystem.Client.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>MovieMax</title>
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+	<link rel="stylesheet" href="~/css/Bootswatchtheme.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/LoginSystem.Client.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+	<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+	<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
 	<header>
@@ -23,7 +23,7 @@
 				<div class="collapse navbar-collapse" id="navbarColor03">
 					<ul class="navbar-nav me-auto">
 						<li class="nav-item">
-						
+
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menus</a>
@@ -32,6 +32,8 @@
 								{
 									<a class="nav-link" asp-controller="AdminUser" asp-action="GetUsers">User</a>
 									<a class="nav-link" asp-controller="AdminRole" asp-action="GetRoles">Role</a>
+									<a class="nav-link" asp-controller="Carousel" asp-action="GetCarousels">Carousel</a>
+									<a class="nav-link" asp-controller="Genre" asp-action="GetGenres">Genre</a>
 								}
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#">Separated link</a>
@@ -74,3 +76,5 @@
 	<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
 	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
