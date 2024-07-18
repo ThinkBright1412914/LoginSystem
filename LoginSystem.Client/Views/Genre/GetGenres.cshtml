@@ -3,11 +3,8 @@
 
 <div class="container mt-5">
 	<p class="d-flex justify-content-end">
-<<<<<<< HEAD
-		<a class="btn btn-primary rounded-0" id="addGenre" >Create Genre</a>
-=======
 		<a class="btn btn-primary rounded-0" data-toggle="modal" data-target="#addGenre">Create Genre</a>
->>>>>>> b67e3c5be41de18a484715995e6d839a63a11776
+		<a class="btn btn-primary rounded-0" id="addGenre" >Create Genre</a>
 	</p>
 	<h4>Genre List</h4>
 	<br />
@@ -34,36 +31,9 @@
 	</table>
 </div>
 
-<<<<<<< HEAD
-<div class="modal fade" id="genreModal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="text-info modal-title">Add Genre</h5>
-			</div>
-			<div class="modal-body">
-				<form method="post">
-					<div class="form-group">
-						<label>Genre</label>
-						<input type="text" class="form-control" id="genre" autocomplete="off"/>
-					</div>					
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-primary" id="saveGenre">Save</button>
-				<button class="btn btn-danger btn-default" onclick="btnModalClose()" data-dismiss="modal">Close</button>			
-			</div>
-		</div>
-	</div>
-</div>
 
 @section scripts {
 	<script src="~/js/site.js"></script>
-=======
-@await Html.PartialAsync("_CreateGenrePartial" , new GenreDto())
-
-@section scripts {
->>>>>>> b67e3c5be41de18a484715995e6d839a63a11776
 	<script>
 		$('#tableInfo').dataTable({
 			lengthMenu: [5, 10, 15],
