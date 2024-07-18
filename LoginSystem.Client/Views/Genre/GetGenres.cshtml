@@ -4,6 +4,7 @@
 <div class="container mt-5">
 	<p class="d-flex justify-content-end">
 		<a class="btn btn-primary rounded-0" data-toggle="modal" data-target="#addGenre">Create Genre</a>
+		<a class="btn btn-primary rounded-0" id="addGenre" >Create Genre</a>
 	</p>
 	<h4>Genre List</h4>
 	<br />
@@ -30,9 +31,9 @@
 	</table>
 </div>
 
-@await Html.PartialAsync("_CreateGenrePartial" , new GenreDto())
 
 @section scripts {
+	<script src="~/js/site.js"></script>
 	<script>
 		$('#tableInfo').dataTable({
 			lengthMenu: [5, 10, 15],

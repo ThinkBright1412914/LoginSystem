@@ -1,4 +1,15 @@
-﻿
+﻿$(document).ready(function () {
+    $('#addGenre').click(function () {
+        $('#genreModal').modal('show');
+    })
+})
+
+
+function btnModalClose() {
+    $('#genreModal').modal('hide');
+}
+
+
 function AvoidSpace(event) {
     var value = event ? event.which : window.event.keyCode;
     if (value === 32) return false;
