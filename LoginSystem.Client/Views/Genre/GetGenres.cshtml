@@ -1,0 +1,80 @@
+﻿@model IEnumerable<LoginSystem.ViewModel.GenreDto>
+
+
+<div class="container mt-5">
+	<p class="d-flex justify-content-end">
+		<a class="btn btn-primary rounded-0" id="addGenre" >Create Genre</a>
+	</p>
+	<h4>Genre List</h4>
+	<br />
+	<table class="table table-striped table-bordered" id="tableInfo">
+		<thead class="thead-white">
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Action(s)</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.Id</td>
+					<td>@item.Name</td>
+					<td>
+						<a class="btn btn-sm btn-danger deleteId" id="@item.Id"><i class="fa-solid fa-trash"></i>Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+<div class="modal fade" id="genreModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="text-info modal-title">Add Genre</h5>
+			</div>
+			<div class="modal-body">
+				<form method="post">
+					<div class="form-group">
+						<label>Genre</label>
+						<input type="text" class="form-control" id="genre" autocomplete="off"/>
+					</div>					
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" id="saveGenre">Save</button>
+				<button class="btn btn-danger btn-default" onclick="btnModalClose()" data-dismiss="modal">Close</button>			
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts {
+	<script src="~/js/site.js"></script>
+	<script>
+		$('#tableInfo').dataTable({
+			lengthMenu: [5, 10, 15],
+			displayStart: 3,
+		});
+
+		$(".deleteId").click(function () {
+			var selectedRow = $(this);
+			var Id = selectedRow.attr('id');
+			$.ajax({
+				url: '/Genre/Delete',
+				method: 'Delete',
+				data: { Id },
+				success: function (result) {
+					if (result.success) {
+						selectedRow.closest('tr').remove();
+					} else {
+						alert('Failed to delete');
+					}
+				}
+			})
+		})
+	</script>
+}
