@@ -3,7 +3,11 @@
 
 <div class="container mt-5">
 	<p class="d-flex justify-content-end">
+<<<<<<< HEAD
 		<a class="btn btn-primary rounded-0" id="addGenre" >Create Genre</a>
+=======
+		<a class="btn btn-primary rounded-0" data-toggle="modal" data-target="#addGenre">Create Genre</a>
+>>>>>>> b67e3c5be41de18a484715995e6d839a63a11776
 	</p>
 	<h4>Genre List</h4>
 	<br />
@@ -30,6 +34,7 @@
 	</table>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade" id="genreModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -54,6 +59,11 @@
 
 @section scripts {
 	<script src="~/js/site.js"></script>
+=======
+@await Html.PartialAsync("_CreateGenrePartial" , new GenreDto())
+
+@section scripts {
+>>>>>>> b67e3c5be41de18a484715995e6d839a63a11776
 	<script>
 		$('#tableInfo').dataTable({
 			lengthMenu: [5, 10, 15],

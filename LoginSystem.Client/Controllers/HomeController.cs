@@ -1,5 +1,6 @@
 ﻿using LoginSystem.Client.Models;
 using LoginSystem.Client.Service;
+using LoginSystem.Client.Service.Interfaces;
 using LoginSystem.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,20 +14,23 @@ namespace LoginSystem.Client.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly SessionService _sessionService;
         private readonly UserService _userService;
+        private readonly ICarouselRequest _carousel;
 
         public HomeController(ILogger<HomeController> logger, SessionService sessionService, 
-            UserService userService)
+            UserService userService, ICarouselRequest carousel)
         {
             _logger = logger;
             _sessionService = sessionService;
             _userService = userService;
+            _carousel = carousel;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View();
+                var response = await _carousel.GetAll();
+                return View(response);
             }
             else
             {

@@ -1,4 +1,4 @@
-﻿using LoginSystem.Model;
+﻿using LoginSystem.Domain.Model;
 using LoginSystem.Utility;
 using NETCore.Encrypt;
 

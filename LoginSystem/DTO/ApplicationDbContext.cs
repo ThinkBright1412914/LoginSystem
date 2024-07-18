@@ -1,4 +1,4 @@
-﻿using LoginSystem.Model;
+﻿using LoginSystem.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Abstractions;
 
@@ -14,6 +14,11 @@ namespace LoginSystem.DTO
         public DbSet<RegisterUser> RegisterUsers { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }  
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Carousel> Carousels { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<Industry> Industries { get; set; }
+        public DbSet<Movie> Movies { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

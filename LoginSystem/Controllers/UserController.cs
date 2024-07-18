@@ -2,12 +2,16 @@
 using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PdfSharpCore;
+using PdfSharpCore.Pdf;
+using TheArtOfDev.HtmlRenderer.PdfSharp;
+
 
 namespace LoginSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class UserController : ControllerBase
     {
         private readonly IAdminUserService _adminUserService;
@@ -74,5 +78,20 @@ namespace LoginSystem.Controllers
             return BadRequest();
         }
 
-    }
+
+		[HttpGet("GeneratePdf")]
+		public async Task<IActionResult> GeneratePdf(Guid id)
+		{
+			var userInfo = await _adminUserService.GetUserById(id);
+			if (userInfo != null)
+			{
+				var response = await _adminUserService.GeneratePDf(userInfo);
+				return response;
+			}
+			return NotFound(); 
+		}
+
+
+
+	}
 }

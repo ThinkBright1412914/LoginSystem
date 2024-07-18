@@ -1,5 +1,5 @@
-﻿using LoginSystem.Client.Models;
-using LoginSystem.Client.Service.Interfaces;
+﻿using LoginSystem.Client.Service.Interfaces;
+using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -32,7 +32,7 @@ namespace LoginSystem.Client.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Create(RoleVM model)
+		public async Task<IActionResult> Create(RoleDTO model)
 		{
 			if (ModelState.IsValid)
 			{

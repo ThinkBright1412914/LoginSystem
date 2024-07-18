@@ -1,4 +1,5 @@
 ﻿using LoginSystem.ViewModel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LoginSystem.Idenitity.Services
 {
@@ -9,5 +10,6 @@ namespace LoginSystem.Idenitity.Services
         Task<UserDataVM> CreateUser(UserDataVM request); 
         Task<UserDataVM> UpdateUser(UserDataVM request);
         Task<UserDataVM> DeleteUser(Guid id);
-    }
+        Task<FileContentResult> GeneratePDf(UserDataVM request);
+	}
 }

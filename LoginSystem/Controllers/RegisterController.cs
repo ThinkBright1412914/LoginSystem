@@ -1,5 +1,5 @@
-﻿using LoginSystem.Idenitity.Services;
-using LoginSystem.Model;
+﻿using LoginSystem.Domain.Model;
+using LoginSystem.Idenitity.Services;
 using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 

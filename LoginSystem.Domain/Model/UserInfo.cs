@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LoginSystem.Model
+namespace LoginSystem.Domain.Model
 {
     public class UserInfo
     {

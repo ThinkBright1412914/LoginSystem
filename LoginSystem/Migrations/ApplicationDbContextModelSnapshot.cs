@@ -22,7 +22,116 @@ namespace LoginSystem.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("LoginSystem.Model.RegisterUser", b =>
+            modelBuilder.Entity("LoginSystem.Domain.Model.Carousel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Carousels");
+                });
+
+            modelBuilder.Entity("LoginSystem.Domain.Model.Genre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genres");
+                });
+
+            modelBuilder.Entity("LoginSystem.Domain.Model.Industry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Industries");
+                });
+
+            modelBuilder.Entity("LoginSystem.Domain.Model.Language", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
+                });
+
+            modelBuilder.Entity("LoginSystem.Domain.Model.Movie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Duration")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("IndustryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ReleaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GenreId");
+
+                    b.HasIndex("IndustryId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("LoginSystem.Domain.Model.RegisterUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +158,7 @@ namespace LoginSystem.Migrations
                     b.ToTable("RegisterUsers");
                 });
 
-            modelBuilder.Entity("LoginSystem.Model.Role", b =>
+            modelBuilder.Entity("LoginSystem.Domain.Model.Role", b =>
                 {
                     b.Property<Guid>("RoleId")
                         .ValueGeneratedOnAdd()
@@ -76,7 +185,7 @@ namespace LoginSystem.Migrations
                         });
                 });
 
-            modelBuilder.Entity("LoginSystem.Model.UserInfo", b =>
+            modelBuilder.Entity("LoginSystem.Domain.Model.UserInfo", b =>
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
@@ -116,7 +225,7 @@ namespace LoginSystem.Migrations
                             UserId = new Guid("9d3a21ba-e76b-49e6-a24e-2cf9d1531994"),
                             ActivationCode = "678999",
                             Email = "nabinthekishor@gmail.com",
-                            ExpirationDate = new DateTime(2024, 7, 6, 16, 7, 36, 809, DateTimeKind.Local).AddTicks(6422),
+                            ExpirationDate = new DateTime(2024, 7, 16, 11, 1, 12, 531, DateTimeKind.Local).AddTicks(9549),
                             IsActive = true,
                             IsForcePasswordReset = false,
                             Password = "I0FkbWluMTIz",
@@ -124,7 +233,7 @@ namespace LoginSystem.Migrations
                         });
                 });
 
-            modelBuilder.Entity("LoginSystem.Model.UserRole", b =>
+            modelBuilder.Entity("LoginSystem.Domain.Model.UserRole", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -161,15 +270,42 @@ namespace LoginSystem.Migrations
                     b.ToTable("RoleUserInfo");
                 });
 
-            modelBuilder.Entity("LoginSystem.Model.UserRole", b =>
+            modelBuilder.Entity("LoginSystem.Domain.Model.Movie", b =>
                 {
-                    b.HasOne("LoginSystem.Model.Role", "Roles")
+                    b.HasOne("LoginSystem.Domain.Model.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LoginSystem.Domain.Model.Industry", "Industry")
+                        .WithMany()
+                        .HasForeignKey("IndustryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LoginSystem.Domain.Model.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Genre");
+
+                    b.Navigation("Industry");
+
+                    b.Navigation("Language");
+                });
+
+            modelBuilder.Entity("LoginSystem.Domain.Model.UserRole", b =>
+                {
+                    b.HasOne("LoginSystem.Domain.Model.Role", "Roles")
                         .WithMany("UsersRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LoginSystem.Model.UserInfo", "Users")
+                    b.HasOne("LoginSystem.Domain.Model.UserInfo", "Users")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -182,25 +318,25 @@ namespace LoginSystem.Migrations
 
             modelBuilder.Entity("RoleUserInfo", b =>
                 {
-                    b.HasOne("LoginSystem.Model.Role", null)
+                    b.HasOne("LoginSystem.Domain.Model.Role", null)
                         .WithMany()
                         .HasForeignKey("RolesRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LoginSystem.Model.UserInfo", null)
+                    b.HasOne("LoginSystem.Domain.Model.UserInfo", null)
                         .WithMany()
                         .HasForeignKey("UsersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LoginSystem.Model.Role", b =>
+            modelBuilder.Entity("LoginSystem.Domain.Model.Role", b =>
                 {
                     b.Navigation("UsersRoles");
                 });
 
-            modelBuilder.Entity("LoginSystem.Model.UserInfo", b =>
+            modelBuilder.Entity("LoginSystem.Domain.Model.UserInfo", b =>
                 {
                     b.Navigation("UserRoles");
                 });

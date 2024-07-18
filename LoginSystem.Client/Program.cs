@@ -1,5 +1,3 @@
-
-
 using LoginSystem.Client.Middleware;
 using LoginSystem.Client.Service;
 using LoginSystem.Client.Service.Interfaces;
@@ -9,7 +7,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<IGenreRequest, GenreRequest>();
 builder.Services.AddScoped<IRoleRequest, RoleRequest>();
+builder.Services.AddScoped<ICarouselRequest, CarouselRequest>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<SessionService>();
 builder.Services.AddHttpContextAccessor();

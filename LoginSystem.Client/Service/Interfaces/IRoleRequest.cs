@@ -1,11 +1,11 @@
-﻿using LoginSystem.Client.Models;
+﻿using LoginSystem.ViewModel;
 
 namespace LoginSystem.Client.Service.Interfaces
 {
 	public interface IRoleRequest
 	{
-		Task<List<RoleVM>> GetRoles();
-		Task<RoleVM> CreateByAdminRole(RoleVM model);
-		Task<RoleVM> DeleteByAdminRole(Guid Id);
+		Task<List<RoleDTO>> GetRoles();
+		Task<RoleDTO> CreateByAdminRole(RoleDTO model);
+		Task<RoleDTO> DeleteByAdminRole(Guid Id);
 	}
 }

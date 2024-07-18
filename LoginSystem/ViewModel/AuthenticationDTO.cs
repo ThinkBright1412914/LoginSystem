@@ -1,6 +1,4 @@
-﻿using LoginSystem.Model;
-
-namespace LoginSystem.ViewModel
+﻿namespace LoginSystem.ViewModel
 {
     public class AuthenticationDTO
     {
