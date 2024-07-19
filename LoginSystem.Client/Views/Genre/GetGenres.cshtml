@@ -3,7 +3,7 @@
 
 <div class="container mt-5">
 	<p class="d-flex justify-content-end">
-		<a class="btn btn-primary rounded-0" id="addGenre" >Create Genre</a>
+		<a class="btn btn-primary rounded-0" id="addGenre">Create Genre</a>
 	</p>
 	<h4>Genre List</h4>
 	<br />
@@ -37,12 +37,12 @@
 				<h5 class="text-info modal-title">Add Genre</h5>
 			</div>
 			<div class="modal-body">
-				<form method="post">
+				<form>
 					<div class="form-group">
 						<label>Genre</label>
-						<input type="text" class="form-control" id="genre" autocomplete="off" />
+						<input type="text" class="form-control" id="Name" autocomplete="off" />
 					</div>
-				</form>
+				</form>				
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-primary" id="saveGenre">Save</button>
@@ -57,7 +57,6 @@
 	<script>
 		$('#tableInfo').dataTable({
 			lengthMenu: [5, 10, 15],
-			displayStart: 3,
 		});
 
 		$(".deleteId").click(function () {

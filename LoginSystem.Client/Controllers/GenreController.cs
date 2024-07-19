@@ -26,18 +26,18 @@ namespace LoginSystem.Client.Controllers
             }
         }
 
-		public async Task<IActionResult> Create()
-		{
-            GenreDto model = new();
-			return PartialView("_CreateGenre",model);
-
-		}
-
 		[HttpPost]
-        public async Task<IActionResult> Create(GenreDto model)
-        {
-
-                return View();            
+        public async Task<IActionResult> Create(string name)
+		{
+            var response = await _genre.Create(new GenreDto { Name = name });
+			if (response != null)
+			{
+				return Json(new { message = response.Message,});
+			}
+			else
+			{
+				return Json(new { success = false });
+			}          
         }
 
         [HttpDelete]

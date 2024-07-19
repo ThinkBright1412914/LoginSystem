@@ -1,14 +1,36 @@
-﻿$(document).ready(function () {
-    $('#addGenre').click(function () {
-        $('#genreModal').modal('show');
-    })
-})
+﻿$('#addGenre').click(function () {
+    $('#genreModal').modal('show');
+});
 
+$('#saveGenre').off('click').on('click', function () {
+    var name = $('#Name').val().trim();
+    if (name === '') {
+        toastr.error('Please enter genre!');
+    } else {
+        $.ajax({
+            url: '/Genre/Create',
+            method: 'POST',
+            data: {name },
+            dataType: 'json',
+            success: function (result) {
+                if (result.message) {
+                    toastr.success(result.message);
+                    btnModalClose();
+                    location.reload();
+                } else {
+                    toastr.error('Failed to create genre');
+                }
+            },
+            error: function (xhr, status, error) {
+                toastr.error('An error occurred: ' + xhr.responseText);
+            }
+        });
+    }
+});
 
 function btnModalClose() {
     $('#genreModal').modal('hide');
 }
-
 
 function AvoidSpace(event) {
     var value = event ? event.which : window.event.keyCode;
@@ -31,79 +53,3 @@ $('#showPassword2').click(function () {
     }
 })
 
-
-var swiper = new Swiper(".home-slider", {
-    spaceBetween: 30,
-    centeredSlides: true,
-    autoplay: {
-        delay: 7500,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    loop: true,
-});
-
-var swiper = new Swiper(".anime-slider", {
-    slidesPerView: 4,
-    spaceBetween: 30,
-    centeredSlides: true,
-    autoplay: {
-        delay: 4500,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    loop: true
-});
-
-
-var swiper = new Swiper(".action-slider", {
-    slidesPerView: 4,
-    spaceBetween: 30,
-    centeredSlides: true,
-    autoplay: {
-        delay: 3500,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    loop: true
-});
-
-
-var swiper = new Swiper(".child-slider", {
-    slidesPerView: 4,
-    spaceBetween: 30,
-    centeredSlides: true,
-    autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    loop: true
-});
-
-var swiper = new Swiper(".family-slider", {
-    slidesPerView: 4,
-    spaceBetween: 30,
-    centeredSlides: true,
-    autoplay: {
-        delay: 1500,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    loop: true
-});
