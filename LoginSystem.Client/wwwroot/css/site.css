@@ -1,28 +1,33 @@
-
-section {
-    padding: 2rem 9%;
+#main {
+    padding-top: 15px;
+    background-color: #ffffff;
 }
 
-.home {
-    padding: 0;
-    height: 50vh;
+.showcase-box{
+    width : 430px;
+    height : 250px;
+    box-shadow : 5px 15px 30px rgba(0,0,0,0.3);
+    border-radius : 10px;
+    margin: 0px 20px 10px 20px;
+    overflow : hidden;
 }
 
-    .home .box {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        background-size: cover !important;
-        background-position: center !important;
-        justify-content: flex-end;
-        padding: 2rem 9%;
-    }
+.showcase-box img{
+    width : 100%;
+    height : 100%;
+    object-fit : cover;
+    object-position : top;
+}
 
-    .home .box {
-        justify-content: flex-start;
-    }
+.showcase-heading{
+    padding-left : 30px;
+    font-weight : 500;
+    letter-spacing : 1px;
+    text-transform : uppercase;
+    font-size :1.2rem;
+    color : #1a1a1a;
+}
 
-        .home .box .content {
-            width: 50rem;
-        }
-
+.cs-hidden{
+    overflow: visible !important;
+}
