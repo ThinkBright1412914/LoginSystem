@@ -52,6 +52,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //Services
+builder.Services.AddScoped<IMovie, Movie>();
 builder.Services.AddScoped<ILanguage, Languages>();
 builder.Services.AddScoped<IGenre, Genres>();
 builder.Services.AddScoped<IIndustry, Industrys>();
