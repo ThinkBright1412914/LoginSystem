@@ -1,17 +1,16 @@
 ﻿using LoginSystem.Idenitity.Services;
 using LoginSystem.ViewModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoginSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class IndustryController : ControllerBase
+    public class IndustryApiController : ControllerBase
     {
         private readonly IIndustry _industry;
 
-        public IndustryController(IIndustry industry)
+        public IndustryApiController(IIndustry industry)
         {
             _industry = industry;
         }
@@ -20,7 +19,7 @@ namespace LoginSystem.Controllers
         public async Task<IActionResult> GetIndustry()
         {
             var response = await _industry.GetIndutries();
-            if (response.Count() > 0)
+            if (response != null)
             {
                 return Ok(response);
             }

@@ -43,17 +43,17 @@
 
         public const string DeleteCarousel = ApiVerion + "CarouselApi/DeleteCarousel";
 
-        public const string GetIndustrys = ApiVerion + "Industry/GetIndustry";
+        public const string GetIndustrys = ApiVerion + "IndustryApi/GetIndustry";
 
-        public const string CreateIndustry = ApiVerion + "Industry/CreateIndustry";
+        public const string CreateIndustry = ApiVerion + "IndustryApi/CreateIndustry";
 
-        public const string DeleteIndustry = ApiVerion + "Industry/DeleteIndustry";
+        public const string DeleteIndustry = ApiVerion + "IndustryApi/DeleteIndustry";
 
-        public const string GetLanguages = ApiVerion + "Language/GetLanguages";
+        public const string GetLanguages = ApiVerion + "LanguageApi/GetLanguages";
 
-        public const string CreateLanguage = ApiVerion + "Language/CreateLanguage";
+        public const string CreateLanguage = ApiVerion + "LanguageApi/CreateLanguage";
 
-        public const string DeleteLanguage = ApiVerion + "Language/DeleteLanguage";
+        public const string DeleteLanguage = ApiVerion + "LanguageApi/DeleteLanguage";
 
         public const string GetGenres = ApiVerion + "GenreApi/GetGenres";
 

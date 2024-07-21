@@ -1,17 +1,16 @@
 ﻿using LoginSystem.Idenitity.Services;
 using LoginSystem.ViewModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoginSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LanguageController : ControllerBase
+    public class LanguageApiController : ControllerBase
     {
         private readonly ILanguage _language;
 
-        public LanguageController(ILanguage language)
+        public LanguageApiController(ILanguage language)
         {
             _language = language;
         }
@@ -20,7 +19,7 @@ namespace LoginSystem.Controllers
         public async Task<IActionResult> GetLanguages()
         {
             var response = await _language.GetLanguages();
-            if (response.Count() > 0)
+            if (response != null)
             {
                 return Ok(response);
             }
