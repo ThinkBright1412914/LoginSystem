@@ -12,7 +12,7 @@ namespace LoginSystem.Configuration
 	{
 		public static IServiceCollection AddServerServices(this IServiceCollection services)
 		{
-			services.AddScoped<IMovie, Movie>();
+			services.AddScoped<IMovies, Movies>();
 			services.AddScoped<ILanguage, Languages>();
 			services.AddScoped<IGenre, Genres>();
 			services.AddScoped<IIndustry, Industrys>();

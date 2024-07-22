@@ -1,64 +1,75 @@
 ﻿namespace LoginSystem.Utility
 {
-    public static class ApiUri
-    {
+	public static class ApiUri
+	{
 
-        public const string ApiVerion = "/api/";
+		public const string ApiVersion = "/api/";
 
-        public const string Login = ApiVerion + "Login/Authenticate";
+		public const string Login = ApiVersion + "Login/Authenticate";
 
-        public const string Reigster = ApiVerion + "Register/SignUp";
+		public const string Reigster = ApiVersion + "Register/SignUp";
 
-        public const string ActivateCode = ApiVerion + "Register/ActivationCode";
+		public const string ActivateCode = ApiVersion + "Register/ActivationCode";
 
-        public const string ResetPassword = ApiVerion + "Login/ResetPassword";
+		public const string ResetPassword = ApiVersion + "Login/ResetPassword";
 
-        public const string ForcePasswordReset = ApiVerion + "Login/ForcePasswordReset";
+		public const string ForcePasswordReset = ApiVersion + "Login/ForcePasswordReset";
 
-        public const string ForgotPassword = ApiVerion + "Login/ForgotPassword";
+		public const string ForgotPassword = ApiVersion + "Login/ForgotPassword";
 
-        public const string ForgotPasswordConfirm = ApiVerion + "Login/ForgotPasswordConfirm";
+		public const string ForgotPasswordConfirm = ApiVersion + "Login/ForgotPasswordConfirm";
 
-        public const string EditUser = ApiVerion + "Login/EditUser";
+		public const string EditUser = ApiVersion + "Login/EditUser";
 
-        public const string GetUsers = ApiVerion + "User/GetUsers";
+		public const string GetUsers = ApiVersion + "User/GetUsers";
 
-        public const string CreateUser = ApiVerion + "User/CreateUser";
+		public const string CreateUser = ApiVersion + "User/CreateUser";
 
-        public const string UpdateUser = ApiVerion + "User/UpdateUser";
+		public const string UpdateUser = ApiVersion + "User/UpdateUser";
 
-        public const string DeleteUser = ApiVerion + "User/DeleteUser";
+		public const string DeleteUser = ApiVersion + "User/DeleteUser";
 
-        public const string GetUserById = ApiVerion + "User/GetUserById";
+		public const string GetUserById = ApiVersion + "User/GetUserById";
 
-        public const string CreateRole = ApiVerion + "Role/CreateRole";
+		public const string CreateRole = ApiVersion + "Role/CreateRole";
 
-        public const string GetRoles = ApiVerion + "Role/GetRoles";
+		public const string GetRoles = ApiVersion + "Role/GetRoles";
 
-        public const string DeleteRole = ApiVerion + "Role/DeleteRole";
+		public const string DeleteRole = ApiVersion + "Role/DeleteRole";
 
-        public const string GetCarousels = ApiVerion + "CarouselApi/GetCarousels";
+		public const string GetCarousels = ApiVersion + "CarouselApi/GetCarousels";
 
-        public const string CreateCarousel = ApiVerion + "CarouselApi/CreateCarousel";
+		public const string CreateCarousel = ApiVersion + "CarouselApi/CreateCarousel";
 
-        public const string DeleteCarousel = ApiVerion + "CarouselApi/DeleteCarousel";
+		public const string DeleteCarousel = ApiVersion + "CarouselApi/DeleteCarousel";
 
-        public const string GetIndustrys = ApiVerion + "IndustryApi/GetIndustry";
+		public const string GetIndustrys = ApiVersion + "IndustryApi/GetIndustry";
 
-        public const string CreateIndustry = ApiVerion + "IndustryApi/CreateIndustry";
+		public const string CreateIndustry = ApiVersion + "IndustryApi/CreateIndustry";
 
-        public const string DeleteIndustry = ApiVerion + "IndustryApi/DeleteIndustry";
+		public const string DeleteIndustry = ApiVersion + "IndustryApi/DeleteIndustry";
 
-        public const string GetLanguages = ApiVerion + "LanguageApi/GetLanguages";
+		public const string GetLanguages = ApiVersion + "LanguageApi/GetLanguages";
 
-        public const string CreateLanguage = ApiVerion + "LanguageApi/CreateLanguage";
+		public const string CreateLanguage = ApiVersion + "LanguageApi/CreateLanguage";
 
-        public const string DeleteLanguage = ApiVerion + "LanguageApi/DeleteLanguage";
+		public const string DeleteLanguage = ApiVersion + "LanguageApi/DeleteLanguage";
 
-        public const string GetGenres = ApiVerion + "GenreApi/GetGenres";
+		public const string GetGenres = ApiVersion + "GenreApi/GetGenres";
 
-        public const string CreateGenre = ApiVerion + "GenreApi/CreateGenre";
+		public const string CreateGenre = ApiVersion + "GenreApi/CreateGenre";
 
-        public const string DeleteGenre = ApiVerion + "GenreApi/DeleteGenre";
-    }
+		public const string DeleteGenre = ApiVersion + "GenreApi/DeleteGenre";
+
+		public const string GetMovies = ApiVersion + "MovieApi/GetMovies";
+
+		public const string GetMovieById = ApiVersion + "MovieApi/GetMovieById";
+
+		public const string CreateMovie = ApiVersion + "MovieApi/Create-Movie";
+
+		public const string UpdateMovie = ApiVersion + "MovieApi/Update-Movie";
+
+		public const string DeleteMovie = ApiVersion + "MovieApi/Delete-Movie";
+
+	}
 }
