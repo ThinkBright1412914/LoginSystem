@@ -27,7 +27,7 @@ namespace LoginSystem.MiddleWare
 			HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
 			string result = JsonConvert.SerializeObject(new ErrorDeatils
 			{
-				ErrorMessage = exception.Message,
+				ErrorMessage = exception.InnerException.Message,
 				ErrorType = "Failure"
 			});
 

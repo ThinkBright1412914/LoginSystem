@@ -6,7 +6,7 @@ namespace LoginSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LanguageApiController : ControllerBase
+    public class LanguageApiController : BaseController
     {
         private readonly ILanguage _language;
 

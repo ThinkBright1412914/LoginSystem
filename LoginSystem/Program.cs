@@ -1,13 +1,7 @@
-using System.Text;
+using LoginSystem.Configuration;
 using LoginSystem.DTO;
-using LoginSystem.Idenitity;
-using LoginSystem.Idenitity.Services;
 using LoginSystem.MiddleWare;
-using LoginSystem.Utility;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,33 +42,10 @@ builder.Services.AddSwaggerGen(swagger =>
         }
     });
 });
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//Services
-builder.Services.AddScoped<IMovie, Movie>();
-builder.Services.AddScoped<ILanguage, Languages>();
-builder.Services.AddScoped<IGenre, Genres>();
-builder.Services.AddScoped<IIndustry, Industrys>();
-builder.Services.AddScoped<ICarousel, Carousels>();
-builder.Services.AddScoped<IRoles, Roles>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddSingleton<IEmailSender, EmailSender>();
-builder.Services.AddScoped<IAdminUserService, AdminUserService>();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-    };
-});
 
 var app = builder.Build();
 

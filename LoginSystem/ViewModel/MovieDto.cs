@@ -12,5 +12,6 @@ namespace LoginSystem.ViewModel
 		public int LanguageId { get; set; }
 		public int GenreId { get; set; }
 		public int IndustryId { get; set; }
+		public string? Message { get;set; }
 	}
 }

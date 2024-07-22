@@ -16,7 +16,7 @@ namespace LoginSystem.Client.Controllers
        public async Task<IActionResult> GetUsers()
        {
             IEnumerable<UserVM> response = await _userService.GetUsers();
-            if(response.Any())
+            if(response != null)
             {
                 return View(response);
             }

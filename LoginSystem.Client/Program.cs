@@ -1,20 +1,15 @@
+using LoginSystem.Client.ClientSetting;
 using LoginSystem.Client.Middleware;
-using LoginSystem.Client.Service;
-using LoginSystem.Client.Service.Interfaces;
-using LoginSystem.Client.ViewComponents;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<ILanguageRequest, LanguageRequest>();
-builder.Services.AddScoped<IIndustryRequest, IndustryRequest>();
-builder.Services.AddScoped<IGenreRequest, GenreRequest>();
-builder.Services.AddScoped<IRoleRequest, RoleRequest>();
-builder.Services.AddScoped<ICarouselRequest, CarouselRequest>();
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<SessionService>();
-builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddHttpContextAccessor()
+                .AddClientServices()
+                .AddSession()
+                .AddControllersWithViews();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie(options =>
@@ -22,10 +17,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 	options.LoginPath = new PathString("/Authenticate/Index");
 });
 
-builder.Services.AddScoped<IhttpService ,HttpService>();
-builder.Services.AddScoped<UserProfileViewComponent>();
-builder.Services.AddControllersWithViews();
-builder.Services.AddSession();
 builder.Services.AddHttpClient("LoginApi", client =>
 client.BaseAddress = new Uri(
     "https://localhost:7254/"

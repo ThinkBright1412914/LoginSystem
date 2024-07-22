@@ -6,7 +6,7 @@ namespace LoginSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarouselApiController : ControllerBase
+    public class CarouselApiController : BaseController
     {
         private readonly ICarousel _carousel;
 
