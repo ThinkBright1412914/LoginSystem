@@ -10,9 +10,9 @@ namespace LoginSystem.Controllers
 	public class LoginController : ControllerBase
 	{
 		private readonly IAuthService _authService;
-		private readonly IUserServive _userService;
+		private readonly IUserService _userService;
 
-		public LoginController(IAuthService authService , IUserServive userServive)
+		public LoginController(IAuthService authService , IUserService userServive)
 		{
 			_authService = authService;
 			_userService = userServive;
