@@ -2,7 +2,7 @@
 
 namespace LoginSystem.Idenitity.Services
 {
-    public interface IUserServive
+    public interface IUserService
     {
         Task<UserDataVM> ResetPassword(UserDataVM request);
 

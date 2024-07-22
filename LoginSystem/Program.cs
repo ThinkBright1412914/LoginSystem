@@ -58,7 +58,7 @@ builder.Services.AddScoped<IGenre, Genres>();
 builder.Services.AddScoped<IIndustry, Industrys>();
 builder.Services.AddScoped<ICarousel, Carousels>();
 builder.Services.AddScoped<IRoles, Roles>();
-builder.Services.AddScoped<IUserServive, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IAdminUserService, AdminUserService>();
