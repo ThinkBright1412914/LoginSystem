@@ -6,7 +6,7 @@ using NETCore.Encrypt;
 
 namespace LoginSystem.Idenitity
 {
-    public class UserService : IUserServive
+    public class UserService : IUserService
     {
         private readonly ApplicationDbContext _context;
 
@@ -111,7 +111,7 @@ namespace LoginSystem.Idenitity
             }
         }
 
-        bool IUserServive.ForgotPasswordConfirm(ForgotPasswordConfirmDto request)
+        bool IUserService.ForgotPasswordConfirm(ForgotPasswordConfirmDto request)
         {
             try
             {
