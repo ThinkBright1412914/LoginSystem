@@ -6,7 +6,7 @@ namespace LoginSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class IndustryApiController : ControllerBase
+    public class IndustryApiController : BaseController
     {
         private readonly IIndustry _industry;
 

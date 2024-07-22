@@ -103,7 +103,7 @@ namespace LoginSystem.Idenitity
                         await _emailSender.SendEmailAsync
                             (
                                 user.Email,
-                                "Activate Code",
+                                "Activation Code",
                                 $"Dear User,<br/>" +
                                 $"Your activation code is: {code}. It will expire in 5 minutes."
                             );
@@ -185,7 +185,7 @@ namespace LoginSystem.Idenitity
                     await _emailSender.SendEmailAsync
                             (
                                 model.Email,
-                                "Activate Code",
+                                "Activation Code",
                                 $"Dear User,<br/>" +
                                 $"Your activation code is: {code}. It will expire in 5 minutes."
                             );

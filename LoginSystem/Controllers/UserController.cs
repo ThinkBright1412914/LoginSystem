@@ -2,17 +2,12 @@
 using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PdfSharpCore;
-using PdfSharpCore.Pdf;
-using TheArtOfDev.HtmlRenderer.PdfSharp;
-
 
 namespace LoginSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Admin")]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private readonly IAdminUserService _adminUserService;
 
@@ -20,7 +15,7 @@ namespace LoginSystem.Controllers
         {
             _adminUserService = adminUserService;
         }
-
+        
         [HttpGet("GetUsers")]
         public async Task<IActionResult> GetUsers()
         {

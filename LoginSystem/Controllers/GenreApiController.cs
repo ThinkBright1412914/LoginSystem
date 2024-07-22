@@ -6,7 +6,7 @@ namespace LoginSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenreApiController : ControllerBase
+    public class GenreApiController : BaseController
     {
         private readonly IGenre _genre;
 
