@@ -18,7 +18,7 @@ namespace LoginSystem.Configuration
 			services.AddScoped<IIndustry, Industrys>();
 			services.AddScoped<ICarousel, Carousels>();
 			services.AddScoped<IRoles, Roles>();
-			services.AddScoped<IUserServive, UserService>();
+			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IAuthService, AuthService>();
 			services.AddSingleton<IEmailSender, EmailSender>();
 			services.AddScoped<IAdminUserService, AdminUserService>();
