@@ -31,3 +31,71 @@
 .cs-hidden{
     overflow: visible !important;
 }
+
+.premier-heading{
+    margin: 30px 30px 30px 30px;
+    font-weight: 500;
+    font-size : 1.3rem;
+}
+
+li{
+    list-style:none;
+}
+#premier {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.premier-heading {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#autowidth {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.premier-box {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+    .premier-box:hover {
+        transform: translateY(-10px);
+    }
+
+.premier-b-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.premier-b-img {
+    display: block;
+    text-decoration: none;
+}
+
+.premier-b-text {
+    padding: 20px;
+    text-align: left;
+}
+
+    .premier-b-text strong {
+        display: block;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .premier-b-text p {
+        margin: 0;
+        color: #777;
+    }
