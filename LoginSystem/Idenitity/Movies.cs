@@ -20,7 +20,11 @@ namespace LoginSystem.Idenitity
 		{
 			try
 			{
-				var response = _context.Movies.ToList();
+				var response = _context.Movies
+								.Include(x => x.Genre)
+								.Include(x => x.Language)
+								.Include(x => x.Industry)
+								.ToList();
 				var movie = new List<MovieDto>();
 				if (response.Any())
 				{
@@ -36,6 +40,9 @@ namespace LoginSystem.Idenitity
 							GenreId = item.GenreId,
 							IndustryId = item.IndustryId,
 							LanguageId = item.LanguageId,
+							GenresList = new List<GenreDto> { new GenreDto { Name = item.Genre.Name } },
+							LanguageList = new List<LanguagugeDto> { new LanguagugeDto { Name = item.Language.Name } },
+							IndustryList = new List<IndustryDto> { new IndustryDto { Name = item.Industry.Name } }
 						});
 					}
 					return movie;

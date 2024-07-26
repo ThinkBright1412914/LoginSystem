@@ -2,7 +2,7 @@
 
 <div class="container mt-5">
 	<p class="d-flex justify-content-end">
-		<a asp-action="Create" asp-controller="Movie" class="btn btn-primary rounded-0" id="create-role">Create Movie</a>
+		<a asp-action="Create" asp-controller="Movie" class="btn btn-success rounded-0" id="create-role"><i class='fa fa-plus-circle'></i>&nbsp;Create Movie</a>
 	</p>
 	<h4>Movie List</h4>
 	<br />
@@ -36,14 +36,13 @@
 							</div>
 						</div>
 					</td>
-					<td>@item.GenresList</td>
-					<td>@item.LanguageList</td>
-					<td>@item.IndustryList</td>
+					<td>@item.GenresList.First().Name</td>
+					<td>@item.LanguageList.First().Name</td>
+					<td>@item.IndustryList.First().Name</td>
 					<td>
-						<a class="btn btn-sm btn-info" asp-action="">
-							<i class='fa fa-info-circle'></i>
-						</a>
-						<a class="btn btn-sm btn-danger deleteId" id="@item.Id"><i class="fa-solid fa-trash"></i></a>
+						<a class="btn btn-sm btn-info" asp-action=""><i class='fa fa-info-circle'></i></a>
+						<a class="btn btn-sm btn-warning" asp-action=""><i class='fa fa-edit'></i></a>
+						<a class="btn btn-sm btn-danger deleteId" id="@item.Id"><i class='fa fa-trash'></i></a>
 					</td>
 				</tr>
 			}

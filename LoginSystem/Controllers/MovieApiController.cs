@@ -38,7 +38,7 @@ namespace LoginSystem.Controllers
 		}
 
 		[HttpPost("Create-Movie")]
-		public async Task<IActionResult> CreateUser(MovieDto request)
+		public async Task<IActionResult> CreateMovie(MovieDto request)
 		{
 			var response = await _movie.Create(request);
 			if (response != null)
@@ -49,7 +49,7 @@ namespace LoginSystem.Controllers
 		}
 
 		[HttpPut("Update-Movie")]
-		public async Task<IActionResult> UpdateUser(MovieDto request)
+		public async Task<IActionResult> UpdateMovie(MovieDto request)
 		{
 			var response = await _movie.Update(request);
 			if (response != null)
@@ -60,7 +60,7 @@ namespace LoginSystem.Controllers
 		}
 
 		[HttpDelete("Delete-Movie")]
-		public async Task<IActionResult> DeleteUser(int Id)
+		public async Task<IActionResult> DeleteMovie(int Id)
 		{
 			var response = await _movie.Delete(Id);
 			if (response != null)
