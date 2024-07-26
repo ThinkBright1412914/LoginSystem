@@ -2,7 +2,7 @@
 
 <div class="container mt-5">
 	<p class="d-flex justify-content-end">
-		<a asp-action="Create" asp-controller="Carousel" class="btn btn-primary rounded-0" id="create-role">Create Carousel</a>
+		<a asp-action="Create" asp-controller="Carousel" class="btn btn-success rounded-0" id="create-role"><i class='fa fa-plus-circle'></i>&nbsp;Create Carousel</a>
 	</p>
 	<h4>Carousel List</h4>
 	<br />
@@ -32,7 +32,7 @@
 						</div>
 					</td>
 					<td>
-						<a class="btn btn-sm btn-danger deleteId" id="@item.Id"><i class="fa-solid fa-trash"></i>Delete</a>
+						<a class="btn btn-sm btn-danger deleteId" id="@item.Id"><i class="fa fa-trash"></i></a>
 					</td>
 				</tr>
 			}
