@@ -15,9 +15,9 @@ namespace LoginSystem.Client.Service
             _httpService = httpService;
         }
 
-        public async Task<List<MovieDto>> GetMovies()
+        public async Task<List<MovieDto>> GetMovies(string filterMovie)
         {
-            var (status, response) = await _httpService.GetAsync<List<MovieDto>>(ApiUri.GetMovies);
+            var (status, response) = await _httpService.GetAsync<List<MovieDto>>(ApiUri.GetMovies + "?filterMovies=" + filterMovie);
             return response;
         }
 

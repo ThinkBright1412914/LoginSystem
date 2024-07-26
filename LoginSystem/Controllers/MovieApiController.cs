@@ -16,9 +16,9 @@ namespace LoginSystem.Controllers
 		}
 
 		[HttpGet("GetMovies")]
-		public async Task<IActionResult> GetMovies()
+		public async Task<IActionResult> GetMovies(string? filterMovies)
 		{
-			var response = await _movie.GetMovies();
+			var response = await _movie.GetMovies(filterMovies);
 			if (response != null)
 			{
 				return Ok(response);

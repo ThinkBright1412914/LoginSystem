@@ -24,7 +24,7 @@ namespace LoginSystem.Client.Controllers
 
         public async Task<IActionResult> GetMovies()
         {
-            var response = await _movieReq.GetMovies();
+            var response = await _movieReq.GetMovies(null); ;
             if (response != null)
             {
                 return View(response);

@@ -16,7 +16,7 @@ namespace LoginSystem.Idenitity
 			_context = context;
 		}
 
-		public async Task<List<MovieDto>> GetMovies()
+		public async Task<List<MovieDto>> GetMovies(string? filterMovies)
 		{
 			try
 			{
@@ -26,6 +26,21 @@ namespace LoginSystem.Idenitity
 								.Include(x => x.Industry)
 								.ToList();
 				var movie = new List<MovieDto>();
+
+				switch (filterMovies)
+				{
+					case "PremierMovies":
+						response = response.Where(x => x.ReleaseDate <= DateTime.Now).ToList();
+						break;
+
+					case "UpcomingMovie":
+						response = response.Where(x => x.ReleaseDate >= DateTime.Now).ToList();
+						break;
+
+					default:
+						break;
+				}
+
 				if (response.Any())
 				{
 					foreach (var item in response)
