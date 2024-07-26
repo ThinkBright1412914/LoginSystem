@@ -1,5 +1,5 @@
-.bg-light {
-    background-color: #BBBFCA;
+.navbar-color {
+    background-color: #495464;
 }
 
 
@@ -55,6 +55,7 @@
 }
 
 
+
 .premier-Movies {  
     display :flex;
     flex-direction : row;
@@ -80,12 +81,14 @@ div.box{
     transform: rotateY(-90deg);
 }
 
-.box .box-img img{
-    width: 250px;
-    height: 350px;
-    border : 2px solid #000;
-    border-radius : 10px;
-}
+    .box .box-img img {
+        width: 70%;
+        height: 70%;
+        width: 250px;
+        height: 350px;
+        border: 2px solid #000;
+        border-radius: 10px;
+    }
 
     .box .content {
         color: #495464;
