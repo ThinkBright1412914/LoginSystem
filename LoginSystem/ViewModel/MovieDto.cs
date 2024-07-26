@@ -16,7 +16,7 @@ namespace LoginSystem.ViewModel
 
 		public List<IndustryDto>? IndustryList { get; set; }
 		public List<GenreDto>? GenresList { get; set; }	
-		public List<LanguagugeDto>? LanguageList { get; set; }
+		public List<LanguageDto>? LanguageList { get; set; }
 
 	}
 }

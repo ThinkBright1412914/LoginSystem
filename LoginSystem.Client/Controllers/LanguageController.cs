@@ -29,7 +29,7 @@ namespace LoginSystem.Client.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create(string name)
 		{
-			var response = await _language.Create(new LanguagugeDto { Name = name });
+			var response = await _language.Create(new LanguageDto { Name = name });
 			if (response != null)
 			{
 				return Json(new { message = response.Message, });

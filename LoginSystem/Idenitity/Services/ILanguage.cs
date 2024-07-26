@@ -4,8 +4,8 @@ namespace LoginSystem.Idenitity.Services
 {
     public interface ILanguage
     {
-        Task<List<LanguagugeDto>> GetLanguages();
-        Task<LanguagugeDto> Create(LanguagugeDto request);
-        Task<LanguagugeDto> Delete(int id);
+        Task<List<LanguageDto>> GetLanguages();
+        Task<LanguageDto> Create(LanguageDto request);
+        Task<LanguageDto> Delete(int id);
     }
 }

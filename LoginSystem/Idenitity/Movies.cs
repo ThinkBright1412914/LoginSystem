@@ -56,7 +56,7 @@ namespace LoginSystem.Idenitity
 							IndustryId = item.IndustryId,
 							LanguageId = item.LanguageId,
 							GenresList = new List<GenreDto> { new GenreDto { Name = item.Genre.Name } },
-							LanguageList = new List<LanguagugeDto> { new LanguagugeDto { Name = item.Language.Name } },
+							LanguageList = new List<LanguageDto> { new LanguageDto { Name = item.Language.Name } },
 							IndustryList = new List<IndustryDto> { new IndustryDto { Name = item.Industry.Name } }
 						});
 					}

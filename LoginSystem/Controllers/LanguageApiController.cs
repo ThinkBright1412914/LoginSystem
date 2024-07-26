@@ -27,7 +27,7 @@ namespace LoginSystem.Controllers
         }
 
         [HttpPost("CreateLanguage")]
-        public async Task<IActionResult> CreateLanguage(LanguagugeDto request)
+        public async Task<IActionResult> CreateLanguage(LanguageDto request)
         {
             var response = await _language.Create(request);
             if (response != null)

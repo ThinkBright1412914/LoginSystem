@@ -15,23 +15,23 @@ namespace LoginSystem.Client.Service
 			_httpService = httpService;
 		}
 
-		public async Task<List<LanguagugeDto>> GetAll()
+		public async Task<List<LanguageDto>> GetAll()
 		{
-			var (status, response) = await _httpService.GetAsync<List<LanguagugeDto>>(ApiUri.GetLanguages);
+			var (status, response) = await _httpService.GetAsync<List<LanguageDto>>(ApiUri.GetLanguages);
 			return response;
 		}
 
-		public async Task<LanguagugeDto> Create(LanguagugeDto model)
+		public async Task<LanguageDto> Create(LanguageDto model)
 		{
 			string json = JsonConvert.SerializeObject(model);
 			StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-			var (status, response) = await _httpService.PostAsync<LanguagugeDto>(ApiUri.CreateLanguage, content);
+			var (status, response) = await _httpService.PostAsync<LanguageDto>(ApiUri.CreateLanguage, content);
 			return response;
 		}
 
-		public async Task<LanguagugeDto> Delete(int Id)
+		public async Task<LanguageDto> Delete(int Id)
 		{
-			var (status, response) = await _httpService.DeleteAsync<LanguagugeDto>(ApiUri.DeleteLanguage + "?Id=" + Id);
+			var (status, response) = await _httpService.DeleteAsync<LanguageDto>(ApiUri.DeleteLanguage + "?Id=" + Id);
 			return response;
 		}
 	}

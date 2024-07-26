@@ -14,17 +14,17 @@ namespace LoginSystem.Idenitity
             _context = context;
         }
 
-        public async Task<List<LanguagugeDto>> GetLanguages()
+        public async Task<List<LanguageDto>> GetLanguages()
         {
             try
             {
                 var response = _context.Languages.ToList();
-                var language = new List<LanguagugeDto>();
+                var language = new List<LanguageDto>();
                 if (response.Any())
                 {
                     foreach (var items in response)
                     {
-                        language.Add(new LanguagugeDto
+                        language.Add(new LanguageDto
                         {
                             Id = items.Id,
                             Name = items.Name
@@ -34,7 +34,7 @@ namespace LoginSystem.Idenitity
                 }
                 else
                 {
-                    return new List<LanguagugeDto> { };
+                    return new List<LanguageDto> { };
                 }
             }
             catch (Exception ex)
@@ -43,7 +43,7 @@ namespace LoginSystem.Idenitity
             }
         }
 
-        public async Task<LanguagugeDto> Create(LanguagugeDto request)
+        public async Task<LanguageDto> Create(LanguageDto request)
         {
             try
             {
@@ -55,11 +55,11 @@ namespace LoginSystem.Idenitity
                     };
                     _context.Languages.Add(model);
                     await _context.SaveChangesAsync();
-                    return new LanguagugeDto { Message = "Created Successfully" };
+                    return new LanguageDto { Message = "Created Successfully" };
                 }
                 else
                 {
-                    return new LanguagugeDto();
+                    return new LanguageDto();
                 }
             }
             catch (Exception ex)
@@ -68,7 +68,7 @@ namespace LoginSystem.Idenitity
             }
         }
 
-        public async Task<LanguagugeDto> Delete(int id)
+        public async Task<LanguageDto> Delete(int id)
         {
             try
             {
@@ -77,11 +77,11 @@ namespace LoginSystem.Idenitity
                 {
                     _context.Languages.Remove(response);
                     await _context.SaveChangesAsync();
-                    return new LanguagugeDto { Message = "Delete Successfully" };
+                    return new LanguageDto { Message = "Delete Successfully" };
                 }
                 else
                 {
-                    return new LanguagugeDto { Message = "Id was not found." };
+                    return new LanguageDto { Message = "Id was not found." };
                 }
             }
             catch (Exception ex)

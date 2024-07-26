@@ -4,8 +4,8 @@ namespace LoginSystem.Client.Service.Interfaces
 {
 	public interface ILanguageRequest
 	{
-		Task<List<LanguagugeDto>> GetAll();
-		Task<LanguagugeDto> Create(LanguagugeDto model);
-		Task<LanguagugeDto> Delete(int Id);
+		Task<List<LanguageDto>> GetAll();
+		Task<LanguageDto> Create(LanguageDto model);
+		Task<LanguageDto> Delete(int Id);
 	}
 }
