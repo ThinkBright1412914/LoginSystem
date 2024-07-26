@@ -1,6 +1,7 @@
 ﻿using LoginSystem.Domain.Model;
 using LoginSystem.DTO;
 using LoginSystem.Idenitity.Services;
+using LoginSystem.Utility;
 using LoginSystem.ViewModel;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +16,31 @@ namespace LoginSystem.Idenitity
 			_context = context;
 		}
 
-		public async Task<List<MovieDto>> GetMovies()
+		public async Task<List<MovieDto>> GetMovies(string? filterMovies)
 		{
 			try
 			{
-				var response = _context.Movies.ToList();
+				var response = _context.Movies
+								.Include(x => x.Genre)
+								.Include(x => x.Language)
+								.Include(x => x.Industry)
+								.ToList();
 				var movie = new List<MovieDto>();
+
+				switch (filterMovies)
+				{
+					case "PremierMovies":
+						response = response.Where(x => x.ReleaseDate <= DateTime.Now).ToList();
+						break;
+
+					case "UpcomingMovie":
+						response = response.Where(x => x.ReleaseDate >= DateTime.Now).ToList();
+						break;
+
+					default:
+						break;
+				}
+
 				if (response.Any())
 				{
 					foreach (var item in response)
@@ -29,12 +49,15 @@ namespace LoginSystem.Idenitity
 						{
 							Id = item.Id,
 							Name = item.Name,
-							ReleaseDate = item.ReleaseDate,
+							ReleaseDate = item.ReleaseDate.ToShortDateString(),
 							Image = item.Image != null ? Convert.ToBase64String(item.Image) : null,
 							Duration = item.Duration,
 							GenreId = item.GenreId,
 							IndustryId = item.IndustryId,
 							LanguageId = item.LanguageId,
+							GenresList = new List<GenreDto> { new GenreDto { Name = item.Genre.Name } },
+							LanguageList = new List<LanguagugeDto> { new LanguagugeDto { Name = item.Language.Name } },
+							IndustryList = new List<IndustryDto> { new IndustryDto { Name = item.Industry.Name } }
 						});
 					}
 					return movie;
@@ -66,7 +89,7 @@ namespace LoginSystem.Idenitity
 					response.Id = result.Id;
 					response.Name = result.Name;
 					response.Duration = result.Duration;
-					response.ReleaseDate = result.ReleaseDate;
+					response.ReleaseDate = result.ReleaseDate.ToShortDateString();
 					response.Image = result.Image != null ? Convert.ToBase64String(result.Image) : "";
 					response.GenreId = result.GenreId;
 					response.LanguageId = result.LanguageId;
@@ -89,14 +112,15 @@ namespace LoginSystem.Idenitity
 			MovieDto response = new();
 			try
 			{
-				Movie model = new()
+                Movie model = new()
 				{
 					Name = request.Name,
 					Duration = request.Duration,
-					ReleaseDate = request.ReleaseDate,
+					ReleaseDate = DateTime.Parse(request.ReleaseDate),
 					GenreId = request.GenreId,
 					IndustryId = request.IndustryId,
 					LanguageId = request.LanguageId,
+					Image = new Converter().ConvertBase64ToByteArray(request.Image),
 				};
 				_context.Movies.Add(model);
 				await _context.SaveChangesAsync();
@@ -107,7 +131,6 @@ namespace LoginSystem.Idenitity
 				throw;
 			}
 			return response;
-
 		}
 
 		public async Task<MovieDto> Delete(int id)
@@ -149,7 +172,7 @@ namespace LoginSystem.Idenitity
 				{
 					result.Name = request.Name;
 					result.Duration = request.Duration;
-					result.ReleaseDate = request.ReleaseDate;
+					result.ReleaseDate = DateTime.Parse(request.ReleaseDate);
 					result.GenreId = request.GenreId;
 					result.IndustryId = request.IndustryId;
 					result.LanguageId = request.LanguageId;

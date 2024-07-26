@@ -2,6 +2,7 @@
 using LoginSystem.Client.Service;
 using LoginSystem.Client.Service.Interfaces;
 using LoginSystem.Utility;
+using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -15,22 +16,28 @@ namespace LoginSystem.Client.Controllers
         private readonly SessionService _sessionService;
         private readonly UserService _userService;
         private readonly ICarouselRequest _carousel;
+        private readonly IMovieRequest _movieReq;
 
         public HomeController(ILogger<HomeController> logger, SessionService sessionService, 
-            UserService userService, ICarouselRequest carousel)
+            UserService userService, ICarouselRequest carousel , IMovieRequest movieReq)
         {
             _logger = logger;
             _sessionService = sessionService;
             _userService = userService;
             _carousel = carousel;
-        }
+            _movieReq = movieReq;
+		}
 
         public async Task<IActionResult> Index()
         {
             if (User.Identity.IsAuthenticated)
             {
-                var response = await _carousel.GetAll();
-                return View(response);
+                List<CarouselDto> model= await _carousel.GetAll();
+                var premierMovie = await _movieReq.GetMovies(UserConstant.PremierMovie);
+                var futureMovie = await _movieReq.GetMovies(UserConstant.UpcomingMovie);
+                model.First().PremierMovieList = premierMovie;
+                model.First().UpcomingMovieList = futureMovie;
+                return View(model);
             }
             else
             {

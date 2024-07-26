@@ -14,6 +14,7 @@ namespace LoginSystem.Client.ClientSetting
 			services.AddScoped<IGenreRequest, GenreRequest>();
 			services.AddScoped<IRoleRequest, RoleRequest>();
 			services.AddScoped<ICarouselRequest, CarouselRequest>();
+			services.AddScoped<IMovieRequest, MovieRequest>();	
 			services.AddScoped<IhttpService, HttpService>();
 			services.AddScoped<UserService>();
 			services.AddScoped<SessionService>();	

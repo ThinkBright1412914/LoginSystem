@@ -1,4 +1,20 @@
-﻿//For Industry
+﻿$(document).ready(function () {
+    $('.dropdownMovie').select2();
+})
+
+function ValidateInput() {
+    if (document.getElementById("uploadBox").value == "") {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please upload an Image!',
+        });
+        return false;
+    }
+    return true;
+}
+
+//For Industry
 $('#addIndustry').click(function () {
     $('#industryModal').modal('show');
 });

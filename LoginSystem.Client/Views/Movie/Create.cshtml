@@ -1,0 +1,92 @@
+﻿@model LoginSystem.ViewModel.MovieDto
+
+<div class="container mt-4">
+    <h4 class="mb-4">Create Movie</h4>
+    <div class="card">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <!-- Title Field -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="name">Title</label>
+                            <input type="text" class="form-control" asp-for="Name" placeholder="Enter movie title">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="releaseDate">Release Date</label>
+                            <input type="datetime-local" class="form-control form-control-short" asp-for="ReleaseDate" id="releaseDate" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="Duration">Duration</label>
+                            <input type="text" class="form-control form-control-short" asp-for="Duration" id="releaseDate" required>
+                        </div>
+                    </div>
+
+                    <!-- Genre Dropdown -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="genre">Genre</label>
+                            <select class="form-control form-control-short dropdownMovie" asp-for="GenreId" >
+                                <option value="" disabled selected>Select Genre</option>
+                                @foreach(var item in Model.GenresList)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Languages Dropdown -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="languages">Languages</label>
+                            <select class="form-control dropdownMovie" asp-for="LanguageId">
+                                <option value="" disabled selected>Select Language</option>
+                                @foreach (var item in Model.LanguageList)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Industry Dropdown -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="industry">Industry</label>
+                            <select class="form-control dropdownMovie" asp-for="IndustryId">
+                                <option value="" disabled selected>Select Industry</option>
+                                @foreach (var item in Model.IndustryList)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="imageUpload">Choose Image</label><br />
+                            <input type="file" class="form-control-file" name="file" id="uploadBox" accept="image/*">
+                        </div>
+                    </div>
+@*                     <div class="col-md-6 pt-4">
+                        <img src="@(Model.Image != null ? $"data:image/png;base64,{Model.Image}" : Url.Content("~/Img/Profile.jpg"))"
+                             width="40%" style="border-radius:5px; border:1px solid #F4F4F2" />
+                    </div> *@
+                   
+                </div>
+                <br/>
+                <!-- Submit Button -->
+                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary">Create</button>
+            </form>
+        </div>
+    </div>
+</div>

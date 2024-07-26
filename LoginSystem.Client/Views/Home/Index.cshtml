@@ -1,217 +1,141 @@
 ﻿@model IEnumerable<LoginSystem.ViewModel.CarouselDto>
 @{
-	ViewData["Title"] = "Index";
-	Layout = "~/Views/Shared/_LandingPage.cshtml";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LandingPage.cshtml";
 }
 
 <section id="main">
-	<h1 class="showcase-heading">Showcase</h1>
-@* 	<ul id="autowidth" class="cs-hidden">
-		@foreach (var item in Model)
-		{
-			<li class="list">
-				<div class=" showcase-box">
-					<img src="data:image/png;base64,@item.Image">
-				</div>
-			</li>
-		}
-	</ul> *@
+    <h1 class="showcase-heading">Showcase</h1>
+    @* 	<ul id="autowidth" class="cs-hidden">
+    @foreach (var item in Model)
+    {
+    <li class="list">
+    <div class=" showcase-box">
+    <img src="data:image/png;base64,@item.Image">
+    </div>
+    </li>
+    }
+    </ul> *@
 
-	<ul id="autowidth" class="cs-hidden">
-			<li class="list">
-				<div class=" showcase-box">
-					<img src="img/gta.jpg">
-				</div>
-			</li>
+    <ul id="autowidth" class="cs-hidden">
+        <li class="list">
+            <div class=" showcase-box">
+                <img src="img/gta.jpg">
+            </div>
+        </li>
 
-		<li class="list">
-			<div class=" showcase-box">
-				<img src="~/Img/fifa.jpg">
-			</div>
-		</li>
+        <li class="list">
+            <div class=" showcase-box">
+                <img src="~/Img/fifa.jpg">
+            </div>
+        </li>
 
-		<li class="list">
-			<div class=" showcase-box">
-				<img src="img/reddead.jpg">
-			</div>
-		</li>
+        <li class="list">
+            <div class=" showcase-box">
+                <img src="img/reddead.jpg">
+            </div>
+        </li>
 
-		<li class="list">
-			<div class=" showcase-box">
-				<img src="img/far cry.jpg">
-			</div>
-		</li>
-	</ul>
+        <li class="list">
+            <div class=" showcase-box">
+                <img src="img/far cry.jpg">
+            </div>
+        </li>
+    </ul>
 
 </section>
 
+
 <!-- PREMIER MOVIES SECTION -->
-	<div class="section">
-		<div class="contain">
-			<div class="section-header">
-				PREMIER MOVIES
-			</div>
-		</div>
-	</div>
+    <div class="section">
+        <div class="contain">
+            <div class="section-header">
+                PREMIER MOVIES
+            </div>
+        </div>
+    </div>
 
-		<div class="premier-Movies">
-			<div class="box">
-				<div class="box-img">
-					<img src="~/Img/ghost.jpg" />
-				</div>
-				<div class="content">
-					<h3>Ted</h3>
-					<p>Comedy</p>
-					<p>English, Hindi</p>
-					<p>Hollywood</p>
-				</div>
 
-				<div class="button">
-					<li>
-						<a class="b1" href="#">Book Now</a>
-					</li>
-				</div>
-			</div>
+        @if (Model.FirstOrDefault().PremierMovieList.Any())
+        {
+            <div class="premier-Movies" id="cs-hidden">
+                @foreach (var item in Model.FirstOrDefault().PremierMovieList)
+                {
+                    <div class="box">
+                        <div class="box-img">
+                            <img src="data:image/png;base64,@item.Image">
+                        </div>
+                        <div class="content">
+                            <h3>@item.Name</h3>
+                            <p>@item.GenresList.FirstOrDefault().Name</p>
+                            <p>@item.LanguageList.FirstOrDefault().Name</p>
+                            <p>@item.IndustryList.FirstOrDefault().Name</p>
+                        </div>
 
-			<div class="box">
-				<div class="box-img">
-					<img src="~/Img/ted.jpg" />
-				</div>
-				<div class="content">
-					<h3>Ted</h3>
-					<p>Comedy</p>
-					<p>English, Hindi</p>
-					<p>Hollywood</p>
-				</div>
+                        <div class="button">
+                            <li>
+                                <a class="b1" href="#" id="@item.Id">Book Now</a>
+                            </li>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="premier-Movies">
+                <div class="box">
+                     <p>No Movies Right Now</p>
+                </div>
+            </div>
+        }
 
-				<div class="button">
-					<li>
-						<a class="b1" href="#">Book Now</a>
-					</li>
-				</div>
-			</div>
-
-			<div class="box">
-				<div class="box-img">
-					<img src="~/Img/ted.jpg" />
-				</div>
-				<div class="content">
-					<h3>Ted</h3>
-					<p>Comedy</p>
-					<p>English, Hindi</p>
-					<p>Hollywood</p>
-				</div>
-
-				<div class="button">
-					<li>
-						<a class="b1" href="#">Book Now</a>
-					</li>
-				</div>
-			</div>
-
-			<div class="box">
-				<div class="box-img">
-					<img src="~/Img/ted.jpg" />
-				</div>
-				<div class="content">
-					<h3>Ted</h3>
-					<p>Comedy</p>
-					<p>English, Hindi</p>
-					<p>Hollywood</p>
-				</div>
-
-				<div class="button">
-					<li>
-						<a class="b1" href="#">Book Now</a>
-					</li>
-				</div>
-			</div>
-		</div>
 
 <!-- PREMIER MOVIES SECTION ENDS -->
-
 <!-- UPCOMING MOVIES SECTION -->
-<div class="section">
-	<div class="contain">
-		<div class="section-header">
-			UPCOMING MOVIES
-		</div>
-	</div>
-</div>
+    <div class="section">
+        <div class="contain">
+            <div class="section-header">
+                UPCOMING MOVIES
+            </div>
+        </div>
+    </div>
 
-<div class="premier-Movies">
-	<div class="box">
-		<div class="box-img">
-			<img src="~/Img/ted.jpg" />
-		</div>
-		<div class="content">
-			<h3>Ted</h3>
-			<p>Comedy</p>
-			<p>English, Hindi</p>
-			<p>Hollywood</p>
-		</div>
+        @if (Model.FirstOrDefault().UpcomingMovieList.Any())
+        {
+            <div class="premier-Movies">
+                @foreach (var item in Model.FirstOrDefault().UpcomingMovieList)
+                {
+                    <div class="box">
+                        <div class="box-img">
+                            <img src="data:image/png;base64,@item.Image">
+                        </div>
+                        <div class="content">
+                            <h3>@item.Name</h3>
+                            <p>@item.GenresList.FirstOrDefault().Name</p>
+                            <p>@item.LanguageList.FirstOrDefault().Name</p>
+                            <p>@item.IndustryList.FirstOrDefault().Name</p>
+                        </div>
 
-		<div class="button">
-			<li>
-				<a class="b1" href="#">Book Now</a>
-			</li>
-		</div>
-	</div>
+                        <div class="button">
+                            <li>
+                                <a class="b1" href="#" id="@item.Id">Book Now</a>
+                            </li>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="premier-Movies">
+                <div class="box">
+                    <p>No Movies Right Now</p>
+                </div>
+            </div>
+        }
 
-	<div class="box">
-		<div class="box-img">
-			<img src="~/Img/ted.jpg" />
-		</div>
-		<div class="content">
-			<h3>Ted</h3>
-			<p>Comedy</p>
-			<p>English, Hindi</p>
-			<p>Hollywood</p>
-		</div>
 
-		<div class="button">
-			<li>
-				<a class="b1" href="#">Book Now</a>
-			</li>
-		</div>
-	</div>
-
-	<div class="box">
-		<div class="box-img">
-			<img src="~/Img/ted.jpg" />
-		</div>
-		<div class="content">
-			<h3>Ted</h3>
-			<p>Comedy</p>
-			<p>English, Hindi</p>
-			<p>Hollywood</p>
-		</div>
-
-		<div class="button">
-			<li>
-				<a class="b1" href="#">Book Now</a>
-			</li>
-		</div>
-	</div>
-
-	<div class="box">
-		<div class="box-img">
-			<img src="~/Img/ted.jpg" />
-		</div>
-		<div class="content">
-			<h3>Ted</h3>
-			<p>Comedy</p>
-			<p>English, Hindi</p>
-			<p>Hollywood</p>
-		</div>
-
-		<div class="button">
-			<li>
-				<a class="b1" href="#">Book Now</a>
-			</li>
-		</div>
-	</div>
-</div>
 
 
 
