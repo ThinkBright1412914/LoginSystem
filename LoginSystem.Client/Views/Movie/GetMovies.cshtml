@@ -1,0 +1,78 @@
+﻿@model IEnumerable<LoginSystem.ViewModel.MovieDto>
+
+<div class="container mt-5">
+	<p class="d-flex justify-content-end">
+		<a asp-action="Create" asp-controller="Movie" class="btn btn-primary rounded-0" id="create-role">Create Movie</a>
+	</p>
+	<h4>Movie List</h4>
+	<br />
+	<table class="table table-striped table-bordered" id="tableInfo">
+		<thead class="thead-white">
+			<tr>
+				<th>Id</th>
+				<td>Name</td>
+				<th>Image</th>
+				<th>Genre</th>
+				<th>Language</th>
+				<th>Industry</th>
+				<th>Action(s)</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.Id</td>
+					<td>@item.Name</td>
+					<td>
+						<div class="row">
+							<div class="col">
+								<div class="col-md-3">
+									<div class="text-center">
+										<img src="@(item.Image != null ? $"data:image/png;base64,{item.Image}" : Url.Content("~/Img/Profile.jpg"))"
+											 class="avatar img-circle img-thumbnail" alt="avatar">
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+					<td>@item.GenresList</td>
+					<td>@item.LanguageList</td>
+					<td>@item.IndustryList</td>
+					<td>
+						<a class="btn btn-sm btn-info" asp-action="">
+							<i class='fa fa-info-circle'></i>
+						</a>
+						<a class="btn btn-sm btn-danger deleteId" id="@item.Id"><i class="fa-solid fa-trash"></i></a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+@section scripts {
+	<script>
+		$('#tableInfo').dataTable({
+			lengthMenu: [10, 15 , 20],
+		});
+
+		$(".deleteId").click(function () {
+			var selectedRow = $(this);
+			var Id = selectedRow.attr('id');
+			$.ajax({
+				url: '/Movie/Delete',
+				method: 'Delete',
+				data: { Id },
+				success: function (result) {
+					if (result.success) {
+						selectedRow.closest('tr').remove();
+					} else {
+						alert('Failed to delete');
+					}
+				}
+			})
+		})
+
+	</script>
+}
