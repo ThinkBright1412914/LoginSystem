@@ -2,10 +2,13 @@
     background-color: #495464;
 }
 
+.default {
+    background-color: #F4F4F2;
+}
 
 #main {
     padding-top: 15px;
-    background-color: #ffffff;
+    background-color: #F4F4F2;
 }
 
 .showcase-box{
@@ -92,7 +95,7 @@ div.box{
 
     .box .content {
         color: #495464;
-        background: #F4F4F2;
+        background: #FFF;
         top: 0;
         left: 0;
         width: 100%;
