@@ -1,6 +1,8 @@
-﻿using LoginSystem.Client.Service.Interfaces;
+﻿using System.Globalization;
+using LoginSystem.Client.Service.Interfaces;
 using LoginSystem.Utility;
 using LoginSystem.ViewModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoginSystem.Client.Controllers
@@ -65,7 +67,7 @@ namespace LoginSystem.Client.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(IFormFile file , MovieDto model)
+        public async Task<IActionResult> Create(IFormFile file, MovieDto model)
         {
             if (file != null)
             {
@@ -82,26 +84,29 @@ namespace LoginSystem.Client.Controllers
             }
         }
 
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(int Id)
         {
-            return View();
+            var response = await _movieReq.GetMovieById(Id);
+			response.GenresList = await _genre.GetAll();
+			response.LanguageList = await _language.GetAll();
+			response.IndustryList = await _industry.GetAll();
+			return View(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(IFormFile file, MovieDto model)
         {
-            if (file != null)
+            if (ModelState.IsValid)
             {
                 var imgData = await new Converter().ConvertToBase64(file);
                 model.Image = imgData;
-                var response = await _movieReq.Create(model);
+                var response = await _movieReq.Update(model);
                 TempData["success"] = response.Message;
                 return RedirectToAction("GetMovies");
             }
             else
             {
-                TempData["error"] = "Please upload an Image!";
-                return View();
+                return View(model);
             }
         }
 

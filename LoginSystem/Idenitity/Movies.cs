@@ -94,7 +94,11 @@ namespace LoginSystem.Idenitity
 					response.GenreId = result.GenreId;
 					response.LanguageId = result.LanguageId;
 					response.IndustryId = result.IndustryId;
-				}
+					response.GenresList = new List<GenreDto> { new GenreDto { Name = result.Genre.Name } };
+					response.LanguageList = new List<LanguageDto> { new LanguageDto { Name = result.Language.Name } };
+					response.IndustryList = new List<IndustryDto> { new IndustryDto { Name = result.Industry.Name } };
+
+                }
 				else
 				{
 					response.Message = "Id was not found";
