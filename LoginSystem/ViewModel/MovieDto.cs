@@ -1,4 +1,6 @@
 ﻿using LoginSystem.Domain.Model;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LoginSystem.ViewModel
 {
@@ -14,9 +16,12 @@ namespace LoginSystem.ViewModel
 		public int IndustryId { get; set; }
 		public string? Message { get;set; }
 
-		public List<IndustryDto>? IndustryList { get; set; }
-		public List<GenreDto>? GenresList { get; set; }	
-		public List<LanguageDto>? LanguageList { get; set; }
+        [ValidateNever]
+        public IEnumerable<SelectListItem> IndustryList { get; set; }
+        [ValidateNever]
+        public IEnumerable<SelectListItem>  GenresList { get; set; }
+        [ValidateNever]
+        public IEnumerable<SelectListItem> LanguageList { get; set; }
 
 	}
 }

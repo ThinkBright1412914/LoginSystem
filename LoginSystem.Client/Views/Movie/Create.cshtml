@@ -32,12 +32,9 @@
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
                             <label for="genre">Genre</label>
-                            <select class="form-control form-control-short dropdownMovie" asp-for="GenreId" >
+                            <select class="form-control form-control-short dropdownMovie" asp-items="Model.GenresList" asp-for="GenreId" >
                                 <option value="" disabled selected>Select Genre</option>
-                                @foreach(var item in Model.GenresList)
-                                {
-                                    <option value="@item.Id">@item.Name</option>
-                                }
+                                <span asp-validation-for="GenreId" class="text-danger"></span>
                             </select>
                         </div>
                     </div>
@@ -46,12 +43,9 @@
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
                             <label for="languages">Languages</label>
-                            <select class="form-control dropdownMovie" asp-for="LanguageId">
+                            <select class="form-control dropdownMovie" asp-items="Model.LanguageList" asp-for="LanguageId">
                                 <option value="" disabled selected>Select Language</option>
-                                @foreach (var item in Model.LanguageList)
-                                {
-                                    <option value="@item.Id">@item.Name</option>
-                                }
+                                <span asp-validation-for="LanguageId" class="text-danger"></span>
                             </select>
                         </div>
                     </div>
@@ -60,12 +54,9 @@
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
                             <label for="industry">Industry</label>
-                            <select class="form-control dropdownMovie" asp-for="IndustryId">
+                            <select class="form-control dropdownMovie" asp-items="Model.IndustryList" asp-for="IndustryId">
                                 <option value="" disabled selected>Select Industry</option>
-                                @foreach (var item in Model.IndustryList)
-                                {
-                                    <option value="@item.Id">@item.Name</option>
-                                }
+                                <span asp-validation-for="IndustryId" class="text-danger"></span>
                             </select>
                         </div>
                     </div>

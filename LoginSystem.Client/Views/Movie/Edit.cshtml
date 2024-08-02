@@ -34,9 +34,9 @@
 					<div class="col-md-6 mb-3">
 						<div class="form-group">
 							<label for="genre">Genre</label>
-							<select class="form-control form-control-short dropdownMovie" asp-for="GenreId" 
-							  asp-items="@(new SelectList(Model.GenresList, "Id", "Name", Model.GenreId))">
-								<option value="" disabled>Select Genre</option>
+							<select class="form-control form-control-short dropdownMovie" asp-items="Model.GenresList" asp-for="GenreId">
+								<option value="" disabled selected>Select Genre</option>
+								<span asp-validation-for="GenreId" class="text-danger"></span>
 							</select>
 						</div>
 					</div>
@@ -45,8 +45,9 @@
 					<div class="col-md-6 mb-3">
 						<div class="form-group">
 							<label for="languages">Languages</label>
-							<select class="form-control dropdownMovie" asp-for="LanguageId" asp-items="@(new SelectList(Model.LanguageList, "Id", "Name", Model.LanguageId))">
-								<option value="" disabled>Select Language</option>
+							<select class="form-control dropdownMovie" asp-items="Model.LanguageList" asp-for="LanguageId">
+								<option value="" disabled selected>Select Language</option>
+								<span asp-validation-for="LanguageId" class="text-danger"></span>
 							</select>
 						</div>
 					</div>
@@ -55,8 +56,9 @@
 					<div class="col-md-6 mb-3">
 						<div class="form-group">
 							<label for="industry">Industry</label>
-							<select class="form-control dropdownMovie" asp-for="IndustryId" asp-items="@(new SelectList(Model.IndustryList, "Id", "Name", Model.IndustryId))">
-								<option value="" disabled>Select Industry</option>
+							<select class="form-control dropdownMovie" asp-items="Model.IndustryList" asp-for="IndustryId">
+								<option value="" disabled selected>Select Industry</option>
+								<span asp-validation-for="IndustryId" class="text-danger"></span>
 							</select>
 						</div>
 					</div>
@@ -76,7 +78,7 @@
 				</div>
 				<br />
 				<!-- Submit Button -->
-				<button type="submit" onclick="return ValidateInput()" class="btn btn-primary">Edit</button>
+				<button type="submit" class="btn btn-primary">Edit</button>
 			</form>
 		</div>
 	</div>

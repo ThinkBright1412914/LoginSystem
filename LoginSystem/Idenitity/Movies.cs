@@ -3,6 +3,7 @@ using LoginSystem.DTO;
 using LoginSystem.Idenitity.Services;
 using LoginSystem.Utility;
 using LoginSystem.ViewModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoginSystem.Idenitity
@@ -55,10 +56,10 @@ namespace LoginSystem.Idenitity
 							GenreId = item.GenreId,
 							IndustryId = item.IndustryId,
 							LanguageId = item.LanguageId,
-							GenresList = new List<GenreDto> { new GenreDto { Name = item.Genre.Name } },
-							LanguageList = new List<LanguageDto> { new LanguageDto { Name = item.Language.Name } },
-							IndustryList = new List<IndustryDto> { new IndustryDto { Name = item.Industry.Name } }
-						});
+                            GenresList = new List<SelectListItem> { new SelectListItem { Text = item.Genre.Name } },
+                            LanguageList = new List<SelectListItem> { new SelectListItem { Text = item.Language.Name } },
+                            IndustryList = new List<SelectListItem> { new SelectListItem { Text = item.Industry.Name } }
+                        });
 					}
 					return movie;
 				}
@@ -94,9 +95,9 @@ namespace LoginSystem.Idenitity
 					response.GenreId = result.GenreId;
 					response.LanguageId = result.LanguageId;
 					response.IndustryId = result.IndustryId;
-					response.GenresList = new List<GenreDto> { new GenreDto { Name = result.Genre.Name } };
-					response.LanguageList = new List<LanguageDto> { new LanguageDto { Name = result.Language.Name } };
-					response.IndustryList = new List<IndustryDto> { new IndustryDto { Name = result.Industry.Name } };
+					response.GenresList = new List<SelectListItem> { new SelectListItem { Text = result.Genre.Name } };
+					response.LanguageList = new List<SelectListItem> { new SelectListItem { Text = result.Language.Name } };
+					response.IndustryList = new List<SelectListItem> { new SelectListItem { Text = result.Industry.Name } };
 
                 }
 				else
