@@ -74,7 +74,7 @@
 
 				<div class="button">
 					<li>
-						<a class="b1" href="#" id="@item.Id">Book Now</a>
+						<a class="b1" asp-action="BookNow" asp-controller="Booking" asp-route-id="@item.Id">Book Now</a>
 					</li>
 				</div>
 			</div>
@@ -119,7 +119,7 @@ else
 
 				<div class="button">
 					<li>
-						<a class="b1" href="#" id="@item.Id">View Details</a>
+						<a class="b1" asp-action="MovieInfo" asp-controller="Booking" asp-route-id="@item.Id">View Details</a>
 					</li>
 				</div>
 			</div>

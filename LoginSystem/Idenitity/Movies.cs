@@ -31,7 +31,7 @@ namespace LoginSystem.Idenitity
 				switch (filterMovies)
 				{
 					case "PremierMovies":
-						response = response.Where(x => x.ReleaseDate <= DateTime.Now).ToList();
+						response = response.Where(x => x.ReleaseDate <= DateTime.Now).Take(4).ToList();
 						break;
 
 					case "UpcomingMovie":
