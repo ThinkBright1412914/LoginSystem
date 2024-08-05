@@ -1,7 +1,138 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
+<div class="booking-page">
+	<div class="movie-container">
+		<label>Your movie:</label>
+		<select id="movie">
+			<option value="10">Avengers: Endgame ($10)</option>
+			<option value="12">Joker ($12)</option>
+			<option value="8">Toy Story 4 ($8)</option>
+			<option value="9">The Lion King ($9)</option>
+		</select>
+	</div>
+
+	<ul class="showcase">
+		<li>
+			<div class="seat"></div>
+			<small>N/A</small>
+		</li>
+		<li>
+			<div class="seat selected"></div>
+			<small>Selected</small>
+		</li>
+		<li>
+			<div class="seat occupied"></div>
+			<small>Occupied</small>
+		</li>
+	</ul>
+
+	<div class="movie-seat-container">
+		<div class="screen"></div>
+
+		<div class="seat-row">
+			<div class="seat">A1</div>
+			<div class="seat">A2</div>
+			<div class="seat">A3</div>
+			<div class="seat">A4</div>
+			<div class="seat">A5</div>
+			<div class="seat">A6</div>
+			<div class="seat">A7</div>
+			<div class="seat">A8</div>
+		</div>
+		<div class="seat-row">
+			<div class="seat">B1</div>
+			<div class="seat">B2</div>
+			<div class="seat">B3</div>
+			<div class="seat">B4</div>
+			<div class="seat">B5</div>
+			<div class="seat">B6</div>
+			<div class="seat">B7</div>
+			<div class="seat">B8</div>
+		</div>
+		<div class="seat-row">
+			<div class="seat">C1</div>
+			<div class="seat">C2</div>
+			<div class="seat">C3</div>
+			<div class="seat">C4</div>
+			<div class="seat">C5</div>
+			<div class="seat">C6</div>
+			<div class="seat">C7</div>
+			<div class="seat">C8</div>
+		</div>
+		<div class="seat-row">
+			<div class="seat">D1</div>
+			<div class="seat">D2</div>
+			<div class="seat">D3</div>
+			<div class="seat">D4</div>
+			<div class="seat">D5</div>
+			<div class="seat">D6</div>
+			<div class="seat">D7</div>
+			<div class="seat">D8</div>
+		</div>
+		<div class="seat-row">
+			<div class="seat">E1</div>
+			<div class="seat">E2</div>
+			<div class="seat">E3</div>
+			<div class="seat">E4</div>
+			<div class="seat">E5</div>
+			<div class="seat">E6</div>
+			<div class="seat">E7</div>
+			<div class="seat">E8</div>
+		</div>
+		<div class="seat-row">
+			<div class="seat">F1</div>
+			<div class="seat">F2</div>
+			<div class="seat">F3</div>
+			<div class="seat">F4</div>
+			<div class="seat">F5</div>
+			<div class="seat">F6</div>
+			<div class="seat">F7</div>
+			<div class="seat">F8</div>
+		</div>
+	</div>
+	<p class="text">
+		You have selected <span id="count">0</span> seats for a price of $<span id="total">0</span>
+	</p>
+
+
+
+	<div class="container mt-4">
+		<h4 class="mb-4">Book Movie</h4>
+		<div class="card">
+			<div class="card-body">
+				<form method="post" enctype="multipart/form-data">
+					<div class="row">
+						<!-- Title Field -->
+						<div class="col-md-6 mb-3">
+							<div class="form-group">
+								<label for="name">No of ticket</label>
+								<input type="number" id="ticketCount" class="form-control">
+							</div>
+						</div>
+
+						<div class="col-md-6 mb-3">
+							<div class="form-group">
+								<label for="releaseDate">Seat Details</label>
+								<input type="text" class="form-control form-control-short" id="seat-details" >
+							</div>
+						</div>
+
+						<div class="col-md-6 mb-3">
+							<div class="form-group">
+								<label for="Duration">Booking date</label>
+								<input type="date" class="form-control form-control-short" >
+							</div>
+						</div>
+
+
+					</div>
+					<br />
+					<!-- Submit Button -->
+					<button type="submit" class="btn btn-primary">Book Confirm</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 
