@@ -71,5 +71,22 @@
 
 		public const string DeleteMovie = ApiVersion + "MovieApi/Delete-Movie";
 
-	}
+		public const string GetCinema = ApiVersion + "CinemaApi/GetCinemas";
+
+		public const string GetCinemaById = ApiVersion + "CinemaApi/GetCinemaById";
+
+		public const string CreateCinema = ApiVersion + "CinemaApi/Create-Cinema";
+
+		public const string UpdateCinema = ApiVersion + "CinemaApi/Update-Cinema";
+
+		public const string DeleteCinema = ApiVersion + "CinemaApi/Delete-Cinema";
+
+		public const string GetShowTime = ApiVersion + "ShowTimeApi/GetShowTime";
+
+		public const string CreateShowTime = ApiVersion + "ShowTimeApi/Create-ShowTime";
+
+		public const string DeleteShowTime = ApiVersion + "ShowTimeApi/Delete-ShowTime";
+
+
+    }
 }
