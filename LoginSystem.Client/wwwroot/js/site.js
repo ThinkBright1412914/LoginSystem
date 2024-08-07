@@ -14,6 +14,52 @@ function ValidateInput() {
     return true;
 }
 
+
+//For ShowTime
+$('#addShowTime').click(function () {
+    $('#showTimeModal').modal('show');
+});
+
+$('#saveTime').off('click').on('click', function () {
+    var time = $('#time').val();
+    if (time === '') {
+        toastr.error('Please enter time!');
+    }
+    else
+    {
+        var timeParts = time.split(':');
+        var hours = parseInt(timeParts[0], 10);
+        var minutes = timeParts[1];
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        var formattedTime = hours + ':' + minutes + " " +  ampm;
+        $.ajax({
+            url: '/ShowTime/Create',
+            method: 'POST',
+            data: { time: formattedTime },
+            dataType: 'json',
+            success: function (result) {
+                if (result.message) {
+                    toastr.success(result.message);
+                    btnModalClose();
+                    location.reload();
+                } else {
+                    toastr.error('Failed to create time slots');
+                }
+            },
+            error: function (xhr, status, error) {
+                toastr.error('An error occurred: ' + xhr.responseText);
+            }
+        });
+    }
+});
+
+function btnShowTimeClose() {
+    $('#showTimeModal').modal('hide');
+}
+
+
 //For Industry
 $('#addIndustry').click(function () {
     $('#industryModal').modal('show');

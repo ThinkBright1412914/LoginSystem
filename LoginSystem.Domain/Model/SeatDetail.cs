@@ -13,7 +13,7 @@ namespace LoginSystem.Domain.Model
 
 		[ForeignKey(nameof(Show))]
 		public int ShowId { get; set;}
-		public string SeatNo { get; set;}
+		public string? SeatNo { get; set;}
 
 		public UserInfo User { get; set; }
 		public Show ShowInfo { get; set; }

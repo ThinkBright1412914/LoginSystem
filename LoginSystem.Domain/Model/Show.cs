@@ -1,6 +1,4 @@
-﻿
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LoginSystem.Domain.Model
@@ -17,7 +15,7 @@ namespace LoginSystem.Domain.Model
 
 		[ForeignKey(nameof(ShowTime))]
 		public int ShowTimeId { get; set; }
-		public string SeatNo { get;set; }
+		public string? SeatNo { get;set; }
 
 		[ForeignKey(nameof(Cinema))]
 		public int CinemaId { get;set; }

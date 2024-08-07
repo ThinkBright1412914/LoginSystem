@@ -1,0 +1,77 @@
+﻿@model IEnumerable<LoginSystem.ViewModel.ShowTimeDto>
+<div class="container mt-5">
+	<p class="d-flex justify-content-end">
+		<a class="btn btn-success rounded-0" id="addShowTime"><i class='fa fa-plus-circle'></i>&nbsp;Create Time</a>
+	</p>
+	<h4>ShowTime List</h4>
+	<br />
+	<table class="table table-striped table-bordered" id="tableInfo">
+		<thead class="thead-white">
+			<tr>
+				<th>Id</th>
+				<th>Time</th>
+				<th>Action(s)</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.Id</td>
+					<td>@item.Time</td>
+					<td>
+						<a class="btn btn-sm btn-danger deleteId" id="@item.Id"><i class="fa fa-trash"></i></a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+<div class="modal fade" id="showTimeModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="text-primary modal-title">Add Time</h5>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label>Time</label>
+						<input type="time" class="form-control" id="time"/>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" id="saveTime">Save</button>
+				<button class="btn btn-danger btn-default" onclick="btnShowTimeClose()" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts {
+	<script src="~/js/site.js"></script>
+	<script>
+		$('#tableInfo').dataTable({
+			lengthMenu: [5, 10, 15],
+		});
+
+		$(".deleteId").click(function () {
+			var selectedRow = $(this);
+			var Id = selectedRow.attr('id');
+			$.ajax({
+				url: '/ShowTime/Delete',
+				method: 'Delete',
+				data: { Id },
+				success: function (result) {
+					if (result.success) {
+						selectedRow.closest('tr').remove();
+					} else {
+						alert('Failed to delete');
+					}
+				}
+			})
+		})
+	</script>
+}

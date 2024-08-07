@@ -27,6 +27,9 @@
 						<li class="nav-item">
 							<a class="nav-link text-light" asp-controller="Movie" asp-action="GetMovies">Movie</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light" asp-controller="ShowTime" asp-action="GetShowTime">ShowTime</a>
+						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menus</a>
 							<div class="dropdown-menu">
@@ -38,6 +41,7 @@
 									<a class="dropdown-item" asp-controller="Genre" asp-action="GetGenres">Genre</a>
 									<a class="dropdown-item" asp-controller="Industry" asp-action="GetIndustry">Industry</a>
 									<a class="dropdown-item" asp-controller="Language" asp-action="GetLanguages">Language</a>
+									<a class="dropdown-item" asp-controller="Cinema" asp-action="GetCinemas">Cinema</a>
 								}
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#">Separated link</a>

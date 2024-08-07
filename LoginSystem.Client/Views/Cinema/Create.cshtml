@@ -1,0 +1,39 @@
+﻿@model LoginSystem.ViewModel.CinemaDto
+
+<div class="container mt-4">
+    <h4 class="mb-4">Create Cinema</h4>
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="name">Cinema</label>
+                            <input type="text" class="form-control" asp-for="Name" placeholder="Enter Cinema">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="name">Location</label>
+                            <input type="text" class="form-control" asp-for="Location" placeholder="Enter Location">
+                            <span asp-validation-for="Location" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="name">City</label>
+                            <input type="text" class="form-control" asp-for="City" placeholder="Enter City">
+                        </div>
+                    </div>
+
+                  </div>
+                <br />
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+        </div>
+    </div>
+</div>

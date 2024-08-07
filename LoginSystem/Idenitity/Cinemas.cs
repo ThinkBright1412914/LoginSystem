@@ -111,6 +111,7 @@ namespace LoginSystem.Idenitity
                     _context.Cinemas.Remove(result);
                     _context.SaveChanges();
                     response.Message = "Deleted Successfully.";
+                    response.isSuccess = true;
                 }
                 else
                 {

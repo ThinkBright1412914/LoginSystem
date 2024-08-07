@@ -2,6 +2,7 @@
 using LoginSystem.DTO;
 using LoginSystem.Idenitity.Services;
 using LoginSystem.ViewModel;
+using System.Globalization;
 
 namespace LoginSystem.Idenitity
 {
@@ -27,8 +28,9 @@ namespace LoginSystem.Idenitity
                         showTime.Add(new ShowTimeDto
                         {
                             Id = items.Id,
-                            Time = items.Time,
-                        });
+                            Time = items.Time
+                            //Time = DateTime.ParseExact(items.Time, "HH:mm:ss", CultureInfo.InvariantCulture).ToString("h:mm tt"),
+						});
                     }
                     return showTime;
                 }
