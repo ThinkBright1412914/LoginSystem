@@ -1,6 +1,5 @@
 ﻿using LoginSystem.Idenitity.Services;
 using LoginSystem.ViewModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoginSystem.Controllers
