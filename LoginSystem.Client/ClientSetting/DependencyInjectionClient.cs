@@ -1,6 +1,5 @@
 ﻿using LoginSystem.Client.Service.Interfaces;
 using LoginSystem.Client.Service;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using LoginSystem.Client.ViewComponents;
 
 namespace LoginSystem.Client.ClientSetting
@@ -9,6 +8,7 @@ namespace LoginSystem.Client.ClientSetting
 	{
 		public static IServiceCollection AddClientServices(this IServiceCollection services)
 		{
+			services.AddScoped<IShowTimeRequest, ShowTimeRequest>();
 			services.AddScoped<ICinemaRequest, CinemaRequest>();
 			services.AddScoped<ILanguageRequest, LanguageRequest>();
 			services.AddScoped<IIndustryRequest, IndustryRequest>();

@@ -9,7 +9,7 @@ namespace LoginSystem.ViewModel
         public int MovieId { get;set; }
         public DateTime ShowDate { get; set; }
         public int ShowTimeId { get; set; }
-        public string SeatNo { get; set; }
+        public string? SeatNo { get; set; }
         public int CinemaId { get; set; }
         public decimal TicketPrice { get; set; }
 
