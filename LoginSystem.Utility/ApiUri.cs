@@ -87,6 +87,14 @@
 
 		public const string DeleteShowTime = ApiVersion + "ShowTimeApi/Delete-ShowTime";
 
+		public const string GetShows = ApiVersion + "ShowApi/GetShows";
 
+		public const string GetShowById = ApiVersion + "ShowApi/GetShowById";
+
+		public const string CreateShow = ApiVersion + "ShowApi/Create-Show";
+
+		public const string UpdateShow = ApiVersion + "ShowApi/Update-Show";
+
+		public const string DeleteShow = ApiVersion + "ShowApi/Delete-Show";
     }
 }

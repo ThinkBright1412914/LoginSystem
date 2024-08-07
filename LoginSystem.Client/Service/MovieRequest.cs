@@ -24,7 +24,7 @@ namespace LoginSystem.Client.Service
         public async Task<MovieDto> GetMovieById(int Id)
         {
             var (status, response) = await _httpService.GetAsync<MovieDto>(ApiUri.GetMovieById + "?Id=" + Id);
-            return response; ;
+            return response;
         }
 
         public async Task<MovieDto> Create(MovieDto model)
