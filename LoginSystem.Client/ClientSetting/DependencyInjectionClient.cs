@@ -9,6 +9,7 @@ namespace LoginSystem.Client.ClientSetting
 	{
 		public static IServiceCollection AddClientServices(this IServiceCollection services)
 		{
+			services.AddScoped<ICinemaRequest, CinemaRequest>();
 			services.AddScoped<ILanguageRequest, LanguageRequest>();
 			services.AddScoped<IIndustryRequest, IndustryRequest>();
 			services.AddScoped<IGenreRequest, GenreRequest>();

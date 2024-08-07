@@ -95,7 +95,6 @@ namespace LoginSystem.Client.Controllers
 			}
 			else
 			{
-				TempData["error"] = "Please upload an Image!";
 				return View();
 			}
 		}

@@ -7,5 +7,6 @@
         public string? Location { get; set; }
         public string? City { get; set; }
         public string? Message { get; set; }
+        public bool isSuccess { get; set; } 
     }
 }
