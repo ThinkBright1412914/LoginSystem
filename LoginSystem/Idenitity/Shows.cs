@@ -36,7 +36,7 @@ namespace LoginSystem.Idenitity
                                 Id = item.Id,
                                 MovieId = item.MovieId,
                                 CinemaId= item.CinemaId,
-                                ShowDate = item.ShowDate,
+                                ShowDate = item.ShowDate.ToShortDateString(),
                                 ShowTimeId = item.ShowTimeId,
                                 TicketPrice = item.TicketPrice,
                                 SeatNo = item.SeatNo,
@@ -74,7 +74,7 @@ namespace LoginSystem.Idenitity
                     response.Id = result.Id;
                     response.MovieId = result.MovieId;
                     response.CinemaId = result.CinemaId;
-                    response.ShowDate = result.ShowDate;
+                    response.ShowDate = result.ShowDate.ToShortDateString();
                     response.ShowTimeId = result.ShowTimeId;
                     response.TicketPrice = result.TicketPrice;
                     response.SeatNo = result.SeatNo;
@@ -103,7 +103,7 @@ namespace LoginSystem.Idenitity
                 {
                     MovieId = request.MovieId,
                     CinemaId = request.CinemaId,
-                    ShowDate = request.ShowDate,
+                    ShowDate = DateTime.Parse(request.ShowDate),
                     ShowTimeId = request.ShowTimeId,
                     TicketPrice = request.TicketPrice,
                     SeatNo = request.SeatNo,
@@ -157,7 +157,7 @@ namespace LoginSystem.Idenitity
                     result.CinemaId = request.CinemaId;
                     result.ShowTimeId = request.ShowTimeId;
                     result.SeatNo = request.SeatNo;
-                    result.ShowDate = request.ShowDate;
+                    result.ShowDate = DateTime.Parse(request.ShowDate);
                     result.TicketPrice = request.TicketPrice;
 
                     _context.Shows.Update(result);
