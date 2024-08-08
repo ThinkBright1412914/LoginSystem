@@ -1,0 +1,68 @@
+﻿@model IEnumerable<LoginSystem.ViewModel.ShowDto>
+
+<div class="container mt-5">
+	<p class="d-flex justify-content-end">
+		<a asp-action="Creates" asp-controller="Show" class="btn btn-success rounded-0" id="create-role"><i class='fa fa-plus-circle'></i>&nbsp;Create Show</a>
+	</p>
+	<h4>Show List</h4>
+	<br />
+	<table class="table table-striped table-bordered" id="tableInfo">
+		<thead class="thead-white">
+			<tr>
+				<th>Id</th>
+				<td>Movie</td>
+				<th>ShowDate</th>
+				<th>ShowTime</th>
+				<th>Seat No</th>
+				<th>Cinema</th>
+				<td>Ticket Price</td>
+				<th>Action(s)</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.Id</td>
+					<td>@item.MovieList.First().Text</td>
+	                <td>@item.ShowDate</td>
+					<td>@item.ShowTimeList.First().Text</td>
+					<td>@item.SeatNo</td>
+					<td>@item.CinemaList.First().Text</td>
+					<td>@item.TicketPrice</td>
+					<td>
+						<a class="btn btn-sm btn-info" asp-action=""><i class='fa fa-info-circle'></i></a>
+						<a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.Id"><i class='fa fa-edit'></i></a>
+						<a class="btn btn-sm btn-danger deleteId" id="@item.Id"><i class='fa fa-trash'></i></a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+@section scripts {
+	<script>
+		$('#tableInfo').dataTable({
+			lengthMenu: [10, 15, 20],
+		});
+
+		$(".deleteId").click(function () {
+			var selectedRow = $(this);
+			var Id = selectedRow.attr('id');
+			$.ajax({
+				url: '/Show/Delete',
+				method: 'Delete',
+				data: { Id },
+				success: function (result) {
+					if (result.success) {
+						selectedRow.closest('tr').remove();
+					} else {
+						alert('Failed to delete');
+					}
+				}
+			})
+		})
+
+	</script>
+}

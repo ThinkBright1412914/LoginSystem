@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace LoginSystem.ViewModel
 {
@@ -9,8 +10,10 @@ namespace LoginSystem.ViewModel
         public int MovieId { get;set; }
         public DateTime ShowDate { get; set; }
         public int ShowTimeId { get; set; }
-        public string? SeatNo { get; set; }
+        [Required]
+        public string SeatNo { get; set; }
         public int CinemaId { get; set; }
+        [Required]  
         public decimal TicketPrice { get; set; }
 
         [ValidateNever]
