@@ -12,6 +12,7 @@
 				<th>Id</th>
 				<td>Name</td>
 				<th>Image</th>
+				<th>Release Date</th>
 				<th>Genre</th>
 				<th>Language</th>
 				<th>Industry</th>
@@ -25,7 +26,7 @@
 				<tr>
 					<td>@item.Id</td>
 					<td>@item.Name</td>
-					<td>
+					<td style="width:200px;">
 						<div class="row">
 							<div class="col">
 								<div class="col-md-3">
@@ -37,6 +38,7 @@
 							</div>
 						</div>
 					</td>
+					<td>@item.ReleaseDate</td>
 					<td>@item.GenresList.First().Text</td>
 					<td>@item.LanguageList.First().Text</td>
 					<td>@item.IndustryList.First().Text</td>
