@@ -101,25 +101,45 @@
 			<div class="card-body">
 				<form method="post" enctype="multipart/form-data">
 					<div class="row">
-						<!-- Title Field -->
 						<div class="col-md-6 mb-3">
 							<div class="form-group">
-								<label for="name">No of ticket</label>
+								<label for="show">Show</label>
+								<input type="text" class="form-control form-control-short" id="">
+							</div>
+						</div>
+		
+						<div class="col-md-6 mb-3">
+							<div class="form-group">
+								<label for="ticket">No of ticket</label>
 								<input type="number" id="ticketCount" class="form-control">
 							</div>
 						</div>
 
 						<div class="col-md-6 mb-3">
 							<div class="form-group">
-								<label for="releaseDate">Seat Details</label>
-								<input type="text" class="form-control form-control-short" id="seat-details" >
+								<label for="seatDetails">Seat Details</label>
+								<input type="text" class="form-control form-control-short" readonly id="seat-details" >
 							</div>
 						</div>
 
 						<div class="col-md-6 mb-3">
 							<div class="form-group">
-								<label for="Duration">Booking date</label>
+								<label for="ookingDate">Booking date</label>
 								<input type="date" class="form-control form-control-short" >
+							</div>
+						</div>
+
+						<div class="col-md-6 mb-3">
+							<div class="form-group">
+								<label for="ticketPrice">Ticket Price</label>
+								<input type="text" class="form-control form-control-short" id="">
+							</div>
+						</div>
+
+						<div class="col-md-6 mb-3">
+							<div class="form-group">
+								<label for="totalAmount">Total Amount</label>
+								<input type="text" class="form-control form-control-short" readonly id="">
 							</div>
 						</div>
 
