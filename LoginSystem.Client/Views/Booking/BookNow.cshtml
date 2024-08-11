@@ -95,8 +95,6 @@
 		You have selected <span id="count">0</span> seats for a price of $<span id="total">0</span>
 	</p>
 
-
-
 	<div class="container mt-4">
 		<h4 class="mb-4">Book Movie</h4>
 		<div class="card">
@@ -107,7 +105,7 @@
 							<div class="form-group">
 								<label for="show">Show</label>
 								<select class="form-control form-control-short dropdownMovie" asp-items="Model.ShowList" asp-for="ShowId">
-									<option value="" disabled selected>Select Cinema</option>
+									<option value="" disabled selected>Select Show</option>
 								</select>
 							</div>
 						</div>
@@ -115,21 +113,21 @@
 						<div class="col-md-6 mb-3">
 							<div class="form-group">
 								<label for="ticket">No of ticket</label>
-								<input type="number" id="ticketCount" class="form-control">
+								<input type="number" id="ticketCount" asp-for=NoOfTicket class="form-control">
 							</div>
 						</div>
 
 						<div class="col-md-6 mb-3">
 							<div class="form-group">
 								<label for="seatDetails">Seat Details</label>
-								<input type="text" class="form-control form-control-short" readonly id="seat-details" >
+								<input type="text" class="form-control form-control-short" asp-for="SeatDetails" readonly id="seat-details" >
 							</div>
 						</div>
 
 						<div class="col-md-6 mb-3">
 							<div class="form-group">
 								<label for="ookingDate">Booking date</label>
-								<input type="date" class="form-control form-control-short" >
+								<input type="date" class="form-control form-control-short" asp-for="BookingDate" >
 							</div>
 						</div>
 
@@ -143,15 +141,14 @@
 						<div class="col-md-6 mb-3">
 							<div class="form-group">
 								<label for="totalAmount">Total Amount</label>
-								<input type="text" class="form-control form-control-short" readonly id="">
+								<input type="text" class="form-control form-control-short" asp-for="TotalAmount" readonly id="">
 							</div>
 						</div>
-
 
 					</div>
 					<br />
 					<!-- Submit Button -->
-					<button type="submit" class="btn btn-primary">Book Confirm</button>
+					<button type="submit" class="btn btn-primary">Confirm Booking</button>
 				</form>
 			</div>
 		</div>
