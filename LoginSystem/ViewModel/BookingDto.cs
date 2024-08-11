@@ -10,13 +10,35 @@ namespace LoginSystem.ViewModel
 		public int ShowId { get; set; }
 		public int? NoOfTicket { get; set; }
 		public string? SeatDetails { get; set; }
-		public string? TicketPrice { get; set; }
-		public DateTime BookingDate { get;set; }
+		public decimal TicketPrice { get; set; }
+		public string BookingDate { get;set; }
 		public Decimal TotalAmount { get; set; }
 		[ValidateNever]
 		public IEnumerable<SelectListItem>? ShowTimeList { get; set; }
 		[ValidateNever]
 		public IEnumerable<SelectListItem>? ShowList { get; set; }
-		public string? Message { get; set; }	
+		public string? Message { get; set; }
+		public DateTime? BookingDateTime
+		{
+			get
+			{
+				if (DateTime.TryParse(BookingDate, out var date))
+				{
+					return date;
+				}
+				return null;
+			}
+			set
+			{
+				if (value.HasValue)
+				{
+					BookingDate = value.Value.ToString("yyyy-MM-dd");
+				}
+				else
+				{
+					BookingDate = null;
+				}
+			}
+		}
 	}
 }

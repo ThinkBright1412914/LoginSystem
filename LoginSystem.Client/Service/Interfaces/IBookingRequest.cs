@@ -8,6 +8,7 @@ namespace LoginSystem.Client.Service.Interfaces
 	public interface IBookingRequest	
 	{
 		Task<BookingDto> GetBookingOption(int movieId);
+		Task<BookingDto> GetOptionByShowId(int Id);
 	}
 
 	public class BookingRequest : IBookingRequest
@@ -21,6 +22,12 @@ namespace LoginSystem.Client.Service.Interfaces
 		public async Task<BookingDto> GetBookingOption(int movieId)
 		{
 			var (status, response) = await _httpService.GetAsync<BookingDto>(ApiUri.GetBookingOption + "?movieId=" + movieId);
+			return response;
+		}
+
+		public async Task<BookingDto> GetOptionByShowId(int Id)
+		{
+			var (status, response) = await _httpService.GetAsync<BookingDto>(ApiUri.GetOptionByShowId + "?Id=" + Id);
 			return response;
 		}
 	}

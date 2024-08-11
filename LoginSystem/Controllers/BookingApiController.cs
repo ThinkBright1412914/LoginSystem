@@ -25,5 +25,16 @@ namespace LoginSystem.Controllers
 			}
 			return BadRequest();
 		}
+
+		[HttpGet("GetOptionByShowId")]
+		public async Task<IActionResult> GetOptionByShowId(int Id)
+		{
+			var response = await _booking.GetOptionByShowId(Id);
+			if (response != null)
+			{
+				return Ok(response);
+			}
+			return BadRequest();
+		}
 	}
 }

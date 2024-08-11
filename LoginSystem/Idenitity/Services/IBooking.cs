@@ -9,6 +9,7 @@ namespace LoginSystem.Idenitity.Services
 	public interface IBooking
 	{
 		Task<BookingDto> GetBookingOption(int movieId);
+		Task<BookingDto> GetOptionByShowId(int Id);
 		Task<BookingDto> ConfirmBooking();
 	}
 
@@ -39,6 +40,25 @@ namespace LoginSystem.Idenitity.Services
 			}
 			return response;
 		}
+
+		public async Task<BookingDto> GetOptionByShowId(int Id)
+		{
+			var response = new BookingDto();
+			var dbShows = _context.Shows.FirstOrDefault(x => x.Id == Id);
+
+			if (dbShows != null )
+			{
+				response.TicketPrice = dbShows.TicketPrice;
+			}
+			else
+			{
+				response.Message = SystemMessage.ShowNotFound;
+			}
+			return response;
+		}
+
+
+
 
 		public Task<BookingDto> ConfirmBooking()
 		{

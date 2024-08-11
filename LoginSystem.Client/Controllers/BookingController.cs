@@ -1,5 +1,6 @@
 ﻿using LoginSystem.Client.Service.Interfaces;
 using LoginSystem.Utility;
+using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoginSystem.Client.Controllers
@@ -27,6 +28,23 @@ namespace LoginSystem.Client.Controllers
 			}
 			
 		}
+
+		public async Task<JsonResult> GetOptionByShowId(int Id)
+		{
+			BookingDto model = new();
+			try
+			{
+				model = await _bookingRequest.GetOptionByShowId(Id);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
+
+			return Json(model);
+		}
+
+		
 
 		//[HttpGet]
 		//public async Task<IActionResult> MovieInfo(int Id)

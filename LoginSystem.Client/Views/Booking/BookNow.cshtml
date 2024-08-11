@@ -104,7 +104,7 @@
 						<div class="col-md-6 mb-3">
 							<div class="form-group">
 								<label for="show">Show</label>
-								<select class="form-control form-control-short dropdownMovie" asp-items="Model.ShowList" asp-for="ShowId">
+								<select id="onShowChange" class="form-control form-control-short dropdownMovie" asp-items="Model.ShowList" asp-for="ShowId">
 									<option value="" disabled selected>Select Show</option>
 								</select>
 							</div>
@@ -134,14 +134,14 @@
 						<div class="col-md-6 mb-3">
 							<div class="form-group">
 								<label for="ticketPrice">Ticket Price</label>
-								<input type="text" class="form-control form-control-short" id="">
+								<input type="text" class="form-control form-control-short" id="ticketPrice">
 							</div>
 						</div>
 
 						<div class="col-md-6 mb-3">
 							<div class="form-group">
 								<label for="totalAmount">Total Amount</label>
-								<input type="text" class="form-control form-control-short" asp-for="TotalAmount" readonly id="">
+								<input type="text" class="form-control form-control-short" asp-for="TotalAmount" id="totalAmount">
 							</div>
 						</div>
 
