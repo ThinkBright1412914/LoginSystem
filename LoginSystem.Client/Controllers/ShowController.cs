@@ -8,17 +8,15 @@ namespace LoginSystem.Client.Controllers
     public class ShowController : Controller
     {
         private readonly IShowRequest _showRequest;
-        private readonly ICinemaRequest _cinemaRequest;
         private readonly IShowTimeRequest _showTimeRequest;
         private readonly IMovieRequest _movieRequest;
 
-        public ShowController(IShowRequest showRequest,ICinemaRequest cinemaRequest,
+        public ShowController(IShowRequest showRequest,
             IShowTimeRequest showTimeRequest, IMovieRequest movieRequest)
         {
             _showRequest = showRequest;
             _showTimeRequest = showTimeRequest;
             _movieRequest = movieRequest;
-            _cinemaRequest = cinemaRequest;
         }
     
         public async Task<IActionResult> GetShows()
@@ -55,12 +53,6 @@ namespace LoginSystem.Client.Controllers
                                                 Text = x.Time,
                                                 Value = x.Id.ToString(),
                                             });
-            var cinema = _cinemaRequest.GetCinemas().Result.Select(x =>
-                                            new SelectListItem
-                                            {
-                                                Text = x.Name,
-                                                Value = x.Id.ToString(),
-                                            });
             var movie = _movieRequest.GetMovies(null).Result.Select(x =>
                                             new SelectListItem
                                             {
@@ -70,7 +62,6 @@ namespace LoginSystem.Client.Controllers
 
             ShowDto model = new()
             {
-                CinemaList = cinema,
                 ShowTimeList = showTime,
                 MovieList = movie
             };
@@ -96,12 +87,6 @@ namespace LoginSystem.Client.Controllers
         public async Task<IActionResult> Edit(int Id)
         {
             var response = await _showRequest.GetShowById(Id);
-            response.CinemaList = _cinemaRequest.GetCinemas().Result.Select(x =>
-                                            new SelectListItem
-                                            {
-                                                Text = x.Name,
-                                                Value = x.Id.ToString(),
-                                            });
             response.ShowTimeList = _showTimeRequest.GetAll().Result.Select(x =>
                                             new SelectListItem
                                             {

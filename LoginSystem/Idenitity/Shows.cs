@@ -22,7 +22,6 @@ namespace LoginSystem.Idenitity
             {
                 var response = _context.Shows
                                        .Include(x => x.MovieInfo)
-                                       .Include(x => x.CinemaInfo)
                                        .Include(x => x.ShowTimeInfo)
                                        .ToList();
                 var show = new List<ShowDto>();
@@ -34,15 +33,14 @@ namespace LoginSystem.Idenitity
                         show.Add(new ShowDto
                             {
                                 Id = item.Id,
+                                Name = item.Name,
                                 MovieId = item.MovieId,
-                                CinemaId= item.CinemaId,
                                 ShowDate = item.ShowDate.ToShortDateString(),
                                 ShowTimeId = item.ShowTimeId,
                                 TicketPrice = item.TicketPrice,
                                 SeatNo = item.SeatNo,
                                 MovieList = new List<SelectListItem> { new SelectListItem { Text = item.MovieInfo.Name } },
-                                ShowTimeList = new List<SelectListItem> { new SelectListItem { Text = item.ShowTimeInfo.Time } },
-                                CinemaList = new List<SelectListItem> { new SelectListItem { Text = item.CinemaInfo.Name } }
+                                ShowTimeList = new List<SelectListItem> { new SelectListItem { Text = item.ShowTimeInfo.Time } }
                             });
                     }
                     return show;
@@ -65,23 +63,22 @@ namespace LoginSystem.Idenitity
             {
                 var result = _context.Shows
                                 .Include(x => x.MovieInfo)
-                                .Include(x => x.CinemaInfo)
                                 .Include(x => x.ShowTimeInfo)
                                 .FirstOrDefault(x => x.Id == Id);
 
                 if (result != null)
                 {
                     response.Id = result.Id;
+                    response.Name = result.Name;
                     response.MovieId = result.MovieId;
-                    response.CinemaId = result.CinemaId;
                     response.ShowDate = result.ShowDate.ToShortDateString();
                     response.ShowTimeId = result.ShowTimeId;
                     response.TicketPrice = result.TicketPrice;
                     response.SeatNo = result.SeatNo;
                     response.MovieList = new List<SelectListItem> { new SelectListItem { Text = result.MovieInfo.Name } };
                     response.ShowTimeList = new List<SelectListItem> { new SelectListItem { Text = result.ShowTimeInfo.Time } };
-                    response.CinemaList = new List<SelectListItem> { new SelectListItem { Text = result.CinemaInfo.Name } };
                 }
+
                 else
                 {
                     response.Message = "Id was not found";
@@ -102,7 +99,7 @@ namespace LoginSystem.Idenitity
                 Show model = new()
                 {
                     MovieId = request.MovieId,
-                    CinemaId = request.CinemaId,
+                    Name = request.Name,
                     ShowDate = DateTime.Parse(request.ShowDate),
                     ShowTimeId = request.ShowTimeId,
                     TicketPrice = request.TicketPrice,
@@ -153,8 +150,8 @@ namespace LoginSystem.Idenitity
                 var result = _context.Shows.Find(request.Id);
                 if (result != null)
                 {
+                    result.Name = request.Name;
                     result.MovieId = request.MovieId;
-                    result.CinemaId = request.CinemaId;
                     result.ShowTimeId = request.ShowTimeId;
                     result.SeatNo = request.SeatNo;
                     result.ShowDate = DateTime.Parse(request.ShowDate);

@@ -1,6 +1,5 @@
 ﻿using LoginSystem.Domain.Model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Abstractions;
 
 namespace LoginSystem.DTO
 {
@@ -21,7 +20,6 @@ namespace LoginSystem.DTO
 		public DbSet<Movie> Movies { get; set; }
 		public DbSet<Show> Shows { get; set; }
 		public DbSet<SeatDetail> SeatsDetails { get; set; }
-		public DbSet<Cinema> Cinemas { get; set; }
 		public DbSet<ShowTime> ShowTime { get; set; }
 		public DbSet<Booking> Bookings { get; set; }
 
@@ -71,12 +69,6 @@ namespace LoginSystem.DTO
 				.HasForeignKey(s => s.ShowTimeId)
 				.OnDelete(DeleteBehavior.NoAction);
 
-			modelBuilder.Entity<Show>()
-				.HasOne(s => s.CinemaInfo)
-				.WithMany()
-				.HasForeignKey(s => s.CinemaId)
-				.OnDelete(DeleteBehavior.NoAction);
-
 			modelBuilder.Entity<UserInfo>().HasData(UserSeed.DefaultUser());
 			modelBuilder.Entity<Role>().HasData(RoleSeed.DefaultRoleSeed());
 			modelBuilder.Entity<UserRole>().HasData(UserSeed.DefaultUserRole());
@@ -84,3 +76,4 @@ namespace LoginSystem.DTO
 
 	}
 }
+

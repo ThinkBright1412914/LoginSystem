@@ -1,4 +1,6 @@
-﻿
+﻿@model LoginSystem.ViewModel.BookingDto
+
+
 <div class="booking-page">
 	<div class="movie-container">
 		<label>Your movie:</label>
@@ -104,7 +106,9 @@
 						<div class="col-md-6 mb-3">
 							<div class="form-group">
 								<label for="show">Show</label>
-								<input type="text" class="form-control form-control-short" id="">
+								<select class="form-control form-control-short dropdownMovie" asp-items="Model.ShowList" asp-for="ShowId">
+									<option value="" disabled selected>Select Cinema</option>
+								</select>
 							</div>
 						</div>
 		

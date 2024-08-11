@@ -4,6 +4,7 @@ using LoginSystem.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoginSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240811040325_Removed Cinema")]
+    partial class RemovedCinema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,7 +58,7 @@ namespace LoginSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Bookings", (string)null);
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("LoginSystem.Domain.Model.Carousel", b =>
@@ -72,7 +74,7 @@ namespace LoginSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carousels", (string)null);
+                    b.ToTable("Carousels");
                 });
 
             modelBuilder.Entity("LoginSystem.Domain.Model.Genre", b =>
@@ -89,7 +91,7 @@ namespace LoginSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres", (string)null);
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("LoginSystem.Domain.Model.Industry", b =>
@@ -106,7 +108,7 @@ namespace LoginSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Industries", (string)null);
+                    b.ToTable("Industries");
                 });
 
             modelBuilder.Entity("LoginSystem.Domain.Model.Language", b =>
@@ -123,7 +125,7 @@ namespace LoginSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages", (string)null);
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("LoginSystem.Domain.Model.Movie", b =>
@@ -165,7 +167,7 @@ namespace LoginSystem.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("Movies", (string)null);
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("LoginSystem.Domain.Model.RegisterUser", b =>
@@ -192,7 +194,7 @@ namespace LoginSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RegisterUsers", (string)null);
+                    b.ToTable("RegisterUsers");
                 });
 
             modelBuilder.Entity("LoginSystem.Domain.Model.Role", b =>
@@ -207,7 +209,7 @@ namespace LoginSystem.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
 
                     b.HasData(
                         new
@@ -245,7 +247,7 @@ namespace LoginSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SeatsDetails", (string)null);
+                    b.ToTable("SeatsDetails");
                 });
 
             modelBuilder.Entity("LoginSystem.Domain.Model.Show", b =>
@@ -281,7 +283,7 @@ namespace LoginSystem.Migrations
 
                     b.HasIndex("ShowTimeId");
 
-                    b.ToTable("Shows", (string)null);
+                    b.ToTable("Shows");
                 });
 
             modelBuilder.Entity("LoginSystem.Domain.Model.ShowTime", b =>
@@ -298,7 +300,7 @@ namespace LoginSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ShowTime", (string)null);
+                    b.ToTable("ShowTime");
                 });
 
             modelBuilder.Entity("LoginSystem.Domain.Model.UserInfo", b =>
@@ -333,7 +335,7 @@ namespace LoginSystem.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("UserInfos", (string)null);
+                    b.ToTable("UserInfos");
 
                     b.HasData(
                         new
@@ -361,7 +363,7 @@ namespace LoginSystem.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("UserRoles");
 
                     b.HasData(
                         new
@@ -383,7 +385,7 @@ namespace LoginSystem.Migrations
 
                     b.HasIndex("UsersUserId");
 
-                    b.ToTable("RoleUserInfo", (string)null);
+                    b.ToTable("RoleUserInfo");
                 });
 
             modelBuilder.Entity("LoginSystem.Domain.Model.Booking", b =>

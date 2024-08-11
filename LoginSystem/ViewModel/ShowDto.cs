@@ -8,13 +8,13 @@ namespace LoginSystem.ViewModel
 	public class ShowDto
 	{
 		public int Id { get; set; }
+		public string Name { get; set; }
 		public int MovieId { get; set; }
 		[Required]
 		public string ShowDate { get; set; }
 		public int ShowTimeId { get; set; }
 		[Required]
 		public string SeatNo { get; set; }
-		public int CinemaId { get; set; }
 		[Required]
 		public decimal TicketPrice { get; set; }
 
@@ -22,8 +22,6 @@ namespace LoginSystem.ViewModel
 		public IEnumerable<SelectListItem> MovieList { get; set; }
 		[ValidateNever]
 		public IEnumerable<SelectListItem> ShowTimeList { get; set; }
-		[ValidateNever]
-		public IEnumerable<SelectListItem> CinemaList { get; set; }
 
 		public string? Message { get; set; }
 		public DateTime? ShowDateTime

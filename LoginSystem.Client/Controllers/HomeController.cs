@@ -32,11 +32,13 @@ namespace LoginSystem.Client.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                List<CarouselDto> model= await _carousel.GetAll();
+                HomeViewModel model = new HomeViewModel();
+                var carousel = await _carousel.GetAll();
                 var premierMovie = await _movieReq.GetMovies(UserConstant.PremierMovie);
                 var futureMovie = await _movieReq.GetMovies(UserConstant.UpcomingMovie);
-                model.First().PremierMovieList = premierMovie;
-                model.First().UpcomingMovieList = futureMovie;
+                model.Carousels = carousel.Any() ? carousel : new List<CarouselDto>();  
+				model.PremierMovieList = premierMovie.Any() ? premierMovie : new List<MovieDto>();
+				model.UpcomingMovieList = futureMovie.Any() ? futureMovie : new List<MovieDto>();
                 return View(model);
             }
             else

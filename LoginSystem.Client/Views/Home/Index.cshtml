@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LoginSystem.ViewModel.CarouselDto>
+﻿@model LoginSystem.ViewModel.HomeViewModel
 @{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_LandingPage.cshtml";
@@ -55,11 +55,10 @@
 	</div>
 </div>
 
-
-@if (Model.FirstOrDefault().PremierMovieList.Any())
+@if (Model.PremierMovieList.Any())
 {
 	<div class="premier-Movies" id="cs-hidden">
-		@foreach (var item in Model.FirstOrDefault().PremierMovieList)
+		@foreach (var item in Model.PremierMovieList)
 		{
 			<div class="box">
 				<div class="box-img">
@@ -74,7 +73,7 @@
 
 				<div class="button">
 					<li>
-						<a class="b1" asp-action="BookNow" asp-controller="Booking" asp-route-id="@item.Id">Book Now</a>
+						<a class="b1" asp-action="BookNow" asp-controller="Booking" asp-route-movieId="@item.Id">Book Now</a>
 					</li>
 				</div>
 			</div>
@@ -101,30 +100,30 @@ else
 	</div>
 </div>
 
-@if (Model.FirstOrDefault().UpcomingMovieList.Any())
+@if (Model.UpcomingMovieList.Any())
 {
-	<div class="premier-Movies">
-		@foreach (var item in Model.FirstOrDefault().UpcomingMovieList)
-		{
-			<div class="box">
-				<div class="box-img">
-					<img src="data:image/png;base64,@item.Image">
-				</div>
-				<div class="content">
-					<h3>@item.Name</h3>
-					<p>@item.GenresList.FirstOrDefault().Text</p>
-					<p>@item.LanguageList.FirstOrDefault().Text</p>
-					<p>@item.IndustryList.FirstOrDefault().Text</p>
-				</div>
+		<div class="premier-Movies">
+			@foreach (var item in Model.UpcomingMovieList)
+			{
+				<div class="box">
+					<div class="box-img">
+						<img src="data:image/png;base64,@item.Image">
+					</div>
+					<div class="content">
+						<h3>@item.Name</h3>
+						<p>@item.GenresList.FirstOrDefault().Text</p>
+						<p>@item.LanguageList.FirstOrDefault().Text</p>
+						<p>@item.IndustryList.FirstOrDefault().Text</p>
+					</div>
 
-				<div class="button">
-					<li>
-						<a class="b1" asp-action="MovieInfo" asp-controller="Booking" asp-route-id="@item.Id">View Details</a>
-					</li>
+					<div class="button">
+						<li>
+							<a class="b1" asp-action="MovieInfo" asp-controller="Booking" asp-route-id="@item.Id">View Details</a>
+						</li>
+					</div>
 				</div>
-			</div>
-		}
-	</div>
+			}
+		</div>
 }
 else
 {

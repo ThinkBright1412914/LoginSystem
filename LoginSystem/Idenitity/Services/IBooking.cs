@@ -1,13 +1,14 @@
-﻿using LoginSystem.CustomMapper;
-using LoginSystem.DTO;
+﻿using LoginSystem.DTO;
+using LoginSystem.Utility;
 using LoginSystem.ViewModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoginSystem.Idenitity.Services
 {
 	public interface IBooking
 	{
-		Task<List<BookingDto>> GetBookingOption(int movieId);
+		Task<BookingDto> GetBookingOption(int movieId);
 		Task<BookingDto> ConfirmBooking();
 	}
 
@@ -19,20 +20,22 @@ namespace LoginSystem.Idenitity.Services
 			_context = context;
 		}
 
-		public async Task<List<BookingDto>> GetBookingOption(int movieId)
+		public async Task<BookingDto> GetBookingOption(int movieId)
 		{
-			var response = new List<BookingDto>();	
+			var response = new BookingDto();
 			var dbShows = _context.Shows.Where(x => x.MovieId == movieId)
-										.Include(x => x.MovieInfo)
-										.Include(x => x.CinemaInfo)
-										.Include(x => x.ShowTimeInfo).ToList();
-			if (dbShows != null)
+							.Include(x => x.MovieInfo)
+							.Include(x => x.ShowTimeInfo)
+							.ToList();
+
+			if (dbShows != null && dbShows.Any())
 			{
-				response = BookingCustomMapper.ToBookingModel(dbShows);
+				response.ShowList = dbShows.Select(show => new SelectListItem { Text = show.MovieInfo.Name , Value = show.Id.ToString() }).ToList();
+				response.ShowTimeList = dbShows.Select(show => new SelectListItem { Text = show.ShowTimeInfo.Time }).ToList();
 			}
 			else
 			{
-				response.FirstOrDefault().Message = "Show not found";
+				response.Message = SystemMessage.ShowNotFound;
 			}
 			return response;
 		}

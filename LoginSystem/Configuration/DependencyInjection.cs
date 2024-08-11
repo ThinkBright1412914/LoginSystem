@@ -15,7 +15,6 @@ namespace LoginSystem.Configuration
 			services.AddScoped<IBooking, Bookings>();	
 			services.AddScoped<IShow, Shows>();
             services.AddScoped<IShowTime, ShowTimes>();
-            services.AddScoped<ICinemas, Cinemas>();
 			services.AddScoped<IMovies, Movies>();
 			services.AddScoped<ILanguage, Languages>();
 			services.AddScoped<IGenre, Genres>();
