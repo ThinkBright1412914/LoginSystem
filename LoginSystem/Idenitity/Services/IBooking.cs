@@ -30,8 +30,8 @@ namespace LoginSystem.Idenitity.Services
 
 			if (dbShows != null && dbShows.Any())
 			{
-				response.ShowList = dbShows.Select(show => new SelectListItem { Text = show.MovieInfo.Name , Value = show.Id.ToString() }).ToList();
-				response.ShowTimeList = dbShows.Select(show => new SelectListItem { Text = show.ShowTimeInfo.Time }).ToList();
+				response.ShowList = dbShows.Select(show => new SelectListItem { Text = show.Name , Value = show.Id.ToString() }).ToList();
+				response.ShowTimeList = dbShows.Select(show => new SelectListItem { Text = show.ShowTimeInfo.Time ,Value = show.ShowTimeInfo.Id.ToString() }).ToList();
 			}
 			else
 			{
