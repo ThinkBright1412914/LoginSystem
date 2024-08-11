@@ -12,6 +12,7 @@ namespace LoginSystem.Configuration
 	{
 		public static IServiceCollection AddServerServices(this IServiceCollection services)
 		{
+			services.AddScoped<IBooking, Bookings>();	
 			services.AddScoped<IShow, Shows>();
             services.AddScoped<IShowTime, ShowTimes>();
             services.AddScoped<ICinemas, Cinemas>();

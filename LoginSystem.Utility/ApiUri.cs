@@ -96,5 +96,8 @@
 		public const string UpdateShow = ApiVersion + "ShowApi/Update-Show";
 
 		public const string DeleteShow = ApiVersion + "ShowApi/Delete-Show";
-    }
+
+		public const string GetBookingOption = ApiVersion + "BookingApi/GetBookingOption";
+
+	}
 }
