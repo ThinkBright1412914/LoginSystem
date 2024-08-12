@@ -19,7 +19,6 @@ namespace LoginSystem.DTO
 		public DbSet<Industry> Industries { get; set; }
 		public DbSet<Movie> Movies { get; set; }
 		public DbSet<Show> Shows { get; set; }
-		public DbSet<SeatDetail> SeatsDetails { get; set; }
 		public DbSet<ShowTime> ShowTime { get; set; }
 		public DbSet<Booking> Bookings { get; set; }
 
@@ -49,12 +48,6 @@ namespace LoginSystem.DTO
 				.HasOne(b => b.ShowInfo)
 				.WithMany()
 				.HasForeignKey(b => b.ShowId)
-				.OnDelete(DeleteBehavior.NoAction);
-
-			modelBuilder.Entity<Booking>()
-				.HasOne(b => b.SeatDetails)
-				.WithMany()
-				.HasForeignKey(b => b.SeatDetailsId)
 				.OnDelete(DeleteBehavior.NoAction);
 
 			modelBuilder.Entity<Show>()
