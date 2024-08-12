@@ -14,17 +14,12 @@ namespace LoginSystem.Domain.Model
 
 		[ForeignKey(nameof(Show))]
 		public int ShowId { get; set; }
+		public string SeatDetails { get; set; }
 		public int No_of_Tickets { get; set; }
-
-		[ForeignKey(nameof(SeatDetail))]
-		public int SeatDetailsId { get; set; }
 		public DateTime Date { get; set; }	
 		public double TotalAmount { get; set; }
-
 		public UserInfo User { get; set; }
 		public Show ShowInfo { get; set; }
-
-		public SeatDetail SeatDetails { get; set; }
 
 	}
 }

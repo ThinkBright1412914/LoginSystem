@@ -4,6 +4,7 @@ using LoginSystem.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoginSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240812083934_Removed Seat Details")]
+    partial class RemovedSeatDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,10 +37,6 @@ namespace LoginSystem.Migrations
 
                     b.Property<int>("No_of_Tickets")
                         .HasColumnType("int");
-
-                    b.Property<string>("SeatDetails")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ShowId")
                         .HasColumnType("int");
@@ -314,7 +312,7 @@ namespace LoginSystem.Migrations
                             UserId = new Guid("9d3a21ba-e76b-49e6-a24e-2cf9d1531994"),
                             ActivationCode = "678999",
                             Email = "nabinthekishor@gmail.com",
-                            ExpirationDate = new DateTime(2024, 8, 13, 14, 26, 21, 829, DateTimeKind.Local).AddTicks(6077),
+                            ExpirationDate = new DateTime(2024, 8, 13, 14, 24, 34, 145, DateTimeKind.Local).AddTicks(5744),
                             IsActive = true,
                             IsForcePasswordReset = false,
                             Password = "I0FkbWluMTIz",
