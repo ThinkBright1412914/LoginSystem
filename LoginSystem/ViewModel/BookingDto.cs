@@ -12,6 +12,7 @@ namespace LoginSystem.ViewModel
 		public string? SeatDetails { get; set; }
 		public decimal TicketPrice { get; set; }
 		public string BookingDate { get;set; }
+		public string? ReserveSeats { get; set; }
 		public Decimal TotalAmount { get; set; }
 		[ValidateNever]
 		public IEnumerable<SelectListItem>? ShowTimeList { get; set; }

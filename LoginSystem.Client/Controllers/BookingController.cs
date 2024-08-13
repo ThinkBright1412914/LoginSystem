@@ -44,7 +44,18 @@ namespace LoginSystem.Client.Controllers
 			return Json(model);
 		}
 
-		
+		[HttpPost]
+		public async Task<IActionResult> BookNow(BookingDto request)
+		{
+			var response = await _bookingRequest.CreateBooking(request);
+			if(response != null)
+			{
+
+			}
+			return View();
+		}
+
+
 
 		//[HttpGet]
 		//public async Task<IActionResult> MovieInfo(int Id)

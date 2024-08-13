@@ -44,6 +44,7 @@ function updateSelectedCount() {
     count.innerText = selectedSeatsCount;
 
     document.getElementById("ticketCount").value = selectedSeatsCount;
+    document.getElementById("reservedSeats").value = JSON.stringify(seatsIndex);
 
     const seat = [...selectedSeats].map(seat => seat.innerText);
 

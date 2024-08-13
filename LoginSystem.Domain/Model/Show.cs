@@ -17,7 +17,8 @@ namespace LoginSystem.Domain.Model
 		[ForeignKey(nameof(ShowTime))]
 		public int ShowTimeId { get; set; }
 		public string? SeatNo { get;set; }
-		public decimal TicketPrice {  get; set; }	
+		public decimal TicketPrice { get; set; }
+		public string? ReservedSeats { get; set; }
 
 		public ShowTime ShowTimeInfo { get; set; }	
 		public Movie MovieInfo { get; set; }	

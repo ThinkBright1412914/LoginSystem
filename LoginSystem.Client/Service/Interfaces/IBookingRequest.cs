@@ -1,6 +1,8 @@
-﻿using DocumentFormat.OpenXml.Office2010.Excel;
+﻿using System.Text;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using LoginSystem.Utility;
 using LoginSystem.ViewModel;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Mozilla;
 
 namespace LoginSystem.Client.Service.Interfaces
@@ -9,14 +11,17 @@ namespace LoginSystem.Client.Service.Interfaces
 	{
 		Task<BookingDto> GetBookingOption(int movieId);
 		Task<BookingDto> GetOptionByShowId(int Id);
+		Task<BookingDto> CreateBooking(BookingDto request);
 	}
 
 	public class BookingRequest : IBookingRequest
 	{
 		private readonly IhttpService _httpService;
-		public BookingRequest(IhttpService httpService)
+		private readonly SessionService _session;
+		public BookingRequest(IhttpService httpService, SessionService session)
 		{
 			_httpService = httpService;
+			_session = session;
 		}
 
 		public async Task<BookingDto> GetBookingOption(int movieId)
@@ -30,5 +35,16 @@ namespace LoginSystem.Client.Service.Interfaces
 			var (status, response) = await _httpService.GetAsync<BookingDto>(ApiUri.GetOptionByShowId + "?Id=" + Id);
 			return response;
 		}
+
+		public async Task<BookingDto> CreateBooking(BookingDto request)
+		{
+			var user = _session.GetUserSession();
+			request.UserId = user.UserId;
+			string json = JsonConvert.SerializeObject(request);
+			StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+			var (status, response) = await _httpService.PostAsync<BookingDto>(ApiUri.CreateMovie, content);
+			return response;
+		}
+
 	}
 }
