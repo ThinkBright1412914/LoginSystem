@@ -91,5 +91,7 @@
 
 		public const string GetOptionByShowId = ApiVersion + "BookingApi/GetOptionByShowId";
 
+		public const string CreateBooking = ApiVersion + "BookingApi/CreateBooking";
+
 	}
 }

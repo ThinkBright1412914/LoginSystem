@@ -1,4 +1,5 @@
 ﻿using LoginSystem.Idenitity.Services;
+using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +31,17 @@ namespace LoginSystem.Controllers
 		public async Task<IActionResult> GetOptionByShowId(int Id)
 		{
 			var response = await _booking.GetOptionByShowId(Id);
+			if (response != null)
+			{
+				return Ok(response);
+			}
+			return BadRequest();
+		}
+
+		[HttpPost("CreateBooking")]
+		public async Task<IActionResult> Create(BookingDto request)
+		{
+			var response = await _booking.ConfirmBooking(request);
 			if (response != null)
 			{
 				return Ok(response);

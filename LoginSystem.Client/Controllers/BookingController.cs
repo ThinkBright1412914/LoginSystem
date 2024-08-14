@@ -29,6 +29,7 @@ namespace LoginSystem.Client.Controllers
 			
 		}
 
+		//jquery call
 		public async Task<JsonResult> GetOptionByShowId(int Id)
 		{
 			BookingDto model = new();
@@ -48,27 +49,12 @@ namespace LoginSystem.Client.Controllers
 		public async Task<IActionResult> BookNow(BookingDto request)
 		{
 			var response = await _bookingRequest.CreateBooking(request);
-			if(response != null)
+			if(response.Message == SystemMessage.Success)
 			{
-
+				TempData["success"] = SystemMessage.Success;
+				return RedirectToAction("Index", "Home");
 			}
 			return View();
 		}
-
-
-
-		//[HttpGet]
-		//public async Task<IActionResult> MovieInfo(int Id)
-		//{
-		//	var movieDetails = await _movieRequest.GetMovieById(Id);
-		//	if(movieDetails != null)
-		//	{
-		//		return View(movieDetails);
-		//	}
-		//	else
-		//	{
-		//		return NotFound();
-		//	}			
-		//}
 	}
 }

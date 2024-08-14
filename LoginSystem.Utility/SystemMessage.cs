@@ -9,5 +9,6 @@ namespace LoginSystem.Utility
 	public static class SystemMessage
 	{
 		public const string ShowNotFound = "Show not found.";
+		public const string Success = "Created Successfully";
 	}
 }

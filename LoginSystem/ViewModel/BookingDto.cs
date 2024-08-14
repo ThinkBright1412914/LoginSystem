@@ -6,9 +6,9 @@ namespace LoginSystem.ViewModel
 	public class BookingDto
 	{
 		public int Id { get; set; }
-		public Guid? UserId { get; set; }
+		public Guid UserId { get; set; }
 		public int ShowId { get; set; }
-		public int? NoOfTicket { get; set; }
+		public int NoOfTicket { get; set; }
 		public string? SeatDetails { get; set; }
 		public decimal TicketPrice { get; set; }
 		public string BookingDate { get;set; }

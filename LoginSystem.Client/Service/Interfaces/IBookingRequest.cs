@@ -42,7 +42,7 @@ namespace LoginSystem.Client.Service.Interfaces
 			request.UserId = user.UserId;
 			string json = JsonConvert.SerializeObject(request);
 			StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-			var (status, response) = await _httpService.PostAsync<BookingDto>(ApiUri.CreateMovie, content);
+			var (status, response) = await _httpService.PostAsync<BookingDto>(ApiUri.CreateBooking, content);
 			return response;
 		}
 

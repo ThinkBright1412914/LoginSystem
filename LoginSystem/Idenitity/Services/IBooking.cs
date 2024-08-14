@@ -1,4 +1,5 @@
-﻿using LoginSystem.DTO;
+﻿using LoginSystem.Domain.Model;
+using LoginSystem.DTO;
 using LoginSystem.Utility;
 using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,7 +11,7 @@ namespace LoginSystem.Idenitity.Services
 	{
 		Task<BookingDto> GetBookingOption(int movieId);
 		Task<BookingDto> GetOptionByShowId(int Id);
-		Task<BookingDto> ConfirmBooking();
+		Task<BookingDto> ConfirmBooking(BookingDto request);
 	}
 
 	public class Bookings : IBooking
@@ -31,8 +32,8 @@ namespace LoginSystem.Idenitity.Services
 
 			if (dbShows != null && dbShows.Any())
 			{
-				response.ShowList = dbShows.Select(show => new SelectListItem { Text = show.Name , Value = show.Id.ToString() }).ToList();
-				response.ShowTimeList = dbShows.Select(show => new SelectListItem { Text = show.ShowTimeInfo.Time ,Value = show.ShowTimeInfo.Id.ToString() }).ToList();
+				response.ShowList = dbShows.Select(show => new SelectListItem { Text = show.Name, Value = show.Id.ToString() }).ToList();
+				response.ShowTimeList = dbShows.Select(show => new SelectListItem { Text = show.ShowTimeInfo.Time, Value = show.ShowTimeInfo.Id.ToString() }).ToList();
 			}
 			else
 			{
@@ -46,7 +47,7 @@ namespace LoginSystem.Idenitity.Services
 			var response = new BookingDto();
 			var dbShows = _context.Shows.FirstOrDefault(x => x.Id == Id);
 
-			if (dbShows != null )
+			if (dbShows != null)
 			{
 				response.TicketPrice = dbShows.TicketPrice;
 			}
@@ -57,14 +58,39 @@ namespace LoginSystem.Idenitity.Services
 			return response;
 		}
 
-
-
-
-		public Task<BookingDto> ConfirmBooking()
+		public async Task<BookingDto> ConfirmBooking(BookingDto request)
 		{
-			throw new NotImplementedException();
-		}
+			var response = new BookingDto();
+			try
+			{
+				var dbShows = _context.Shows.FirstOrDefault(x => x.Id == request.ShowId);
+				if (dbShows != null)
+				{
+					dbShows.ReservedSeats = request.ReserveSeats;
+					dbShows.SeatNo = (int.Parse(dbShows.SeatNo) - request.NoOfTicket).ToString();
+					_context.Shows.Update(dbShows);
+				}
 
-		
+				Booking model = new()
+				{
+					UserId = request.UserId,
+					ShowId = request.ShowId,
+					No_of_Tickets = request.NoOfTicket,
+					Date = DateTime.Parse(request.BookingDate),
+					TotalAmount = request.TotalAmount,
+					SeatDetails = request.SeatDetails
+				};
+
+				response.Message = SystemMessage.Success;
+				_context.Bookings.Add(model);
+				_context.SaveChanges();
+			}
+			catch (Exception ex)
+			{
+				response.Message = ex.Message;
+				throw;
+			}
+			return response;
+		}
 	}
 }
