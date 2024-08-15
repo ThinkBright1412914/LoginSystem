@@ -3,13 +3,7 @@
 
 <div class="booking-page">
 	<div class="movie-container">
-		<label>Your movie:</label>
-		<select id="movie">
-			<option value="10">Avengers: Endgame ($10)</option>
-			<option value="12">Joker ($12)</option>
-			<option value="8">Toy Story 4 ($8)</option>
-			<option value="9">The Lion King ($9)</option>
-		</select>
+		<label>Your movie: @Model.MovieName </label>
 	</div>
 
 	<ul class="showcase">
@@ -92,7 +86,7 @@
 		</div>
 	</div>
 	<p class="text">
-		You have selected <span id="count">0</span> seats for a price of $<span id="total">0</span>
+		You have selected <span id="count">0</span> seats.
 	</p>
 
 	<div class="container mt-4">
@@ -142,7 +136,7 @@
 						<div class="col-md-6 mb-3">
 							<div class="form-group">
 								<label for="totalAmount">Total Amount</label>
-								<input type="text" class="form-control form-control-short" asp-for="TotalAmount" id="totalAmount">
+								<input type="text" class="form-control form-control-short" value="0" asp-for="TotalAmount" readonly id="totalAmount">
 							</div>
 						</div>
 

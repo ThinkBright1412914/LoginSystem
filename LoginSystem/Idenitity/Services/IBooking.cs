@@ -32,6 +32,7 @@ namespace LoginSystem.Idenitity.Services
 
 			if (dbShows != null && dbShows.Any())
 			{
+				response.MovieName = dbShows.FirstOrDefault().MovieInfo.Name;
 				response.ShowList = dbShows.Select(show => new SelectListItem { Text = show.Name, Value = show.Id.ToString() }).ToList();
 				response.ShowTimeList = dbShows.Select(show => new SelectListItem { Text = show.ShowTimeInfo.Time, Value = show.ShowTimeInfo.Id.ToString() }).ToList();
 			}
@@ -50,6 +51,7 @@ namespace LoginSystem.Idenitity.Services
 			if (dbShows != null)
 			{
 				response.TicketPrice = dbShows.TicketPrice;
+				response.ReserveSeats = dbShows.ReservedSeats;
 			}
 			else
 			{

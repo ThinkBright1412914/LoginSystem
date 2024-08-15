@@ -8,6 +8,7 @@ namespace LoginSystem.ViewModel
 		public int Id { get; set; }
 		public Guid UserId { get; set; }
 		public int ShowId { get; set; }
+		public string? MovieName { get; set; }	
 		public int NoOfTicket { get; set; }
 		public string? SeatDetails { get; set; }
 		public decimal TicketPrice { get; set; }
