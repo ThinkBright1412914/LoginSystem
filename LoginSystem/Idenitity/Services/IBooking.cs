@@ -12,6 +12,7 @@ namespace LoginSystem.Idenitity.Services
 		Task<BookingDto> GetBookingOption(int movieId);
 		Task<BookingDto> GetOptionByShowId(int Id);
 		Task<BookingDto> ConfirmBooking(BookingDto request);
+		Task<List<UserTicketInfoDto>> GetUserPurchasedTicket(Guid userId , bool isHistory);
 	}
 
 	public class Bookings : IBooking
@@ -94,5 +95,68 @@ namespace LoginSystem.Idenitity.Services
 			}
 			return response;
 		}
+
+		public async Task<List<UserTicketInfoDto>> GetUserPurchasedTicket(Guid userId, bool isHistory)
+		{
+			var response = new List<UserTicketInfoDto>();
+			var dbBookings = _context.Bookings.Where(x => x.UserId == userId)
+											  .Include(x => x.ShowInfo).ToList();
+			if (isHistory)
+			{
+				dbBookings = dbBookings.Where(x => x.Date <= DateTime.UtcNow).ToList();
+			}
+
+			if (dbBookings != null)
+			{
+				var userTicketInfoModel = new UserTicketInfoDto();
+				try
+				{
+					foreach (var item in dbBookings)
+					{
+						var dbResult = GetShows(item.ShowId);
+						userTicketInfoModel.Show = dbResult.Result.Show;
+						userTicketInfoModel.Time = dbResult.Result.Time;
+						userTicketInfoModel.Date = item.Date.ToString("MM/dd/yyyy");
+						userTicketInfoModel.Movie = dbResult.Result.Movie;
+						userTicketInfoModel.SeatDetails = item.SeatDetails;
+						response.Add(userTicketInfoModel);
+					}
+				}
+				catch(Exception ex)
+				{
+					throw;
+				}
+				
+			}
+			return response;
+		}
+
+		private async Task<UserTicketInfoDto> GetShows(int showId)
+		{
+			var result = new UserTicketInfoDto();
+			try
+			{
+				var dbShow = await _context.Shows
+										   .Where(x => x.Id == showId)
+										   .Include(x => x.ShowTimeInfo)
+										   .Include(x => x.MovieInfo)
+										   .AsNoTracking()
+										   .FirstOrDefaultAsync();
+
+				if (dbShow != null)
+				{
+					result.Show = dbShow.Name;
+					result.Time = dbShow.ShowTimeInfo.Time;
+					result.Movie = dbShow.MovieInfo.Name;
+				}
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}	
+			return result;
+		}
 	}
+
+
 }

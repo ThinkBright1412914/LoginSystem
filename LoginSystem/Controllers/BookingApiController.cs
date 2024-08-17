@@ -48,5 +48,16 @@ namespace LoginSystem.Controllers
 			}
 			return BadRequest();
 		}
+
+		[HttpGet("GetUserTicketInfo")]
+		public async Task<IActionResult> GetUserTicketInfo(Guid userId , bool isHistory)
+		{
+			var response = await _booking.GetUserPurchasedTicket(userId , isHistory);
+			if (response != null)
+			{
+				return Ok(response);
+			}
+			return BadRequest();
+		}
 	}
 }
