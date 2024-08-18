@@ -98,7 +98,7 @@ namespace LoginSystem.Idenitity.Services
 
 		public async Task<List<UserTicketInfoDto>> GetUserPurchasedTicket(Guid userId, bool isHistory)
 		{
-			var response = new List<UserTicketInfoDto>();
+			List<UserTicketInfoDto> response = new List<UserTicketInfoDto>();
 			var dbBookings = _context.Bookings.Where(x => x.UserId == userId)
 											  .Include(x => x.ShowInfo).ToList();
 			if (isHistory)
@@ -106,7 +106,7 @@ namespace LoginSystem.Idenitity.Services
 				dbBookings = dbBookings.Where(x => x.Date <= DateTime.UtcNow).ToList();
 			}
 
-			if (dbBookings != null)
+			if (dbBookings.Any())
 			{
 				var userTicketInfoModel = new UserTicketInfoDto();
 				try
@@ -122,12 +122,12 @@ namespace LoginSystem.Idenitity.Services
 						response.Add(userTicketInfoModel);
 					}
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
 					throw;
 				}
-				
 			}
+
 			return response;
 		}
 

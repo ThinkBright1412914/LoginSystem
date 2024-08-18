@@ -33,6 +33,9 @@
 						<li class="nav-item">
 							<a class="nav-link text-light" asp-controller="Show" asp-action="GetShows">Show</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light" asp-controller="Booking" asp-action="UserBooking">My Booking</a>
+						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menus</a>
 							<div class="dropdown-menu">
@@ -77,13 +80,13 @@
 			<partial name="_Notifications" />
 			@RenderBody()
 
-		<footer>
-			<div class="copyright">
-				Copyright 2024
-			</div>
-		</footer>
+	
 	</div>
-
+	<footer>
+		<div class="copyright">
+			Copyright 2024
+		</div>
+	</footer>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.js" integrity="sha512-sww7U197vVXpRSffZdqfpqDU2SNoFvINLX4mXt1D6ZecxkhwcHmLj3QcL2cJ/aCxrTkUcaAa6EGmPK3Nfitygw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -95,6 +98,7 @@
 	<script src="~/js/site.js" asp-append-version="true"></script>
 	<script src="~/js/UI.js" asp-append-version="true"></script>
 	<script src="~/js/Booking.js" asp-append-version="true"></script>
+	<script src="~/js/UserBooking.js"></script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -93,5 +93,7 @@
 
 		public const string CreateBooking = ApiVersion + "BookingApi/CreateBooking";
 
+		public const string GetUserTicketInfo = ApiVersion + "BookingApi/GetUserTicketInfo";
+
 	}
 }

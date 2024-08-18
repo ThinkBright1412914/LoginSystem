@@ -56,5 +56,21 @@ namespace LoginSystem.Client.Controllers
 			}
 			return View();
 		}
+
+		public async Task<IActionResult> UserBooking()
+		{
+			return View();
+		}
+
+		#region For API
+		[HttpGet]
+		public async Task<JsonResult> UserTicketsInfo(bool isHistory)
+		{
+			var response = await _bookingRequest.GetUserTickets(isHistory);
+			return Json(new { Data = response });
+		}
+		#endregion
 	}
+
+
 }

@@ -4,6 +4,7 @@ using LoginSystem.Utility;
 using LoginSystem.ViewModel;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Mozilla;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace LoginSystem.Client.Service.Interfaces
 {
@@ -12,6 +13,7 @@ namespace LoginSystem.Client.Service.Interfaces
 		Task<BookingDto> GetBookingOption(int movieId);
 		Task<BookingDto> GetOptionByShowId(int Id);
 		Task<BookingDto> CreateBooking(BookingDto request);
+		Task<List<UserTicketInfoDto>> GetUserTickets(bool isHistory);
 	}
 
 	public class BookingRequest : IBookingRequest
@@ -43,6 +45,14 @@ namespace LoginSystem.Client.Service.Interfaces
 			string json = JsonConvert.SerializeObject(request);
 			StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 			var (status, response) = await _httpService.PostAsync<BookingDto>(ApiUri.CreateBooking, content);
+			return response;
+		}
+
+		public async Task<List<UserTicketInfoDto>> GetUserTickets(bool isHistory)
+		{
+			var user = _session.GetUserSession();
+			var (status, response) = await _httpService.GetAsync<List<UserTicketInfoDto>>
+				(ApiUri.GetUserTicketInfo + "?userId=" + user.UserId + "&isHistory=" + isHistory);
 			return response;
 		}
 

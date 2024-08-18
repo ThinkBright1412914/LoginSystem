@@ -53,11 +53,11 @@ namespace LoginSystem.Controllers
 		public async Task<IActionResult> GetUserTicketInfo(Guid userId , bool isHistory)
 		{
 			var response = await _booking.GetUserPurchasedTicket(userId , isHistory);
-			if (response != null)
+			if (response.Any())
 			{
 				return Ok(response);
 			}
-			return BadRequest();
+			return NotFound();
 		}
 	}
 }

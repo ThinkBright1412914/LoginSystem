@@ -8,7 +8,6 @@ namespace LoginSystem.DTO
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 		{
 		}
-
 		public DbSet<UserInfo> UserInfos { get; set; }
 		public DbSet<RegisterUser> RegisterUsers { get; set; }
 		public DbSet<UserRole> UserRoles { get; set; }

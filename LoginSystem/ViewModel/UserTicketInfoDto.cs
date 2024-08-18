@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+
 namespace LoginSystem.ViewModel
 {
 	public class UserTicketInfoDto
