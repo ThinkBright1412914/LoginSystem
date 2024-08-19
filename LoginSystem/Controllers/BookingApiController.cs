@@ -57,7 +57,7 @@ namespace LoginSystem.Controllers
 			{
 				return Ok(response);
 			}
-			return NotFound();
+			return Ok(new List<UserTicketInfoDto>());
 		}
 	}
 }
