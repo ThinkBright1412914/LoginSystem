@@ -1,4 +1,25 @@
-﻿
+﻿$(function () {
+    var date = new Date();
+    var currentDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+        date.getDate().toString().padStart(2, '0') + '/' +
+        date.getFullYear();
+
+    var futureDate = new Date();
+    futureDate.setDate(futureDate.getDate() + 1);
+    var maxDate = (futureDate.getMonth() + 1).toString().padStart(2, '0') + '/' +
+        futureDate.getDate().toString().padStart(2, '0') + '/' +
+        futureDate.getFullYear();
+
+    $('#bookingDate').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        "minDate": currentDate,
+        "maxDate": maxDate,
+    });
+})
+
+
+
 $('#onShowChange').on('change', function () {
     var showId = parseInt($(this).val());
     $.ajax({

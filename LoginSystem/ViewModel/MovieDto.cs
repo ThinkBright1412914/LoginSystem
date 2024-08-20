@@ -11,7 +11,7 @@ namespace LoginSystem.ViewModel
 		public string Name { get; set; }
 		public string? Image { get; set; }
 		[Required]
-		public string? ReleaseDate { get; set; }
+		public string ReleaseDate { get; set; }
 		public string? Duration { get; set; }
 		public int LanguageId { get; set; }
 		public int GenreId { get; set; }
@@ -24,28 +24,5 @@ namespace LoginSystem.ViewModel
         public IEnumerable<SelectListItem>  GenresList { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> LanguageList { get; set; }
-		public DateTime? ReleaseDateTime
-		{
-			get
-			{
-				if (DateTime.TryParse(ReleaseDate, out var date))
-				{
-					return date;
-				}
-				return null;
-			}
-			set
-			{
-				if (value.HasValue)
-				{
-					ReleaseDate = value.Value.ToString("yyyy-MM-dd");
-				}
-				else
-				{
-					ReleaseDate = null;
-				}
-			}
-		}
-
 	}
 }

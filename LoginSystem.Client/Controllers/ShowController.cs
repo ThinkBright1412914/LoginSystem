@@ -1,4 +1,5 @@
 ﻿using LoginSystem.Client.Service.Interfaces;
+using LoginSystem.Utility;
 using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -37,6 +38,7 @@ namespace LoginSystem.Client.Controllers
             var response = await _showRequest.GetShowById(Id);
             if (response != null)
             {
+                response.ShowDate = new Converter().DateFormatter(response.ShowDate);
                 return View(response);
             }
             else
