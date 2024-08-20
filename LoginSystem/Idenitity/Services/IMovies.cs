@@ -98,7 +98,7 @@ namespace LoginSystem.Idenitity.Services
 					response.Id = result.Id;
 					response.Name = result.Name;
 					response.Duration = result.Duration;
-					response.ReleaseDate = result.ReleaseDate.ToShortDateString();
+					response.ReleaseDate = result.ReleaseDate.ToString("MM/dd/yyyy");
 					response.Image = result.Image != null ? Convert.ToBase64String(result.Image) : "";
 					response.GenreId = result.GenreId;
 					response.LanguageId = result.LanguageId;

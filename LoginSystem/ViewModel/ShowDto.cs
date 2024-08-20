@@ -24,27 +24,5 @@ namespace LoginSystem.ViewModel
 		public IEnumerable<SelectListItem> ShowTimeList { get; set; }
 
 		public string? Message { get; set; }
-		public DateTime? ShowDateTime
-		{
-			get
-			{
-				if (DateTime.TryParse(ShowDate, out var date))
-				{
-					return date;
-				}
-				return null;
-			}
-			set
-			{
-				if (value.HasValue)
-				{
-					ShowDate = value.Value.ToString("yyyy-MM-dd");
-				}
-				else
-				{
-					ShowDate = null;
-				}
-			}
-		}
 	}
 }

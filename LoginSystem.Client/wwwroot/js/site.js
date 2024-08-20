@@ -1,5 +1,15 @@
 ﻿$(document).ready(function () {
     $('.dropdownMovie').select2();
+    var date = new Date();
+    var currentDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+        date.getDate().toString().padStart(2, '0') + '/' +
+        date.getFullYear();
+
+    $('#showDate').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        "minDate": currentDate,
+    });
 })
 
 function ValidateInput() {
