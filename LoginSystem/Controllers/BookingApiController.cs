@@ -59,5 +59,16 @@ namespace LoginSystem.Controllers
 			}
 			return Ok(new List<UserTicketInfoDto>());
 		}
+
+		[HttpGet("GetAllBookings")]
+		public async Task<IActionResult> GetAllBooking()
+		{
+			var response = await _booking.GetAllBookings();
+			if (response.Any())
+			{
+				return Ok(response);
+			}
+			return Ok(new List<BookingDto>());
+		}
 	}
 }
