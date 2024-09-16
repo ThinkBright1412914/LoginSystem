@@ -7,12 +7,14 @@ namespace LoginSystem.ViewModel
 	{
 		public int Id { get; set; }
 		public Guid UserId { get; set; }
+		public string? UserName { get; set; }
 		public int ShowId { get; set; }
 		public string? MovieName { get; set; }	
 		public int NoOfTicket { get; set; }
 		public string? SeatDetails { get; set; }
 		public decimal TicketPrice { get; set; }
-		public string BookingDate { get;set; }
+		public string? BookingDate { get;set; }
+		public string? BookingStatus { get; set; }
 		public string? ReserveSeats { get; set; }
 		public Decimal TotalAmount { get; set; }
 		[ValidateNever]

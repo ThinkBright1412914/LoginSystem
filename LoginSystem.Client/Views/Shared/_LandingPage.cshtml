@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using LoginSystem.Utility
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -25,34 +26,37 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarColor03">
 					<ul class="navbar-nav me-auto">
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-controller="Movie" asp-action="GetMovies">Movie</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-controller="ShowTime" asp-action="GetShowTime">ShowTime</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-controller="Show" asp-action="GetShows">Show</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-controller="Booking" asp-action="UserBooking">My Booking</a>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menus</a>
-							<div class="dropdown-menu">
-								@if (User.IsInRole("Admin"))
-								{
+						@if (User.IsInRole(UserConstant.Admin))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-light" asp-controller="Movie" asp-action="GetMovies">Movie</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light" asp-controller="ShowTime" asp-action="GetShowTime">ShowTime</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light" asp-controller="Show" asp-action="GetShows">Show</a>
+							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menus</a>
+								<div class="dropdown-menu">
 									<a class="dropdown-item" asp-controller="AdminUser" asp-action="GetUsers">User</a>
 									<a class="dropdown-item" asp-controller="AdminRole" asp-action="GetRoles">Role</a>
 									<a class="dropdown-item" asp-controller="Carousel" asp-action="GetCarousels">Carousel</a>
 									<a class="dropdown-item" asp-controller="Genre" asp-action="GetGenres">Genre</a>
 									<a class="dropdown-item" asp-controller="Industry" asp-action="GetIndustry">Industry</a>
-									<a class="dropdown-item" asp-controller="Language" asp-action="GetLanguages">Language</a>									
-								}
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Separated link</a>
-							</div>
-						</li>
+									<a class="dropdown-item" asp-controller="Language" asp-action="GetLanguages">Language</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">Separated link</a>
+								</div>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light" asp-controller="Booking" asp-action="GetAllBookings">Booking</a>
+							</li>
+						}						
+						<li class="nav-item">
+							<a class="nav-link text-light" asp-controller="Booking" asp-action="UserBooking">My Booking</a>
+						</li>		
 					</ul>
 					<div class="d-flex px-2">
 						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-list-4" aria-controls="navbar-list-4" aria-expanded="false" aria-label="Toggle navigation">

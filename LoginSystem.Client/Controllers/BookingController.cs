@@ -62,6 +62,12 @@ namespace LoginSystem.Client.Controllers
 			return View();
 		}
 
+		public async Task<IActionResult> GetAllBookings()
+		{
+			var response = await _bookingRequest.GetAllBookings();
+			return View(response);
+		}
+
 		#region For API
 		[HttpGet]
 		public async Task<JsonResult> UserTicketsInfo(bool isHistory)
