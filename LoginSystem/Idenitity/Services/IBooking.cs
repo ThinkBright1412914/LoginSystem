@@ -105,6 +105,10 @@ namespace LoginSystem.Idenitity.Services
 			{
 				dbBookings = dbBookings.Where(x => x.Date <= DateTime.UtcNow).ToList();
 			}
+			else
+			{
+				dbBookings = dbBookings.Where(x => x.Date >= DateTime.UtcNow).ToList();
+			}
 
 			if (dbBookings.Any())
 			{
@@ -114,6 +118,7 @@ namespace LoginSystem.Idenitity.Services
 					foreach (var item in dbBookings)
 					{
 						var dbResult = GetShows(item.ShowId);
+						userTicketInfoModel.BookingId = item.Id;
 						userTicketInfoModel.Show = dbResult.Result.Show;
 						userTicketInfoModel.Time = dbResult.Result.Time;
 						userTicketInfoModel.Date = item.Date.ToString("MM/dd/yyyy");

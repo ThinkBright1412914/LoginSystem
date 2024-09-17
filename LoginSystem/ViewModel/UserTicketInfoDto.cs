@@ -1,11 +1,11 @@
 ﻿
 
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace LoginSystem.ViewModel
 {
 	public class UserTicketInfoDto
 	{
+		public int BookingId { get; set; } 
 		public string Show { get; set; }
 		public string Movie { get; set; }
 		public string Date {  get; set; }	
