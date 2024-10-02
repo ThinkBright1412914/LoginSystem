@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using LoginSystem.CustomMapper;
 
 namespace LoginSystem.Idenitity.Services
 {
@@ -74,18 +75,8 @@ namespace LoginSystem.Idenitity.Services
 							string tokenHandler = new JwtSecurityTokenHandler().WriteToken(token);
 
 							response.Token = tokenHandler;
-							UserDataVM userDataVM = new UserDataVM()
-							{
-								UserId = user.UserId,
-								Email = user.Email,
-								ExpirationDate = user.ExpirationDate,
-								ActivationCode = user.ActivationCode,
-								Password = user.Password,
-								IsActive = user.IsActive,
-								UserName = user.UserName,
-								Message = "Success",
-								ImageData = imgData
-							};
+							var userDataVM = UserMapper.ToModel(user);
+							userDataVM.ImageData = imgData;
 							response.User = userDataVM;
 							response.Message = "Success";
 							return response;
@@ -121,17 +112,9 @@ namespace LoginSystem.Idenitity.Services
 						_context.UserInfos.Update(user);
 						await _context.SaveChangesAsync();
 
-						UserDataVM userDataVM = new UserDataVM()
-						{
-							UserId = user.UserId,
-							Email = user.Email,
-							ExpirationDate = time,
-							ActivationCode = code,
-							Password = user.Password,
-							IsActive = user.IsActive,
-							UserName = user.UserName,
-							Message = "Success",
-						};
+						var userDataVM = UserMapper.ToModel(user);
+						userDataVM.ExpirationDate = time;
+						userDataVM.ActivationCode = code;
 						response.User = userDataVM;
 						response.Message = "Inactive";
 					}
@@ -203,13 +186,7 @@ namespace LoginSystem.Idenitity.Services
 					_context.UserRoles.Add(userRole);
 					_context.SaveChanges();
 
-					response.UserId = user.UserId;
-					response.UserName = user.UserName;
-					response.Email = user.Email;
-					response.ActivationCode = user.ActivationCode;
-					response.Password = user.Password;
-					response.ExpirationDate = user.ExpirationDate;
-					response.Message = "Success";
+					response = UserMapper.ToModel(user);
 					return response;
 				}
 
@@ -239,7 +216,7 @@ namespace LoginSystem.Idenitity.Services
 						UserDataVM response = new UserDataVM()
 						{
 							IsActive = result.IsActive,
-
+							UserId = result.UserId,
 						};
 
 						return response;

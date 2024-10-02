@@ -43,6 +43,7 @@ namespace LoginSystem.Client.Controllers
 			var response = await _movieReq.GetMovieById(Id);
 			if (response != null)
 			{
+				response.ReleaseDate = new Converter().DateFormatter(response.ReleaseDate);
 				return View(response);
 			}
 			else
@@ -119,6 +120,7 @@ namespace LoginSystem.Client.Controllers
 											{
 												Text = x.Name,
 												Value = x.Id.ToString(),
+					
 											});
 			return View(response);
 		}

@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using System.Globalization;
 using System.Reflection;
 using Microsoft.AspNetCore.Http;
 
@@ -58,6 +60,13 @@ namespace LoginSystem.Utility
                 var imageBytes = memoryStream.ToArray();
                 return Convert.ToBase64String(imageBytes);
             }
+        }
+
+        public String DateFormatter(String date)
+        {
+			DateTime dateTime = DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+			var result = dateTime.ToString("MM/dd/yyyy");
+            return result;
         }
 
 

@@ -17,5 +17,9 @@ namespace LoginSystem.Utility
 		public static string PremierMovie = "PremierMovies";
 
 		public static string UpcomingMovie = "UpcomingMovie";
+
+		public static string Admin = "Admin";
+
+		public static string User = "User";
 	}
 }

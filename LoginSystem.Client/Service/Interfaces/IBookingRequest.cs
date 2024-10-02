@@ -1,15 +1,13 @@
 ﻿using System.Text;
-using DocumentFormat.OpenXml.Office2010.Excel;
 using LoginSystem.Utility;
 using LoginSystem.ViewModel;
 using Newtonsoft.Json;
-using Org.BouncyCastle.Asn1.Mozilla;
-using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace LoginSystem.Client.Service.Interfaces
 {
 	public interface IBookingRequest	
 	{
+		Task<List<BookingDto>> GetAllBookings();
 		Task<BookingDto> GetBookingOption(int movieId);
 		Task<BookingDto> GetOptionByShowId(int Id);
 		Task<BookingDto> CreateBooking(BookingDto request);
@@ -53,6 +51,13 @@ namespace LoginSystem.Client.Service.Interfaces
 			var user = _session.GetUserSession();
 			var (status, response) = await _httpService.GetAsync<List<UserTicketInfoDto>>
 				(ApiUri.GetUserTicketInfo + "?userId=" + user.UserId + "&isHistory=" + isHistory);
+			return response;
+		}
+
+		public async Task<List<BookingDto>> GetAllBookings()
+		{
+			var (status, response) = await _httpService.GetAsync<List<BookingDto>>
+				(ApiUri.GetAllBookings);
 			return response;
 		}
 

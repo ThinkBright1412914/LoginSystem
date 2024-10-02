@@ -1,4 +1,5 @@
-﻿using LoginSystem.Domain.Model;
+﻿using LoginSystem.CustomMapper;
+using LoginSystem.Domain.Model;
 using LoginSystem.DTO;
 using LoginSystem.Utility;
 using LoginSystem.ViewModel;
@@ -10,6 +11,7 @@ namespace LoginSystem.Idenitity.Services
 {
 	public interface IBooking
 	{
+		Task<List<BookingDto>> GetAllBookings();
 		Task<BookingDto> GetBookingOption(int movieId);
 		Task<BookingDto> GetOptionByShowId(int Id);
 		Task<BookingDto> ConfirmBooking(BookingDto request);
@@ -77,17 +79,8 @@ namespace LoginSystem.Idenitity.Services
 					dbShows.SeatNo = (int.Parse(dbShows.SeatNo) - request.NoOfTicket).ToString();
 					_context.Shows.Update(dbShows);
 				}
-
-				Booking model = new()
-				{
-					UserId = request.UserId,
-					ShowId = request.ShowId,
-					No_of_Tickets = request.NoOfTicket,
-					Date = DateTime.Parse(request.BookingDate),
-					TotalAmount = request.TotalAmount,
-					SeatDetails = request.SeatDetails
-				};
-
+					
+				var model = BookingMapper.ToEntity(request);
 				response.Message = SystemMessage.Success;
 				_context.Bookings.Add(model);
 				_context.SaveChanges();
@@ -109,6 +102,10 @@ namespace LoginSystem.Idenitity.Services
 			{
 				dbBookings = dbBookings.Where(x => x.Date <= DateTime.UtcNow).ToList();
 			}
+			else
+			{
+				dbBookings = dbBookings.Where(x => x.Date >= DateTime.UtcNow).ToList();
+			}
 
 			if (dbBookings.Any())
 			{
@@ -118,6 +115,7 @@ namespace LoginSystem.Idenitity.Services
 					foreach (var item in dbBookings)
 					{
 						var dbResult = GetShows(item.ShowId);
+						userTicketInfoModel.BookingId = item.Id;
 						userTicketInfoModel.Show = dbResult.Result.Show;
 						userTicketInfoModel.Time = dbResult.Result.Time;
 						userTicketInfoModel.Date = item.Date.ToString("MM/dd/yyyy");
@@ -158,6 +156,28 @@ namespace LoginSystem.Idenitity.Services
 			{
 				throw;
 			}	
+			return result;
+		}
+
+		public async Task<List<BookingDto>> GetAllBookings()
+		{
+			var result = new List<BookingDto>();
+			try
+			{
+				var dbBookings = _context.Bookings.Include(x => x.ShowInfo)
+												  .Include(x => x.User)
+												  .AsEnumerable();
+				
+				foreach(var item in dbBookings)
+				{
+					var booking = BookingMapper.ToModel(item);
+					result.Add(booking);
+				}
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
 			return result;
 		}
 	}
