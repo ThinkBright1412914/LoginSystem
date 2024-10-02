@@ -4,6 +4,7 @@ using LoginSystem.Utility;
 using LoginSystem.ViewModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace LoginSystem.Idenitity.Services
 {
@@ -69,7 +70,10 @@ namespace LoginSystem.Idenitity.Services
 				var dbShows = _context.Shows.FirstOrDefault(x => x.Id == request.ShowId);
 				if (dbShows != null)
 				{
-					dbShows.ReservedSeats = request.ReserveSeats;
+					var newSeats = JsonConvert.DeserializeObject<List<int>>(request.ReserveSeats);
+					var existingSeats = JsonConvert.DeserializeObject<List<int>>(dbShows.ReservedSeats);
+					existingSeats.AddRange(newSeats);
+					dbShows.ReservedSeats = JsonConvert.SerializeObject(existingSeats);
 					dbShows.SeatNo = (int.Parse(dbShows.SeatNo) - request.NoOfTicket).ToString();
 					_context.Shows.Update(dbShows);
 				}
